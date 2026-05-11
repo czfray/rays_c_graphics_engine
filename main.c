@@ -1,5 +1,6 @@
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include <glfw/glfw3.h>
+#include <soil/SOIL.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,7 +16,7 @@
  * Start Date: May 10th, 2026
  * 
  * Run GCC command:
- * gcc main.c glad\src\glad.c -Iglfw\include -Iglad\include -Lglfw\lib -lglfw3 -lopengl32 -lgdi32 -o rcge
+ * gcc main.c glad\src\glad.c -Iglfw\include -Iglad\include -Isoil\include -Lglfw\lib -Lsoil\lib -lglfw3 -lsoil -lopengl32 -lgdi32 -o rcge
  * .\rcge
  * 
  */
@@ -105,15 +106,37 @@ int main(void)
     glLinkProgram(shaderProgram);
     glUseProgram(shaderProgram);
 
+    GLuint tex;
+    glGenTextures(1, &tex);
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    glActiveTexture(GL_TEXTURE0);
+    int width, height;
+    unsigned char* image = SOIL_load_image("textures/keven.png", &width, &height, 0, SOIL_LOAD_RGBA);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+    SOIL_free_image_data(image);
+
     GLuint vao;
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
     float vertices[] =
     {
-        -0.5, 0.5,
-        0.5, -0.5,
-        -0.5, -0.5
+        0.5, 0.5, 1.0, 0, 0, 1.0, 1.0, 0, //TOP RIGHT
+        0.5, -0.5, 0, 1.0, 0, 1.0, 1.0, 1.0,
+        -0.5, -0.5, 0, 0, 1.0, 1.0, 0, 1.0,
+        -0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0, 0 //TOP-LEFT
+    };
+
+    GLuint elements[] = 
+    {
+        0, 1, 2,
+        2, 3, 0
     };
 
     GLuint vbo;
@@ -121,11 +144,22 @@ int main(void)
     glBindBuffer(GL_ARRAY_BUFFER, vbo); //Set VBO active
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); //Set VBO Data
 
+    GLuint ebo;
+    glGenBuffers(1, &ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
+
     GLint posAttrib = glGetAttribLocation(shaderProgram, "position");
-    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), 0);
     glEnableVertexAttribArray(posAttrib);
 
-    GLint uniColor = glGetUniformLocation(shaderProgram, "testColor");
+    GLint colAttrib = glGetAttribLocation(shaderProgram, "color");
+    glVertexAttribPointer(colAttrib, 4, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*) (2*sizeof(float)));
+    glEnableVertexAttribArray(colAttrib);
+
+    GLint texcoAttrib = glGetAttribLocation(shaderProgram, "texcoord");
+    glVertexAttribPointer(texcoAttrib, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*) (6*sizeof(float)));
+    glEnableVertexAttribArray(texcoAttrib);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -133,8 +167,7 @@ int main(void)
 
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, GL_TRUE); //DEBUG EXIT COMMAND
 
-        glUniform3f(uniColor, fabs(sin(glfwGetTime())), fabs(sin(2*glfwGetTime() + 3.14f/2)), fabs(sin(4*glfwGetTime() + 3.14f)));
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window); //Swap back and front buffers
     }
