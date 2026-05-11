@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
 #include <soil/SOIL.h>
+#include <cglm/cglm.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,7 +17,7 @@
  * Start Date: May 10th, 2026
  * 
  * Run GCC command:
- * gcc main.c glad\src\glad.c -Iglfw\include -Iglad\include -Isoil\include -Lglfw\lib -Lsoil\lib -lglfw3 -lsoil -lopengl32 -lgdi32 -o rcge
+ * gcc main.c glad\src\glad.c -Iglfw\include -Iglad\include -Isoil\include -Icglm/include -Lglfw\lib -Lsoil\lib -lglfw3 -lsoil -lopengl32 -lgdi32 -o rcge
  * .\rcge
  * 
  */
@@ -108,18 +109,21 @@ int main(void)
 
     GLuint tex;
     glGenTextures(1, &tex);
+
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, tex);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glGenerateMipmap(GL_TEXTURE_2D);
 
-    glActiveTexture(GL_TEXTURE0);
     int width, height;
     unsigned char* image = SOIL_load_image("textures/keven.png", &width, &height, 0, SOIL_LOAD_RGBA);
+    if (image == NULL) {printf("Texture failed to load: %s", SOIL_last_result()); exit(1);}
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     SOIL_free_image_data(image);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    //glUniform1i(glGetUniformLocation(shaderProgram, "tex"), 0); OPTIONAL, default is 0 already, only need if multiple texture layer.
 
     GLuint vao;
     glGenVertexArrays(1, &vao);
@@ -127,10 +131,10 @@ int main(void)
 
     float vertices[] =
     {
-        0.5, 0.5, 1.0, 0, 0, 1.0, 1.0, 0, //TOP RIGHT
+        0.5, 0.5, 1.0, 0, 0, 1.0, 1.0, 0,
         0.5, -0.5, 0, 1.0, 0, 1.0, 1.0, 1.0,
         -0.5, -0.5, 0, 0, 1.0, 1.0, 0, 1.0,
-        -0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0, 0 //TOP-LEFT
+        -0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0, 0 
     };
 
     GLuint elements[] = 
@@ -161,12 +165,29 @@ int main(void)
     glVertexAttribPointer(texcoAttrib, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*) (6*sizeof(float)));
     glEnableVertexAttribArray(texcoAttrib);
 
+
+    mat4 trans;
+    glm_mat4_identity(trans);
+    vec3 axis = {0.0f, 0.0f, 1.0f};
+    glm_rotate(trans, glm_rad(180.0f), axis);
+
+    GLint uniTrans = glGetUniformLocation(shaderProgram, "trans"); 
+    glUniformMatrix4fv(uniTrans, 1, GL_FALSE, (float*) trans);
+    
+
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents(); //Retrieve window events
 
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, GL_TRUE); //DEBUG EXIT COMMAND
 
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glm_mat4_identity(trans);
+        glm_rotate(trans, glm_rad(glfwGetTime()*100), axis);
+        glUniformMatrix4fv(uniTrans, 1, GL_FALSE, (float*) trans);
+        
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window); //Swap back and front buffers

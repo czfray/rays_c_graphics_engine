@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "configurations": [
+    {
+      "name": "Debug Run RCGE",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/rcgedb",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "builddb",
+      "externalConsole": false
+    },
+
+    {
+      "name": "Build RCGE",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${env:ComSpec}",
+      "args": ["/c", "exit"],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "build",
+      "externalConsole": false
+    }
+  ]
+}
