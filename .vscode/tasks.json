@@ -14,7 +14,7 @@
     {
       "label": "build",
       "type": "shell",
-      "command": "gcc main.c glad/src/glad.c -Iglfw/include -Iglad/include -Isoil/include -Icglm/include -Lglfw/lib -Lsoil/lib -lglfw3 -lsoil -lopengl32 -lgdi32 -mwindows -o rcgedb",
+      "command": "gcc main.c glad/src/glad.c -Iglfw/include -Iglad/include -Isoil/include -Icglm/include -Lglfw/lib -Lsoil/lib -lglfw3 -lsoil -lopengl32 -lgdi32 -mwindows -o rcge",
       "group": {
         "kind": "build",
         "isDefault": true

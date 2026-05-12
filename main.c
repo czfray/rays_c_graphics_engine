@@ -50,6 +50,13 @@ char* loadText(char* path, int bufferSize)
     return result;
 }
 
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
+
+
 int main(void)
 {
     printf("RCGE starting...\n");
@@ -61,7 +68,7 @@ int main(void)
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     //Set if user resizing is allowed.
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
     //Create window in context, and set context active
     GLFWwindow* window = glfwCreateWindow(800, 600, "Ray's C Graphics Engine", NULL, NULL);
@@ -73,6 +80,14 @@ int main(void)
         printf("GLAD failed to initialise.");
         return -1;
     }
+    
+    int w, h;
+    glfwGetFramebufferSize(window, &w, &h);
+    printf("%d %d", w, h);
+    glViewport(0, 0, w, h);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    glEnable(GL_DEPTH_TEST);
 
     char* vertexSource = loadText("shaders/default.vert", 128);
     if (!vertexSource) {exit(1);}
@@ -131,16 +146,56 @@ int main(void)
 
     float vertices[] =
     {
-        0.5, 0.5, 1.0, 0, 0, 1.0, 1.0, 0,
-        0.5, -0.5, 0, 1.0, 0, 1.0, 1.0, 1.0,
-        -0.5, -0.5, 0, 0, 1.0, 1.0, 0, 1.0,
-        -0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0, 0 
+        -0.5, -0.5, -0.5,   1.0, 1.0,
+        -0.5, 0.5, -0.5,    1.0, 0,
+        0.5, 0.5, -0.5,     0, 0,
+        0.5, -0.5, -0.5,    0, 1.0, 
+
+        -0.5, -0.5, 0.5,    1.0, 1.0,
+        -0.5, 0.5, 0.5,     1.0, 0,
+        -0.5, 0.5, -0.5,    0, 0,
+        -0.5, -0.5, -0.5,   0, 1.0, 
+
+        0.5, -0.5, 0.5,     1.0, 1.0,
+        0.5, 0.5, 0.5,      1.0, 0,
+        -0.5, 0.5, 0.5,     0, 0,
+        -0.5, -0.5, 0.5,    0, 1.0, 
+
+        0.5, -0.5, -0.5,    1.0, 1.0,
+        0.5, 0.5, -0.5,     1.0, 0,
+        0.5, 0.5, 0.5,      0, 0,
+        0.5, -0.5, 0.5,     0, 1.0, 
+
+        -0.5, 0.5, -0.5,    1.0, 1.0,
+        -0.5, 0.5, 0.5,     1.0, 0,
+        0.5, 0.5, 0.5,      0, 0,
+        0.5, 0.5, -0.5,     0, 1.0, 
+
+        -0.5, -0.5, 0.5,    1.0, 1.0,
+        -0.5, -0.5, -0.5,   1.0, 0,
+        0.5, -0.5, -0.5,    0, 0,
+        0.5, -0.5, 0.5,     0, 1.0, 
     };
 
     GLuint elements[] = 
     {
         0, 1, 2,
-        2, 3, 0
+        2, 3, 0,
+        
+        4, 5, 6,
+        6, 7, 4,
+
+        8, 9, 10,
+        10, 11, 8,
+
+        12, 13, 14,
+        14, 15, 12,
+
+        16, 17, 18,
+        18, 19, 16,
+
+        20, 21, 22,
+        22, 23, 20
     };
 
     GLuint vbo;
@@ -154,26 +209,35 @@ int main(void)
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
 
     GLint posAttrib = glGetAttribLocation(shaderProgram, "position");
-    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), 0);
+    glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 5*sizeof(float), 0);
     glEnableVertexAttribArray(posAttrib);
 
-    GLint colAttrib = glGetAttribLocation(shaderProgram, "color");
-    glVertexAttribPointer(colAttrib, 4, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*) (2*sizeof(float)));
-    glEnableVertexAttribArray(colAttrib);
-
     GLint texcoAttrib = glGetAttribLocation(shaderProgram, "texcoord");
-    glVertexAttribPointer(texcoAttrib, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*) (6*sizeof(float)));
+    glVertexAttribPointer(texcoAttrib, 2, GL_FLOAT, GL_FALSE, 5*sizeof(float), (void*) (3*sizeof(float)));
     glEnableVertexAttribArray(texcoAttrib);
-
 
     mat4 trans;
     glm_mat4_identity(trans);
-    vec3 axis = {0.0f, 0.0f, 1.0f};
+    vec3 axis = {0.33f, 1.0f, 0.0f};
     glm_rotate(trans, glm_rad(180.0f), axis);
-
-    GLint uniTrans = glGetUniformLocation(shaderProgram, "trans"); 
-    glUniformMatrix4fv(uniTrans, 1, GL_FALSE, (float*) trans);
     
+    vec3 cam = {0.0f, 0.0f, 3.0f};
+    vec3 target = {0.0f, 0.0f, 0.0f};
+    vec3 up = {0.0f, 1.0f, 0.0f};
+    mat4 view;
+    glm_lookat(cam, target, up, view);
+
+    mat4 proj;
+    glm_perspective(glm_rad(45.0f), w/h, 1.0f, 10.0f, proj);
+
+    GLint uniTrans = glGetUniformLocation(shaderProgram, "model"); 
+    glUniformMatrix4fv(uniTrans, 1, GL_FALSE, (float*) trans);
+    GLint viewTrans = glGetUniformLocation(shaderProgram, "view"); 
+    glUniformMatrix4fv(viewTrans, 1, GL_FALSE, (float*) view);
+    GLint projTrans = glGetUniformLocation(shaderProgram, "proj"); 
+    glUniformMatrix4fv(projTrans, 1, GL_FALSE, (float*) proj);
+    GLint colorUniform = glGetUniformLocation(shaderProgram, "color"); 
+    glUniform4f(colorUniform, 1.0f, 1.0f, 1.0f, 1.0f);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -182,13 +246,19 @@ int main(void)
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, GL_TRUE); //DEBUG EXIT COMMAND
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glm_mat4_identity(trans);
         glm_rotate(trans, glm_rad(glfwGetTime()*100), axis);
+        //vec4 scale = {sin(glfwGetTime()), sin(glfwGetTime()), sin(glfwGetTime()), 1.0f};
+        //glm_scale(trans, scale);
         glUniformMatrix4fv(uniTrans, 1, GL_FALSE, (float*) trans);
         
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glfwGetFramebufferSize(window, &w, &h);
+        glm_perspective(glm_rad(45.0f), ((float)w) /h, 1.0f, 10.0f, proj);
+        glUniformMatrix4fv(projTrans, 1, GL_FALSE, (float*) proj);
+        
+        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window); //Swap back and front buffers
     }
