@@ -2,12 +2,33 @@
   "version": "1.0.0",
   "configurations": [
     {
-      "name": "Debug Run RCGE",
+      "name": "Debug Run App",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/rcgedb",
+      "program": "${workspaceFolder}/appdb",
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "builddb",
+      "preLaunchTask": "buildappdb",
+      "externalConsole": false
+    },
+
+    {
+      "name": "Build RGCE and Debug Run App",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/appdb",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "buildappdb+rgce",
+      "externalConsole": false
+    },
+
+    {
+      "name": "Build App",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${env:ComSpec}",
+      "args": ["/c", "exit"],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "buildapp",
       "externalConsole": false
     },
 
@@ -18,7 +39,7 @@
       "program": "${env:ComSpec}",
       "args": ["/c", "exit"],
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "build",
+      "preLaunchTask": "cleanbuildrcge",
       "externalConsole": false
     }
   ]

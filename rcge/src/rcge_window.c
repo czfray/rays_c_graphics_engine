@@ -1,0 +1,99 @@
+#include <rcge/rcge_window.h>
+#include <glad/glad.h>
+#include <glfw/glfw3.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+struct rcge_window_CDT
+{
+    GLFWwindow* gl_window;
+    double last_update_time;
+};
+
+void gl_resize(GLFWwindow* gl_window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
+
+rcge_window rcge_window_create(int width, int height, const char* title, bool resizable)
+{
+    //CHECKS FOR GLFW INIT NEEDED
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, resizable? GL_TRUE: GL_FALSE);
+
+    GLFWwindow* gl_window = glfwCreateWindow(width, height, title, NULL, NULL);
+    if (gl_window == NULL)
+    {
+        printf("[RCGE WINDOW] Window failed to initialise: GLFW failed.\n");
+        return NULL;
+    }
+
+    glfwMakeContextCurrent(gl_window);
+
+    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) //Initialise GLAD (Manages function pointers)
+    {
+        printf("[RCGE WINDOW] Window failed to initialise: GLAD failed to initialise.\n");
+        glfwDestroyWindow(gl_window);
+        return NULL;
+    }
+
+    int buf_w, buf_h; 
+    glfwGetFramebufferSize(gl_window, &buf_w, &buf_h); 
+    gl_resize(gl_window, buf_w, buf_h);
+
+    //glfwSwapInterval(0); Vsync Off
+    glEnable(GL_DEPTH_TEST);
+    glfwSetFramebufferSizeCallback(gl_window, gl_resize);
+
+    rcge_window window = malloc(sizeof(*window)); //TODO: MALLOC CHECK?
+    window->gl_window = gl_window;
+    window->last_update_time = glfwGetTime();
+
+    printf("[RCGE WINDOW] Window created.\n");
+    return window;
+}
+
+//Assumes only one window can run at the same time.
+void rcge_window_run(rcge_window window, rcge_start_callback start_cb, rcge_update_callback update_cb)
+{
+    //CHECKS FOR GLFW INIT and PARAMS NEEDED
+    printf("[RCGE WINDOW] Window started running.\n");
+
+    start_cb(window);
+    GLFWwindow* gl_window = window->gl_window;
+    glfwMakeContextCurrent(gl_window);
+
+    while (!glfwWindowShouldClose(gl_window))
+    {
+        glfwPollEvents(); //Retrieve window events
+
+        if (glfwGetKey(gl_window, GLFW_KEY_ESCAPE) == GLFW_PRESS) rcge_window_stop(window); //TEMP
+
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        double current_time = glfwGetTime();
+        update_cb(window, current_time - window->last_update_time);
+        window->last_update_time = current_time;
+
+        glfwSwapBuffers(gl_window); //Swap back and front buffers
+    }
+
+    glfwDestroyWindow(gl_window);
+    free(window);
+    printf("[RCGE WINDOW] Window terminated as intended.\n");
+}
+
+float rcge_window_ratio(rcge_window window)
+{
+    int buf_w, buf_h; 
+    glfwGetFramebufferSize(window->gl_window, &buf_w, &buf_h); 
+    return ((float) buf_w) / buf_h;
+}
+
+void rcge_window_stop(rcge_window window) {glfwSetWindowShouldClose(window->gl_window, GL_TRUE);}

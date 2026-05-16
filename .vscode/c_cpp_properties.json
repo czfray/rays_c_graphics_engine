@@ -4,8 +4,10 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/glfw/include",
-                "${workspaceFolder}/glad/include"
+                "${workspaceFolder}/rcge/include",
+                "${workspaceFolder}/libs/**",
+                "${workspaceFolder}/libs/glfw/include",
+                "${workspaceFolder}/libs/glad/include"
             ],
             "defines": [
                 "_DEBUG",

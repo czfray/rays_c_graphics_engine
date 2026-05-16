@@ -2,9 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "builddb",
+      "label": "buildappdb",
       "type": "shell",
-      "command": "gcc main.c glad/src/glad.c -Iglfw/include -Iglad/include -Isoil/include -Icglm/include -Lglfw/lib -Lsoil/lib -lglfw3 -lsoil -lopengl32 -lgdi32 -o rcgedb",
+      "command": "gcc main.c -Ircge/include -Ilibs/cglm/include -Lrcge/lib -Llibs/glfw/lib -Llibs/soil/lib -lrcge -lglfw3 -lsoil -lopengl32 -lgdi32 -o appdb",
       "group": {
         "kind": "build",
         "isDefault": false
@@ -12,13 +12,57 @@
     },
 
     {
-      "label": "build",
+      "label": "buildappdb+rgce",
       "type": "shell",
-      "command": "gcc main.c glad/src/glad.c -Iglfw/include -Iglad/include -Isoil/include -Icglm/include -Lglfw/lib -Lsoil/lib -lglfw3 -lsoil -lopengl32 -lgdi32 -mwindows -o rcge",
+      "command": "echo \"Building...\"",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "dependsOn": ["cleanbuildrcge", "buildappdb"],
+      "dependsOrder": "sequence"
+    },
+
+    {
+      "label": "buildapp",
+      "type": "shell",
+      "command": "gcc main.c -Ircge/include -Ilibs/cglm/include -Lrcge/lib -Llibs/glfw/lib -Llibs/soil/lib -lrcge -lglfw3 -lsoil -lopengl32 -lgdi32 -mwindows -O2 -o app",
       "group": {
         "kind": "build",
         "isDefault": true
       }
+    },
+
+    {
+      "label": "compilercge",
+      "type": "shell",
+      "command": "gcc -c rcge/src/*.c libs/glad/src/glad.c -Ircge/include -Ilibs/glfw/include -Ilibs/glad/include -Ilibs/soil/include -Ilibs/cglm/include -O2",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+
+    {
+      "label": "buildrcge",
+      "type": "shell",
+      "command": "ar rcs rcge/lib/librcge.a *.o",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "dependsOn": "compilercge"
+    },
+
+    {
+      "label": "cleanbuildrcge",
+      "type": "shell",
+      "command": "rm *.o",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "dependsOn": "buildrcge"
     }
   ]
 }
