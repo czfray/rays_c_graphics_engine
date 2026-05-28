@@ -19,16 +19,10 @@
 
 int frame;
 double time;
+
 rcge_shader shader;
 rcge_mesh mesh;
-
-mat4 model;
-mat4 proj;
-mat4 view;
-
-int model_loc;
-int proj_loc;
-int view_loc;
+rcge_camera camera;
 
 void start(rcge_window window)
 {
@@ -36,47 +30,11 @@ void start(rcge_window window)
     time = 0;
     printf("Testing app start!\n");
 
-    glm_mat4_identity(model);
-    glm_mat4_identity(proj);
-    glm_mat4_identity(view);
-
-    model_loc = rcge_shader_uniform_loc_get(shader, "model");
-    proj_loc = rcge_shader_uniform_loc_get(shader, "proj");
-    view_loc = rcge_shader_uniform_loc_get(shader, "view");
-    
-    vec3 cam = {0.0f, 0.0f, 3.0f};
-    vec3 target = {0.0f, 0.0f, 0.0f};
-    vec3 up = {0.0f, 1.0f, 0.0f};
-    glm_lookat(cam, target, up, view);
-
-    glm_perspective(glm_rad(45.0f), rcge_window_ratio(window), 1.0f, 10.0f, proj);
-    
-    rcge_shader_uniform_mat4(model_loc, model);
-    rcge_shader_uniform_mat4(proj_loc, proj);
-    rcge_shader_uniform_mat4(view_loc, view);
-    rcge_shader_uniform_vec4(rcge_shader_uniform_loc_get(shader, "color"), GLM_VEC4_ONE);
+    rcge_shader_uniform_vec4(shader, 3, GLM_VEC4_ONE); //TODO SET MESH COLOR
 }
 
-void update(rcge_window window, double delta_time)
+void update_fps(double delta_time)
 {
-    glm_perspective(glm_rad(45.0f), rcge_window_ratio(window), 1.0f, 10.0f, proj);
-    rcge_shader_uniform_mat4(proj_loc, proj);
-    
-    rcge_transform transform = rcge_mesh_transform_get(mesh);
-    versor cur_rot;
-    rcge_transform_rot_get(transform, cur_rot);
-    versor apply_rot;
-    vec3 apply_rot_euler = {0.1f, 0.5f, 0.1f};
-    glm_vec3_scale(apply_rot_euler, delta_time, apply_rot_euler);
-    glm_euler_xyz_quat(apply_rot_euler, apply_rot);
-    glm_quat_mul(apply_rot, cur_rot, cur_rot);
-    rcge_transform_rot_set(transform, cur_rot);
-
-    rcge_transform_model_get(rcge_mesh_transform_get(mesh), model);
-    rcge_shader_uniform_mat4(model_loc, model);
-
-    rcge_mesh_draw(mesh);
-
     frame++;
     time += delta_time;
     if (time > 1.0)
@@ -88,6 +46,30 @@ void update(rcge_window window, double delta_time)
     }
 }
 
+void update(rcge_window window, double delta_time)
+{
+    rcge_transform transform = rcge_mesh_transform_get(mesh);
+    vec3 apply_rot_euler = {0.9f, 1.0f, 1.0f};
+    glm_vec3_scale(apply_rot_euler, delta_time, apply_rot_euler);
+    rcge_transform_add_rot_euler(transform, apply_rot_euler);
+
+    rcge_mesh_draw(mesh);
+
+    update_fps(delta_time);
+
+    //rcge_camera_fov_size_set(camera, rcge_camera_fov_size_get(camera) + 10 * delta_time);
+    vec3 newpos;
+    vec3 sub = {0, 0, delta_time};
+    rcge_camera_pos_get(camera, newpos);
+    glm_vec3_add(newpos, sub, newpos);
+    rcge_camera_pos_set(camera, newpos);
+}
+
+void resize(rcge_window window, int width, int height)
+{
+    rcge_camera_ratio_set(camera, rcge_window_ratio(window));
+}
+
 int main(void)
 {
     rcge_init();
@@ -95,21 +77,31 @@ int main(void)
     
     rcge_shader_comp vertex_comp = rcge_shader_comp_create("shaders/default.vert", SHADER_VERT);
     rcge_shader_comp fragment_comp = rcge_shader_comp_create("shaders/default.frag", SHADER_FRAG);
-    shader = rcge_shader_create(2);
+    shader = rcge_shader_create(2, 5);
     rcge_shader_attach(shader, vertex_comp);
     rcge_shader_attach(shader, fragment_comp);
     rcge_shader_color_out_location(shader, 0, "outColor");
     rcge_shader_compile(shader);
     rcge_shader_attrib_set(shader, 0, "position", 3, DATATYPE_FLOAT, false);
     rcge_shader_attrib_set(shader, 1, "texcoord", 2, DATATYPE_FLOAT, false);
+    rcge_shader_uniform_loc_set(shader, 0, "model");
+    rcge_shader_uniform_loc_set(shader, 1, "view");
+    rcge_shader_uniform_loc_set(shader, 2, "proj");
+    rcge_shader_uniform_loc_set(shader, 3, "color");
+    rcge_shader_uniform_loc_set(shader, 4, "tex");
     rcge_shader_use(shader);
 
     rcge_shader_comp_delete(vertex_comp);
     rcge_shader_comp_delete(fragment_comp);
     
+    camera = rcge_camera_create(shader, 1, 2, true, 45.0f, 0.001f, 100.0f, rcge_window_ratio(window));
+    //camera = rcge_camera_create(shader, 1, 2, false, 2.0f, 1.0f, 100.0f, rcge_window_ratio(window));
+    vec3 cam_pos = {0.0f, 0.0f, 5.0f};
+    rcge_camera_pos_set(camera, cam_pos);
+
     rcge_texture texture = rcge_texture_create("textures/keven.png", TEX_CLAMP_TO_EDGE, TEX_LINEAR);
     rcge_texture_use(texture);
-    rcge_shader_uniform_int(rcge_shader_uniform_loc_get(shader, "tex"), 0); //OPTIONAL, default is 0 already, only need if multiple texture layer.
+    rcge_shader_uniform_int(shader, 4, 0); //OPTIONAL, default is 0 already, only need if multiple texture layer.
 
     float vertices[] =
     {
@@ -165,12 +157,13 @@ int main(void)
         22, 23, 20
     };
 
-    mesh = rcge_mesh_create(shader, texture, vertices, 120, indices, 36, MESH_STATIC);
+    mesh = rcge_mesh_create(shader, 0, texture, vertices, 120, indices, 36, MESH_STATIC);
 
-    rcge_window_run(window, start, update);
+    rcge_window_run(window, start, update, resize);
     
     rcge_mesh_delete(mesh);
     rcge_texture_delete(texture);
+    rcge_camera_delete(camera);
     rcge_shader_delete(shader);
     rcge_terminate();
     return 0;

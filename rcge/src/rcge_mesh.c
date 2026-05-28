@@ -1,5 +1,6 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
+#include <cglm/cglm.h>
 
 #include <rcge/rcge_shader.h>
 #include <rcge/rcge_transform.h>
@@ -12,12 +13,14 @@
 
 struct rcge_mesh_CDT
 {
+    rcge_shader shader;
     rcge_transform transform;
     rcge_texture texture;
     GLuint vao;
     GLuint vbo;
     GLuint ebo;
     unsigned int vert_no;
+    int model_uniform_index; //TODO: this is fuckin stupid put this in the fucking shader
 };
 
 GLenum gl_mesh_draw_type(rcge_mesh_draw_type type)
@@ -31,7 +34,14 @@ GLenum gl_mesh_draw_type(rcge_mesh_draw_type type)
     return GL_DYNAMIC_DRAW;
 }
 
-rcge_mesh rcge_mesh_create(rcge_shader shader, rcge_texture texture, float* vertices, unsigned int vertices_size, unsigned int* indices, unsigned int indices_size, rcge_mesh_draw_type draw_type)
+void update_model_uniform(rcge_mesh mesh)
+{
+    mat4 model;
+    rcge_transform_model_view_get(rcge_mesh_transform_get(mesh), model);
+    rcge_shader_uniform_mat4(mesh->shader, mesh->model_uniform_index, model);
+}
+
+rcge_mesh rcge_mesh_create(rcge_shader shader, int model_uniform_index, rcge_texture texture, float* vertices, unsigned int vertices_size, unsigned int* indices, unsigned int indices_size, rcge_mesh_draw_type draw_type)
 {
     GLenum gl_draw_type = gl_mesh_draw_type(draw_type);
 
@@ -52,12 +62,16 @@ rcge_mesh rcge_mesh_create(rcge_shader shader, rcge_texture texture, float* vert
     rcge_shader_attrib_activate_mesh(shader);
 
     rcge_mesh mesh = malloc(sizeof(*mesh)); //TODO: malloc check
-    mesh->transform = rcge_transform_create_zero();
+    mesh->shader = shader;
+    mesh->transform = rcge_transform_create_zero(false);
     mesh->texture = texture;
     mesh->vao = vao;
     mesh->vbo = vbo;
     mesh->ebo = ebo;
     mesh->vert_no = indices_size;
+    mesh->model_uniform_index = model_uniform_index;
+
+    update_model_uniform(mesh);
     printf("[RCGE Mesh] Mesh %d created.\n", vao);
     return mesh;
 }
@@ -73,6 +87,7 @@ void rcge_mesh_draw(rcge_mesh mesh)
     if (mesh == NULL) {printf("[RCGE Mesh] Mesh draw failed: mesh does not exist.\n"); return;}
     rcge_texture_use(mesh->texture);
     glBindVertexArray(mesh->vao);
+    if(mesh->model_uniform_index >= 0) update_model_uniform(mesh);
     glDrawElements(GL_TRIANGLES, mesh->vert_no, GL_UNSIGNED_INT, 0);
 }
 

@@ -10,11 +10,15 @@ struct rcge_window_CDT
 {
     GLFWwindow* gl_window;
     double last_update_time;
+    rcge_resize_callback resize_cb;
 };
 
 void gl_resize(GLFWwindow* gl_window, int width, int height)
 {
     glViewport(0, 0, width, height);
+    rcge_window window = (rcge_window) glfwGetWindowUserPointer(gl_window);
+    rcge_resize_callback cb = window->resize_cb;
+    if (cb != NULL) cb(window, width, height);
 }
 
 rcge_window rcge_window_create(int width, int height, const char* title, bool resizable)
@@ -42,27 +46,33 @@ rcge_window rcge_window_create(int width, int height, const char* title, bool re
         return NULL;
     }
 
-    int buf_w, buf_h; 
-    glfwGetFramebufferSize(gl_window, &buf_w, &buf_h); 
-    gl_resize(gl_window, buf_w, buf_h);
-
-    //glfwSwapInterval(0); Vsync Off
+    glfwSwapInterval(0); //Vsync Off
     glEnable(GL_DEPTH_TEST);
     glfwSetFramebufferSizeCallback(gl_window, gl_resize);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+    glFrontFace(GL_CW);
 
     rcge_window window = malloc(sizeof(*window)); //TODO: MALLOC CHECK?
     window->gl_window = gl_window;
     window->last_update_time = glfwGetTime();
+    window->resize_cb = NULL;
+    glfwSetWindowUserPointer(gl_window, (void*) window);
 
+    int buf_w, buf_h; 
+    glfwGetFramebufferSize(gl_window, &buf_w, &buf_h); 
+    gl_resize(gl_window, buf_w, buf_h);
     printf("[RCGE WINDOW] Window created.\n");
     return window;
 }
 
 //Assumes only one window can run at the same time.
-void rcge_window_run(rcge_window window, rcge_start_callback start_cb, rcge_update_callback update_cb)
+void rcge_window_run(rcge_window window, rcge_start_callback start_cb, rcge_update_callback update_cb, rcge_resize_callback resize_cb)
 {
     //CHECKS FOR GLFW INIT and PARAMS NEEDED
     printf("[RCGE WINDOW] Window started running.\n");
+    window->resize_cb = resize_cb;
 
     start_cb(window);
     GLFWwindow* gl_window = window->gl_window;

@@ -13,5 +13,6 @@
 #include <rcge/rcge_texture.h>
 #include <rcge/rcge_transform.h>
 #include <rcge/rcge_mesh.h>
+#include <rcge/rcge_camera.h>
 
 #endif

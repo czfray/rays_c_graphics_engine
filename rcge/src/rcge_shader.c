@@ -32,6 +32,7 @@ struct rcge_shader_CDT
     rcge_shader_attrib* attribs;
     GLuint gl_shader_program;
     unsigned int attrib_no;
+    int* uniform_locs;
 };
 
 GLenum gl_shader_type(rcge_shader_comp_type type) {return (type == SHADER_VERT? GL_VERTEX_SHADER: (type == SHADER_GEOM? GL_GEOMETRY_SHADER: GL_FRAGMENT_SHADER));}
@@ -73,7 +74,7 @@ void rcge_shader_comp_delete(rcge_shader_comp shader_comp)
     printf("[RCGE SHADER] Shader component %d deleted.\n", gl_shader);
 }
 
-rcge_shader rcge_shader_create(unsigned int attrib_no)
+rcge_shader rcge_shader_create(unsigned int attrib_no, unsigned int uniform_no)
 {
     //TODO: TEST MALLOC AND ATTRIB SIZE
     GLuint gl_shader_program = glCreateProgram();
@@ -84,6 +85,8 @@ rcge_shader rcge_shader_create(unsigned int attrib_no)
     shader->attribs = attribs;
     shader->attrib_no = attrib_no;
     for (int i = 0; i < attrib_no; i++) {(shader->attribs)[i].valid = false;}
+
+    shader->uniform_locs = malloc(uniform_no * sizeof(int));
 
     printf("[RCGE SHADER] Shader %d created with %d attributes.\n", gl_shader_program, attrib_no);
     return shader;
@@ -139,7 +142,14 @@ void rcge_shader_attrib_activate_mesh(rcge_shader shader)
 
         pointer += attrib.size;
     }
-    
+}
+
+void rcge_shader_uniform_loc_set(rcge_shader shader, unsigned int index, char* name)
+{
+    //TODO: TEST IF INDEX OUT OF BOUNDS
+    if (shader == NULL) {printf("[RCGE SHADER] Shader uniform loc set failed: shader does not exist.\n");}
+    (shader->uniform_locs)[index] = glGetUniformLocation(shader->gl_shader_program, name);
+    printf("[RCGE SHADER] Shader uniform loc with name \"%s\" set at index %d\n", name, index);
 }
 
 void rcge_shader_compile(rcge_shader shader)
@@ -173,6 +183,7 @@ void rcge_shader_delete(rcge_shader shader)
 {
     if (shader == NULL) {printf("[RCGE SHADER] Shader delete failed: shader does not exist.\n"); return;}
     free(shader->attribs);
+    free(shader->uniform_locs);
     GLuint gl_shader_program = shader->gl_shader_program;
     glDeleteProgram(gl_shader_program);
     free(shader);
@@ -187,23 +198,25 @@ void rcge_shader_color_out_location(rcge_shader shader, unsigned int color_no, c
     printf("[RCGE SHADER] Shader %d set color out location of %d to \"%s\".\n", gl_shader_program, color_no, loc_name);
 }
 
-unsigned int rcge_shader_uniform_loc_get(rcge_shader shader, char* name)
+int rcge_shader_uniform_index_to_loc(rcge_shader shader, unsigned int index)
 {
-    if (shader == NULL) {printf("[RCGE SHADER] Shader uniform loc get failed: shader does not exist.\n"); return 999999;}
-    return glGetUniformLocation(shader->gl_shader_program, name); 
+    //TODO: do bounds check
+    if (shader == NULL) {printf("[RCGE SHADER] Shader uniform index to loc failed: shader does not exist.\n");}
+    return (shader->uniform_locs)[index];
 }
 
-void rcge_shader_uniform_float(unsigned int location, float value){glUniform1f(location, value);}
-void rcge_shader_uniform_vec2(unsigned int location, vec2 value) {glUniform2f(location, value[0], value[1]);}
-void rcge_shader_uniform_vec3(unsigned int location, vec3 value) {glUniform3f(location, value[0], value[1], value[2]);}
-void rcge_shader_uniform_vec4(unsigned int location, vec4 value) {glUniform4f(location, value[0], value[1], value[2], value[3]);}
-void rcge_shader_uniform_int(unsigned int location, int value) {glUniform1i(location, value);}
-void rcge_shader_uniform_ivec2(unsigned int location, ivec2 value) {glUniform2i(location, value[0], value[1]);}
-void rcge_shader_uniform_ivec3(unsigned int location, ivec3 value) {glUniform3i(location, value[0], value[1], value[2]);}
-void rcge_shader_uniform_ivec4(unsigned int location, ivec4 value) {glUniform4i(location, value[0], value[1], value[2], value[3]);}
-void rcge_shader_uniform_uint(unsigned int location, unsigned int value) {glUniform1ui(location, value);}
-void rcge_shader_uniform_mat2(unsigned int location, mat2 value) {glUniformMatrix2fv(location, 1, GL_FALSE, (float*) value);}
-void rcge_shader_uniform_mat3(unsigned int location, mat3 value) {glUniformMatrix3fv(location, 1, GL_FALSE, (float*) value);}
-void rcge_shader_uniform_mat4(unsigned int location, mat4 value) {glUniformMatrix4fv(location, 1, GL_FALSE, (float*) value);}
+
+void rcge_shader_uniform_float(rcge_shader shader, unsigned int uniform_loc_index, float value){glUniform1f(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value);}
+void rcge_shader_uniform_vec2(rcge_shader shader, unsigned int uniform_loc_index, vec2 value) {glUniform2f(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value[0], value[1]);}
+void rcge_shader_uniform_vec3(rcge_shader shader, unsigned int uniform_loc_index, vec3 value) {glUniform3f(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value[0], value[1], value[2]);}
+void rcge_shader_uniform_vec4(rcge_shader shader, unsigned int uniform_loc_index, vec4 value) {glUniform4f(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value[0], value[1], value[2], value[3]);}
+void rcge_shader_uniform_int(rcge_shader shader, unsigned int uniform_loc_index, int value) {glUniform1i(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value);}
+void rcge_shader_uniform_ivec2(rcge_shader shader, unsigned int uniform_loc_index, ivec2 value) {glUniform2i(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value[0], value[1]);}
+void rcge_shader_uniform_ivec3(rcge_shader shader, unsigned int uniform_loc_index, ivec3 value) {glUniform3i(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value[0], value[1], value[2]);}
+void rcge_shader_uniform_ivec4(rcge_shader shader, unsigned int uniform_loc_index, ivec4 value) {glUniform4i(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value[0], value[1], value[2], value[3]);}
+void rcge_shader_uniform_uint(rcge_shader shader, unsigned int uniform_loc_index, unsigned int value) {glUniform1ui(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value);}
+void rcge_shader_uniform_mat2(rcge_shader shader, unsigned int uniform_loc_index, mat2 value) {glUniformMatrix2fv(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), 1, GL_FALSE, (float*) value);}
+void rcge_shader_uniform_mat3(rcge_shader shader, unsigned int uniform_loc_index, mat3 value) {glUniformMatrix3fv(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), 1, GL_FALSE, (float*) value);}
+void rcge_shader_uniform_mat4(rcge_shader shader, unsigned int uniform_loc_index, mat4 value) {glUniformMatrix4fv(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), 1, GL_FALSE, (float*) value);}
 
 //TODO: NOT ALL UNIFORM ADDED: no uvecs and arrays
