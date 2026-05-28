@@ -12,6 +12,10 @@ struct rcge_transform_CDT
     vec3 position;
     vec3 scale;
     bool view_updater;
+
+    vec3 forward;
+    vec3 up;
+    vec3 left;
 };
 
 void update_model(rcge_transform transform)
@@ -31,24 +35,37 @@ void update_model(rcge_transform transform)
 
 void update_view(rcge_transform transform)
 {
-    vec3 inverse_pos;
-    glm_vec3_negate_to(transform->position, inverse_pos);
-
-    versor inverse_rot;
-    glm_quat_conjugate(transform->rotation, inverse_rot);
-
-    mat4 pos_mat, rot_mat, view;
-    glm_translate_make(pos_mat, inverse_pos);
-    glm_quat_mat4(inverse_rot, rot_mat);
-    glm_mat4_mul(rot_mat, pos_mat, view);
-
-    glm_mat4_copy(view, transform->model_view);
+    vec3 pos, target, up;
+    rcge_transform_pos_get(transform, pos);
+    rcge_transform_forward(transform, target);
+    glm_vec3_add(target, pos, target);
+    rcge_transform_up(transform, up);
+    glm_lookat(pos, target, up, transform->model_view);
 }
 
 void update_matrix(rcge_transform transform)
 {
     if (transform->view_updater) update_view(transform);
     else update_model(transform);
+}
+
+void update_dir(rcge_transform transform)
+{
+    vec3 left = {1.0f, 0.0f, 0.0f};
+    vec3 up = {0.0f, 1.0f, 0.0f};
+    vec3 forward;
+
+    versor rot;
+    rcge_transform_rot_get(transform, rot);
+    glm_quat_rotatev(rot, left, left);
+    glm_quat_rotatev(rot, up, up);
+    glm_vec3_cross(left, up, forward);
+    glm_vec3_normalize(forward);
+    
+    glm_vec3_copy(left, transform->left);
+    glm_vec3_copy(up, transform->up);
+    glm_vec3_copy(forward, transform->forward);
+
 }
 
 rcge_transform rcge_transform_create(vec3 pos, versor rot, vec3 scl, bool view_updater)
@@ -58,6 +75,7 @@ rcge_transform rcge_transform_create(vec3 pos, versor rot, vec3 scl, bool view_u
     glm_quat_copy(rot, transform->rotation);
     glm_vec3_copy(scl, transform->scale);
     transform->view_updater = view_updater;
+    update_dir(transform);
     update_matrix(transform);
     return transform;
 }
@@ -99,6 +117,7 @@ void rcge_transform_rot_set(rcge_transform transform, versor new_rot)
 {
     if (transform == NULL) {printf("[RCGE Transform] Transform rotation set failed: transform does not exist.\n"); return;}
     glm_quat_copy(new_rot, transform->rotation);
+    update_dir(transform);
     update_matrix(transform);
 }
 
@@ -118,6 +137,48 @@ void rcge_transform_add_rot_euler(rcge_transform transform, vec3 apply_rot)
     glm_euler_xyz_quat(apply_rot, apply_rot_quat);
     glm_quat_mul(apply_rot_quat, cur_rot, cur_rot);
     rcge_transform_rot_set(transform, cur_rot);
+}
+
+void rcge_transform_up(rcge_transform transform, vec3 out)
+{
+    if (transform == NULL) {printf("[RCGE Transform] Transform up get failed: transform does not exist.\n"); return;}
+    glm_vec3_copy(transform->up, out);
+}
+
+void rcge_transform_left(rcge_transform transform, vec3 out)
+{
+    if (transform == NULL) {printf("[RCGE Transform] Transform left get failed: transform does not exist.\n"); return;}
+    glm_vec3_copy(transform->left, out);
+}
+
+void rcge_transform_forward(rcge_transform transform, vec3 out)
+{
+    if (transform == NULL) {printf("[RCGE Transform] Transform forward get failed: transform does not exist.\n"); return;}
+    glm_vec3_copy(transform->forward, out);
+}
+
+void rcge_transform_down(rcge_transform transform, vec3 out)
+{
+    if (transform == NULL) {printf("[RCGE Transform] Transform down get failed: transform does not exist.\n"); return;}
+    vec3 res;
+    glm_vec3_negate_to(transform->up, res);
+    glm_vec3_copy(res, out);
+}
+
+void rcge_transform_right(rcge_transform transform, vec3 out)
+{
+    if (transform == NULL) {printf("[RCGE Transform] Transform right get failed: transform does not exist.\n"); return;}
+    vec3 res;
+    glm_vec3_negate_to(transform->left, res);
+    glm_vec3_copy(res, out);
+}
+
+void rcge_transform_backward(rcge_transform transform, vec3 out)
+{
+    if (transform == NULL) {printf("[RCGE Transform] Transform back get failed: transform does not exist.\n"); return;}
+    vec3 res;
+    glm_vec3_negate_to(transform->forward, res);
+    glm_vec3_copy(res, out);
 }
 
 void rcge_transform_delete(rcge_transform transform)

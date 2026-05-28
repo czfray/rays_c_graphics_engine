@@ -1,6 +1,6 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
-#include <soil/SOIL.h>
+#include <soil/SOIL.h> //TODO: soil is outdated?
 #include <rcge/rcge_texture.h>
 
 #include <stdio.h>
@@ -45,7 +45,7 @@ rcge_texture rcge_texture_create(char* path, rcge_texture_wrap_type wrap, rcge_t
 
     int width, height;
     unsigned char* image = SOIL_load_image(path, &width, &height, 0, SOIL_LOAD_RGBA);
-    if (image == NULL) {printf("[RCGE TEXTURE] Texture %d failed to load (%s): SOIL failed to load image => %s\n", gl_texture, path, SOIL_last_result()); return NULL;}
+    if (image == NULL) {printf("[RCGE Texture] Texture %d failed to load (%s): SOIL failed to load image => %s\n", gl_texture, path, SOIL_last_result()); return NULL;}
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
     SOIL_free_image_data(image);
     glGenerateMipmap(GL_TEXTURE_2D);
@@ -53,7 +53,7 @@ rcge_texture rcge_texture_create(char* path, rcge_texture_wrap_type wrap, rcge_t
 
     rcge_texture texture = malloc(sizeof(*texture)); //TODO: MALLOC CHECK?
     texture->gl_texture = gl_texture;
-    printf("[RCGE TEXTURE] Texture %d loaded. (%s)\n", gl_texture, path);
+    printf("[RCGE Texture] Texture %d loaded. (%s)\n", gl_texture, path);
     return texture;
 }
 
@@ -63,7 +63,7 @@ void rcge_texture_use(rcge_texture texture)
     GLint gl_texture = texture->gl_texture;
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, gl_texture);
-    //printf("[RCGE TEXTURE] Texture %d now using.\n", gl_texture);
+    //printf("[RCGE Texture] Texture %d now using.\n", gl_texture);
 }
 
 void rcge_texture_delete(rcge_texture texture)
@@ -72,5 +72,5 @@ void rcge_texture_delete(rcge_texture texture)
     GLuint gl_texture = texture->gl_texture;
     glDeleteShader(gl_texture);
     free(texture);
-    printf("[RCGE TEXTURE] Texture %d deleted.\n", gl_texture);
+    printf("[RCGE Texture] Texture %d deleted.\n", gl_texture);
 }

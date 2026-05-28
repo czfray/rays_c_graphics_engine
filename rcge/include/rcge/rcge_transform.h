@@ -20,6 +20,13 @@ void rcge_transform_scl_set(rcge_transform transform, vec3 new_scl);
 
 void rcge_transform_add_rot_euler(rcge_transform transform, vec3 apply_rot);
 
+void rcge_transform_up(rcge_transform transform, vec3 out);
+void rcge_transform_right(rcge_transform transform, vec3 out);
+void rcge_transform_forward(rcge_transform transform, vec3 out);
+void rcge_transform_down(rcge_transform transform, vec3 out);
+void rcge_transform_left(rcge_transform transform, vec3 out);
+void rcge_transform_backward(rcge_transform transform, vec3 out);
+
 void rcge_transform_delete(rcge_transform transform);
 
 #endif

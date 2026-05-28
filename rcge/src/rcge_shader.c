@@ -39,8 +39,8 @@ GLenum gl_shader_type(rcge_shader_comp_type type) {return (type == SHADER_VERT? 
 
 rcge_shader_comp rcge_shader_comp_create(char* path, rcge_shader_comp_type type)
 {
-    char* source = read_file_all(path, BUFFERSIZE);
-    if (!source) {printf("[RCGE SHADER] Shader component failed to be created: file reading failure at \"%s\".\n", path); return NULL;}
+    char* source = rcge_io_read_file_all(path, BUFFERSIZE);
+    if (!source) {printf("[RCGE Shader] Shader component failed to be created: file reading failure at \"%s\".\n", path); return NULL;}
     
     const char* source_const = source;
     GLuint gl_shader = glCreateShader(gl_shader_type(type));
@@ -53,25 +53,25 @@ rcge_shader_comp rcge_shader_comp_create(char* path, rcge_shader_comp_type type)
     
     char compile_log[BUFFERSIZE];
     glGetShaderInfoLog(gl_shader, BUFFERSIZE, NULL, compile_log);
-    if (strlen(compile_log) > 0) printf("[RCGE SHADER] Shader component %d compilation log => %s", gl_shader, compile_log);
+    if (strlen(compile_log) > 0) printf("[RCGE Shader] Shader component %d compilation log => %s", gl_shader, compile_log);
 
-    if (compile_status == GL_FALSE) {printf("[RCGE SHADER] Shader component %d failed to be created: compilation failed.\n", gl_shader); return NULL;}
+    if (compile_status == GL_FALSE) {printf("[RCGE Shader] Shader component %d failed to be created: compilation failed.\n", gl_shader); return NULL;}
 
     rcge_shader_comp shader_comp = malloc(sizeof(*shader_comp));
     shader_comp->gl_shader = gl_shader;
 
-    printf("[RCGE SHADER] Shader component %d created. (%s)\n", gl_shader, path);
+    printf("[RCGE Shader] Shader component %d created. (%s)\n", gl_shader, path);
     return shader_comp;
 }
 
 void rcge_shader_comp_delete(rcge_shader_comp shader_comp)
 {
-    if (shader_comp == NULL) {printf("[RCGE SHADER] Shader component delete failed: shader component does not exist.\n"); return;}
+    if (shader_comp == NULL) {printf("[RCGE Shader] Shader component delete failed: shader component does not exist.\n"); return;}
 
     GLuint gl_shader = shader_comp->gl_shader;
     glDeleteShader(gl_shader);
     free(shader_comp);
-    printf("[RCGE SHADER] Shader component %d deleted.\n", gl_shader);
+    printf("[RCGE Shader] Shader component %d deleted.\n", gl_shader);
 }
 
 rcge_shader rcge_shader_create(unsigned int attrib_no, unsigned int uniform_no)
@@ -88,35 +88,35 @@ rcge_shader rcge_shader_create(unsigned int attrib_no, unsigned int uniform_no)
 
     shader->uniform_locs = malloc(uniform_no * sizeof(int));
 
-    printf("[RCGE SHADER] Shader %d created with %d attributes.\n", gl_shader_program, attrib_no);
+    printf("[RCGE Shader] Shader %d created with %d attributes.\n", gl_shader_program, attrib_no);
     return shader;
 }
 
 void rcge_shader_attach(rcge_shader shader, rcge_shader_comp shader_comp)
 {
-    if (shader_comp == NULL) {printf("[RCGE SHADER] Shader attach failed: shader component does not exist.\n"); return;}
-    if (shader == NULL) {printf("[RCGE SHADER] Shader attach failed: shader does not exist.\n"); return;}
+    if (shader_comp == NULL) {printf("[RCGE Shader] Shader attach failed: shader component does not exist.\n"); return;}
+    if (shader == NULL) {printf("[RCGE Shader] Shader attach failed: shader does not exist.\n"); return;}
 
     GLuint gl_shader_program = shader->gl_shader_program;
     GLuint gl_shader = shader_comp->gl_shader;
     glAttachShader(gl_shader_program, gl_shader);
-    printf("[RCGE SHADER] Shader component %d attached to shader %d.\n", gl_shader, gl_shader_program);
+    printf("[RCGE Shader] Shader component %d attached to shader %d.\n", gl_shader, gl_shader_program);
 }
 
 void rcge_shader_attrib_set(rcge_shader shader, unsigned int index, char* name, unsigned int size, rcge_datatype type, bool normalised)
 {
-    if (shader == NULL) {printf("[RCGE SHADER] Shader attrib set failed: shader does not exist.\n"); return;}
+    if (shader == NULL) {printf("[RCGE Shader] Shader attrib set failed: shader does not exist.\n"); return;}
 
     GLuint gl_shader_program = shader->gl_shader_program;
     GLint gl_attrib_pos = glGetAttribLocation(gl_shader_program, name);
     rcge_shader_attrib attrib = {true, normalised, type, size, gl_attrib_pos};
     (shader->attribs)[index] = attrib; //TODO: CHECK IF INDEX OUT OF RANGE
-    printf("[RCGE SHADER] Shader %d added attrib \"%s\".\n", gl_shader_program, name);
+    printf("[RCGE Shader] Shader %d added attrib \"%s\".\n", gl_shader_program, name);
 }
 
 void rcge_shader_attrib_activate_mesh(rcge_shader shader)
 {
-    if (shader == NULL) {printf("[RCGE SHADER] Shader attrib activate in mesh failed: shader does not exist.\n"); return;}
+    if (shader == NULL) {printf("[RCGE Shader] Shader attrib activate in mesh failed: shader does not exist.\n"); return;}
 
     int attrib_no = shader->attrib_no;
     rcge_shader_attrib* attrib_array = shader->attribs;
@@ -125,7 +125,7 @@ void rcge_shader_attrib_activate_mesh(rcge_shader shader)
     for (int i = 0; i < attrib_no; i++) 
     {
         rcge_shader_attrib attrib = attrib_array[i];
-        if (!attrib.valid) {printf("[RCGE SHADER] Shader %d attrib activate in mesh failed: attrib %d not set.\n", shader->gl_shader_program, i); return;}
+        if (!attrib.valid) {printf("[RCGE Shader] Shader %d attrib activate in mesh failed: attrib %d not set.\n", shader->gl_shader_program, i); return;}
         stride += attrib.size;
     }
 
@@ -147,14 +147,14 @@ void rcge_shader_attrib_activate_mesh(rcge_shader shader)
 void rcge_shader_uniform_loc_set(rcge_shader shader, unsigned int index, char* name)
 {
     //TODO: TEST IF INDEX OUT OF BOUNDS
-    if (shader == NULL) {printf("[RCGE SHADER] Shader uniform loc set failed: shader does not exist.\n");}
+    if (shader == NULL) {printf("[RCGE Shader] Shader uniform loc set failed: shader does not exist.\n");}
     (shader->uniform_locs)[index] = glGetUniformLocation(shader->gl_shader_program, name);
-    printf("[RCGE SHADER] Shader uniform loc with name \"%s\" set at index %d\n", name, index);
+    printf("[RCGE Shader] Shader uniform loc with name \"%s\" set at index %d\n", name, index);
 }
 
 void rcge_shader_compile(rcge_shader shader)
 {
-    if (shader == NULL) {printf("[RCGE SHADER] Shader compile failed: shader does not exist.\n"); return;}
+    if (shader == NULL) {printf("[RCGE Shader] Shader compile failed: shader does not exist.\n"); return;}
 
     GLuint gl_shader_program = shader->gl_shader_program;
     glLinkProgram(gl_shader_program);
@@ -165,43 +165,43 @@ void rcge_shader_compile(rcge_shader shader)
     char compile_log[BUFFERSIZE];
     glGetProgramInfoLog(gl_shader_program, BUFFERSIZE, NULL, compile_log);
 
-    if (strlen(compile_log) > 0) printf("[RCGE SHADER] Shader %d compile log => %s", gl_shader_program, compile_log);
-    if (compile_status == GL_FALSE) printf("[RCGE SHADER] Shader %d compile failed: linking error.\n", gl_shader_program);
-    else printf("[RCGE SHADER] Shader %d compiled.\n", gl_shader_program);
+    if (strlen(compile_log) > 0) printf("[RCGE Shader] Shader %d compile log => %s", gl_shader_program, compile_log);
+    if (compile_status == GL_FALSE) printf("[RCGE Shader] Shader %d compile failed: linking error.\n", gl_shader_program);
+    else printf("[RCGE Shader] Shader %d compiled.\n", gl_shader_program);
 }
 
 void rcge_shader_use(rcge_shader shader)
 {
-    if (shader == NULL) {printf("[RCGE SHADER] Shader use failed: shader does not exist.\n"); return;}
+    if (shader == NULL) {printf("[RCGE Shader] Shader use failed: shader does not exist.\n"); return;}
 
     GLuint gl_shader_program = shader->gl_shader_program;
     glUseProgram(gl_shader_program);
-    printf("[RCGE SHADER] Shader %d now using.\n", gl_shader_program);
+    printf("[RCGE Shader] Shader %d now using.\n", gl_shader_program);
 }
 
 void rcge_shader_delete(rcge_shader shader)
 {
-    if (shader == NULL) {printf("[RCGE SHADER] Shader delete failed: shader does not exist.\n"); return;}
+    if (shader == NULL) {printf("[RCGE Shader] Shader delete failed: shader does not exist.\n"); return;}
     free(shader->attribs);
     free(shader->uniform_locs);
     GLuint gl_shader_program = shader->gl_shader_program;
     glDeleteProgram(gl_shader_program);
     free(shader);
-    printf("[RCGE SHADER] Shader %d deleted.\n", gl_shader_program);
+    printf("[RCGE Shader] Shader %d deleted.\n", gl_shader_program);
 }
 
 void rcge_shader_color_out_location(rcge_shader shader, unsigned int color_no, char* loc_name)
 {
-    if (shader == NULL) {printf("[RCGE SHADER] Shader set color out location failed: shader does not exist.\n"); return;}
+    if (shader == NULL) {printf("[RCGE Shader] Shader set color out location failed: shader does not exist.\n"); return;}
     GLuint gl_shader_program = shader->gl_shader_program;
     glBindFragDataLocation(gl_shader_program, color_no, loc_name);
-    printf("[RCGE SHADER] Shader %d set color out location of %d to \"%s\".\n", gl_shader_program, color_no, loc_name);
+    printf("[RCGE Shader] Shader %d set color out location of %d to \"%s\".\n", gl_shader_program, color_no, loc_name);
 }
 
 int rcge_shader_uniform_index_to_loc(rcge_shader shader, unsigned int index)
 {
     //TODO: do bounds check
-    if (shader == NULL) {printf("[RCGE SHADER] Shader uniform index to loc failed: shader does not exist.\n");}
+    if (shader == NULL) {printf("[RCGE Shader] Shader uniform index to loc failed: shader does not exist.\n");}
     return (shader->uniform_locs)[index];
 }
 

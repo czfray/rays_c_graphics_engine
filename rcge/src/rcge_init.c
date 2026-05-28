@@ -8,17 +8,17 @@ static bool status = false;
 
 bool rcge_init(void)
 {
-    if(status) {printf("[RCGE INIT] RCGE already initialised.\n"); return true;}
-    if (!glfwInit()) {printf("[RCGE INIT] RCGE failed to init: GLFW failed.\n"); return false;}
-    printf("[RCGE INIT] RCGE initialised.\n");
+    if(status) {printf("[RCGE Init] RCGE already initialised.\n"); return true;}
+    if (!glfwInit()) {printf("[RCGE Init] RCGE failed to init: GLFW failed.\n"); return false;}
+    printf("[RCGE Init] RCGE initialised.\n");
     status = true;
     return true;
 }
 void rcge_terminate(void)
 {
-    if(!status) {printf("[RCGE INIT] RCGE failed to terminate: already terminated.\n"); return;}
+    if(!status) {printf("[RCGE Init] RCGE failed to terminate: already terminated.\n"); return;}
     glfwTerminate();
     status = false;
-    printf("[RCGE INIT] RCGE terminated.\n");
+    printf("[RCGE Init] RCGE terminated.\n");
 }
 bool rcge_status() {return status;}

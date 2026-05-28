@@ -1,7 +1,7 @@
 #ifndef RCGE_CAMERA_H
 #define RCGE_CAMERA_H
 #include <cglm/cglm.h>
-#include <rcge/rcge_transform.h>
+
 #include <rcge/rcge_shader.h>
 #include <stdbool.h>
 
@@ -18,6 +18,13 @@ void rcge_camera_rot_get(rcge_camera camera, versor out);
 void rcge_camera_pos_set(rcge_camera camera, vec3 new_pos);
 void rcge_camera_rot_set(rcge_camera camera, versor new_rot);
 void rcge_camera_add_rot_euler(rcge_camera camera, vec3 apply_rot);
+
+void rcge_camera_up(rcge_camera camera, vec3 out);
+void rcge_camera_right(rcge_camera camera, vec3 out);
+void rcge_camera_forward(rcge_camera camera, vec3 out);
+void rcge_camera_down(rcge_camera camera, vec3 out);
+void rcge_camera_left(rcge_camera camera, vec3 out);
+void rcge_camera_backward(rcge_camera camera, vec3 out);
 
 void rcge_camera_delete(rcge_camera camera);
 

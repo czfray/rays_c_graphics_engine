@@ -1,5 +1,6 @@
 #include <cglm/cglm.h>
 
+#include <rcge/rcge_transform.h>
 #include <rcge/rcge_camera.h>
 
 #include <stdio.h>
@@ -127,6 +128,49 @@ void rcge_camera_ratio_set(rcge_camera camera, double ratio)
     camera->ratio = ratio;
     printf("[RCGE Camera] Camera ratio set to %.2f.\n", ratio);
 }
+
+void rcge_camera_up(rcge_camera camera, vec3 out)
+{
+    if (camera == NULL) {printf("[RCGE Camera] Camera transform dir get failed: camera does not exist.\n"); return;}
+    rcge_transform transform = camera->transform;
+    rcge_transform_up(transform, out);
+}
+
+void rcge_camera_right(rcge_camera camera, vec3 out)
+{
+    if (camera == NULL) {printf("[RCGE Camera] Camera transform dir get failed: camera does not exist.\n"); return;}
+    rcge_transform transform = camera->transform;
+    rcge_transform_right(transform, out);
+}
+
+void rcge_camera_forward(rcge_camera camera, vec3 out)
+{
+    if (camera == NULL) {printf("[RCGE Camera] Camera transform dir get failed: camera does not exist.\n"); return;}
+    rcge_transform transform = camera->transform;
+    rcge_transform_forward(transform, out);
+}
+
+void rcge_camera_down(rcge_camera camera, vec3 out)
+{
+    if (camera == NULL) {printf("[RCGE Camera] Camera transform dir get failed: camera does not exist.\n"); return;}
+    rcge_transform transform = camera->transform;
+    rcge_transform_down(transform, out);
+}
+
+void rcge_camera_left(rcge_camera camera, vec3 out)
+{
+    if (camera == NULL) {printf("[RCGE Camera] Camera transform dir get failed: camera does not exist.\n"); return;}
+    rcge_transform transform = camera->transform;
+    rcge_transform_left(transform, out);
+}
+
+void rcge_camera_backward(rcge_camera camera, vec3 out)
+{
+    if (camera == NULL) {printf("[RCGE Camera] Camera transform dir get failed: camera does not exist.\n"); return;}
+    rcge_transform transform = camera->transform;
+    rcge_transform_backward(transform, out);
+}
+
 
 void rcge_camera_delete(rcge_camera camera)
 {

@@ -12,4 +12,6 @@ void rcge_window_run(rcge_window window, rcge_start_callback start_cb, rcge_upda
 float rcge_window_ratio(rcge_window window);
 void rcge_window_stop(rcge_window window);
 
+void* rcge_window_raw_pointer(rcge_window window);
+
 #endif
