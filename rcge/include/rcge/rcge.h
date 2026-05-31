@@ -14,5 +14,7 @@
 #include <rcge/rcge_transform.h>
 #include <rcge/rcge_mesh.h>
 #include <rcge/rcge_camera.h>
+#include <rcge/rcge_element.h>
+#include <rcge/rcge_singlemesh_element.h>
 
 #endif

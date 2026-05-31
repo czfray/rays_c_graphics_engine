@@ -24,8 +24,10 @@ double lastX;
 double lastY;
 
 rcge_shader shader;
-rcge_mesh mesh;
+rcge_texture keven_texture;
+unsigned int mesh_element_index;
 rcge_camera camera;
+rcge_element_manager element_manager;
 
 void start(rcge_window window)
 {
@@ -35,6 +37,78 @@ void start(rcge_window window)
 
     rcge_shader_uniform_vec4(shader, 3, GLM_VEC4_ONE); //TODO SET MESH COLOR
     rcge_io_mouse_loc(window, &lastX, &lastY);
+
+    float vertices[] =
+    {
+        -0.5, -0.5, -0.5,   1.0, 1.0,
+        -0.5, 0.5, -0.5,    1.0, 0,
+        0.5, 0.5, -0.5,     0, 0,
+        0.5, -0.5, -0.5,    0, 1.0, 
+
+        -0.5, -0.5, 0.5,    1.0, 1.0,
+        -0.5, 0.5, 0.5,     1.0, 0,
+        -0.5, 0.5, -0.5,    0, 0,
+        -0.5, -0.5, -0.5,   0, 1.0, 
+
+        0.5, -0.5, 0.5,     1.0, 1.0,
+        0.5, 0.5, 0.5,      1.0, 0,
+        -0.5, 0.5, 0.5,     0, 0,
+        -0.5, -0.5, 0.5,    0, 1.0, 
+
+        0.5, -0.5, -0.5,    1.0, 1.0,
+        0.5, 0.5, -0.5,     1.0, 0,
+        0.5, 0.5, 0.5,      0, 0,
+        0.5, -0.5, 0.5,     0, 1.0, 
+
+        -0.5, 0.5, -0.5,    1.0, 1.0,
+        -0.5, 0.5, 0.5,     1.0, 0,
+        0.5, 0.5, 0.5,      0, 0,
+        0.5, 0.5, -0.5,     0, 1.0, 
+
+        -0.5, -0.5, 0.5,    1.0, 1.0,
+        -0.5, -0.5, -0.5,   1.0, 0,
+        0.5, -0.5, -0.5,    0, 0,
+        0.5, -0.5, 0.5,     0, 1.0, 
+    };
+
+    unsigned int indices[] = 
+    {
+        0, 1, 2,
+        2, 3, 0,
+        
+        4, 5, 6,
+        6, 7, 4,
+
+        8, 9, 10,
+        10, 11, 8,
+
+        12, 13, 14,
+        14, 15, 12,
+
+        16, 17, 18,
+        18, 19, 16,
+
+        20, 21, 22,
+        22, 23, 20
+    };
+
+    mesh_element_index = rcge_singlemesh_create_in_manager(element_manager, shader, 0, keven_texture, vertices, 120, indices, 36, MESH_STATIC);
+
+    for (int k = -10; k < 10; k++)
+    {
+        for (int j = -10; j < 10; j++)
+        {
+            for (int i = -10; i < 10; i++)
+            {
+                if (i == 0 && j == 0 && k == 0) continue;
+                unsigned int index = rcge_singlemesh_create_in_manager(element_manager, shader, 0, keven_texture, vertices, 120, indices, 36, MESH_STATIC);
+                rcge_transform transform = rcge_mesh_transform_get(rcge_singlemesh_mesh_get(rcge_element_manager_element_get(element_manager, index)));
+                vec3 pos = {i * 3, j * 3, k * 3};
+                rcge_transform_pos_set(transform, pos);
+            }
+        }
+    }
+
 }
 
 void update_fps(double delta_time)
@@ -54,7 +128,7 @@ void update(rcge_window window, double delta_time)
 {
     if (rcge_io_input_pressed(window, IO_KEY_ESCAPE)) rcge_window_stop(window);
     
-    rcge_transform transform = rcge_mesh_transform_get(mesh);
+    rcge_transform transform = rcge_mesh_transform_get(rcge_singlemesh_mesh_get(rcge_element_manager_element_get(element_manager, mesh_element_index)));
 
     vec3 x_axis = {1, 0, 0};
     vec3 y_axis = {0, 1, 0};
@@ -64,10 +138,14 @@ void update(rcge_window window, double delta_time)
     vec3 ny_axis = {0, -1, 0};
     vec3 nz_axis = {0, 0, -1};
 
+    float currentfov = rcge_camera_fov_size_get(camera);
+    if (rcge_io_input_pressed(window, IO_MOUSE_LEFT)) rcge_camera_fov_size_set(camera, currentfov + 100 * delta_time);
+    if (rcge_io_input_pressed(window, IO_MOUSE_RIGHT)) rcge_camera_fov_size_set(camera, currentfov - 100 * delta_time);
+
     //cube scale
     vec3 apply_scl = GLM_VEC3_ZERO_INIT;
-    if (rcge_io_input_pressed(window, IO_MOUSE_LEFT)) glm_vec3_sub(apply_scl, GLM_VEC3_ONE, apply_scl); 
-    if (rcge_io_input_pressed(window, IO_MOUSE_RIGHT)) glm_vec3_add(apply_scl, GLM_VEC3_ONE, apply_scl); 
+    if (rcge_io_input_pressed(window, IO_KEY_KP_ADD)) glm_vec3_add(apply_scl, GLM_VEC3_ONE, apply_scl); 
+    if (rcge_io_input_pressed(window, IO_KEY_KP_SUBTRACT)) glm_vec3_sub(apply_scl, GLM_VEC3_ONE, apply_scl); 
     glm_vec3_scale(apply_scl, 3 * delta_time, apply_scl);
 
     vec3 new_scl;
@@ -149,7 +227,14 @@ void update(rcge_window window, double delta_time)
     glm_vec3_scale(apply_player_rot, 0.004, apply_player_rot);
     rcge_camera_add_rot_euler(camera, apply_player_rot);
 
-    rcge_mesh_draw(mesh);
+    if (rcge_io_input_pressed(window, IO_KEY_BACKSPACE))
+    {
+        rcge_camera_rot_set(camera, GLM_QUAT_IDENTITY);
+        vec3 def = {0, 0, -5};
+        rcge_camera_pos_set(camera, def);
+    }
+
+    rcge_element_manager_update(element_manager, delta_time);
     
     update_fps(delta_time);
 }
@@ -162,7 +247,7 @@ void resize(rcge_window window, int width, int height)
 int main(void)
 {
     rcge_init();
-    rcge_window window = rcge_window_create(800, 600, "RCGE Test", true);
+    rcge_window window = rcge_window_create(608, 1080, "RCGE Test", true);
     
     rcge_shader_comp vertex_comp = rcge_shader_comp_create("shaders/default.vert", SHADER_VERT);
     rcge_shader_comp fragment_comp = rcge_shader_comp_create("shaders/default.frag", SHADER_FRAG);
@@ -185,73 +270,19 @@ int main(void)
     
     camera = rcge_camera_create(shader, 1, 2, true, 45.0f, 0.001f, 100.0f, rcge_window_ratio(window));
     //camera = rcge_camera_create(shader, 1, 2, false, 2.0f, 1.0f, 100.0f, rcge_window_ratio(window));
-    vec3 cam_pos = {0.0f, 0.0f, -5.0f};
+    vec3 cam_pos = {0.0f, 0.0f, -2.0f};
     rcge_camera_pos_set(camera, cam_pos);
 
-    rcge_texture texture = rcge_texture_create("textures/keven.png", TEX_CLAMP_TO_EDGE, TEX_LINEAR);
-    rcge_texture_use(texture);
+    keven_texture = rcge_texture_create("textures/keven.png", TEX_CLAMP_TO_EDGE, TEX_LINEAR);
+    rcge_texture_use(keven_texture);
     rcge_shader_uniform_int(shader, 4, 0); //OPTIONAL, default is 0 already, only need if multiple texture layer.
 
-    float vertices[] =
-    {
-        -0.5, -0.5, -0.5,   1.0, 1.0,
-        -0.5, 0.5, -0.5,    1.0, 0,
-        0.5, 0.5, -0.5,     0, 0,
-        0.5, -0.5, -0.5,    0, 1.0, 
-
-        -0.5, -0.5, 0.5,    1.0, 1.0,
-        -0.5, 0.5, 0.5,     1.0, 0,
-        -0.5, 0.5, -0.5,    0, 0,
-        -0.5, -0.5, -0.5,   0, 1.0, 
-
-        0.5, -0.5, 0.5,     1.0, 1.0,
-        0.5, 0.5, 0.5,      1.0, 0,
-        -0.5, 0.5, 0.5,     0, 0,
-        -0.5, -0.5, 0.5,    0, 1.0, 
-
-        0.5, -0.5, -0.5,    1.0, 1.0,
-        0.5, 0.5, -0.5,     1.0, 0,
-        0.5, 0.5, 0.5,      0, 0,
-        0.5, -0.5, 0.5,     0, 1.0, 
-
-        -0.5, 0.5, -0.5,    1.0, 1.0,
-        -0.5, 0.5, 0.5,     1.0, 0,
-        0.5, 0.5, 0.5,      0, 0,
-        0.5, 0.5, -0.5,     0, 1.0, 
-
-        -0.5, -0.5, 0.5,    1.0, 1.0,
-        -0.5, -0.5, -0.5,   1.0, 0,
-        0.5, -0.5, -0.5,    0, 0,
-        0.5, -0.5, 0.5,     0, 1.0, 
-    };
-
-    unsigned int indices[] = 
-    {
-        0, 1, 2,
-        2, 3, 0,
-        
-        4, 5, 6,
-        6, 7, 4,
-
-        8, 9, 10,
-        10, 11, 8,
-
-        12, 13, 14,
-        14, 15, 12,
-
-        16, 17, 18,
-        18, 19, 16,
-
-        20, 21, 22,
-        22, 23, 20
-    };
-
-    mesh = rcge_mesh_create(shader, 0, texture, vertices, 120, indices, 36, MESH_STATIC);
+    element_manager = rcge_element_manager_create(128);
 
     rcge_window_run(window, start, update, resize);
     
-    rcge_mesh_delete(mesh);
-    rcge_texture_delete(texture);
+    rcge_element_manager_delete(element_manager);
+    rcge_texture_delete(keven_texture);
     rcge_camera_delete(camera);
     rcge_shader_delete(shader);
     rcge_terminate();
