@@ -1,0 +1,34 @@
+\doxysection{rcge\+\_\+texture.\+h File Reference}
+\hypertarget{rcge__texture_8h}{}\label{rcge__texture_8h}\index{rcge\_texture.h@{rcge\_texture.h}}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct rcge\+\_\+texture\+\_\+\+CDT \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7de}{rcge\+\_\+texture\+\_\+wrap\+\_\+type}} \{ \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea3dcb394cc04b1f4a20936c3f5bdc7c5f}{TEX\+\_\+\+REPEAT}}
+, \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea3fa3067b0466494e84e904b6426a119a}{TEX\+\_\+\+MIRRORED\+\_\+\+REPEAT}}
+, \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea0a4cdfb8e8cfc751741e65d2987a19f4}{TEX\+\_\+\+CLAMP\+\_\+\+TO\+\_\+\+EDGE}}
+, \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea1ef61a362c075f0222c93234128f5eb9}{TEX\+\_\+\+CLAMP\+\_\+\+TO\+\_\+\+BORDER}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{group__textures_ga9674787010c192c7be9a11cdc6b6c2db}{rcge\+\_\+texture\+\_\+filter\+\_\+type}} \{ \doxymbox{\hyperlink{group__textures_ga9674787010c192c7be9a11cdc6b6c2dba5a320f382520f0ba216e23f5aab65985}{TEX\+\_\+\+LINEAR}}
+, \doxymbox{\hyperlink{group__textures_ga9674787010c192c7be9a11cdc6b6c2dbad312ac53577059764f0aa5447b7d8709}{TEX\+\_\+\+NEAREST}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}} \doxymbox{\hyperlink{group__textures_ga280e7f887d44659563aa0e87b5c64b30}{rcge\+\_\+texture\+\_\+create}} (char \texorpdfstring{$\ast$}{*}path, \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7de}{rcge\+\_\+texture\+\_\+wrap\+\_\+type}} wrap, \doxymbox{\hyperlink{group__textures_ga9674787010c192c7be9a11cdc6b6c2db}{rcge\+\_\+texture\+\_\+filter\+\_\+type}} filter)
+\item 
+void \doxymbox{\hyperlink{group__textures_ga641fabb0eb989aa58d3aabd73d34775b}{rcge\+\_\+texture\+\_\+use}} (\doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}} texture)
+\item 
+void \doxymbox{\hyperlink{group__textures_gabe24972a8350da7577b66b6f9514248e}{rcge\+\_\+texture\+\_\+delete}} (\doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}} texture)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Image texture management. 
+

@@ -1,0 +1,396 @@
+\doxysection{Elements and Element Managers }
+\hypertarget{group__elements}{}\label{group__elements}\index{Elements and Element Managers@{Elements and Element Managers}}
+
+
+\doxysubsection{Detailed Description}
+Elements (RCGE object) management. 
+
+\hypertarget{group__elements_elements_obj}{}\doxysubsubsection{\texorpdfstring{Elements}{Elements}}\label{group__elements_elements_obj}
+An element groups multiple components (like meshes or sound sources) together, allowing a more organised way to manage objects that work together.
+
+e.\+g. If 6 meshes makes up a player model, you can make a "{}player"{} element, attach 6 meshes to the element, and manage them together. Originally, you have to call \doxylink{group__meshes_gade5d248ba4125f12dfa6b3b8ad5c0616}{rcge\+\_\+mesh\+\_\+draw} for every element per frame. It makes the code very messy.
+
+If you manage them under one element, you can group the draws in one update callback and simply call 1 function \doxylink{group__elements_ga66287a114895b04cfdac050e59910aad}{rcge\+\_\+element\+\_\+update} per frame, making the code way cleaner.
+
+By adding component deletion calls in the deletion callback of an element, components can be automatically deleted when their parent element are deleted as well.\hypertarget{group__elements_elements_manager}{}\doxysubsubsection{\texorpdfstring{Element Manager}{Element Manager}}\label{group__elements_elements_manager}
+If you have created a lot of elements, it becomes tedious to call \doxylink{group__elements_ga66287a114895b04cfdac050e59910aad}{rcge\+\_\+element\+\_\+update} for all element every frame. You do not want 100 lines of the same code right?
+
+An element manager groups elements together, so that you do not have to update every element one by one per frame. Instead, after you create an element, you could simply attach the element to a manager, and simply call a single function \doxylink{group__elements_ga6ccf6875a32888495ad705984f58c47d}{rcge\+\_\+element\+\_\+manager\+\_\+update} per frame to update all elements. This also allows the automatic deletion of elements in the manager when the manager itself is deleted. \doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct rcge\+\_\+element\+\_\+\+CDT \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}
+\item 
+typedef struct rcge\+\_\+element\+\_\+manager\+\_\+\+CDT \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__elements_ga628cb3986875939189522ec0748db5d2}{rcge\+\_\+element\+\_\+manager}}
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__elements_ga7677f5a490502ba8b72ceef49e0f2f89}{rcge\+\_\+element\+\_\+start\+\_\+callback}}) (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}})
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__elements_gaa24402abf82f998956d2d0d3647dc109}{rcge\+\_\+element\+\_\+status\+\_\+callback}}) (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}, bool)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__elements_ga7a84726421db16230053c9a4160056d7}{rcge\+\_\+element\+\_\+update\+\_\+callback}}) (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}, double)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__elements_gae42f7bc4c5befd99711fa992b92e6ab5}{rcge\+\_\+element\+\_\+delete\+\_\+callback}}) (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}} \doxymbox{\hyperlink{group__elements_ga82e9c9aed90d40ef89db5dbdf2ae4504}{rcge\+\_\+element\+\_\+create}} (unsigned int comp\+\_\+no, \doxymbox{\hyperlink{group__elements_ga7677f5a490502ba8b72ceef49e0f2f89}{rcge\+\_\+element\+\_\+start\+\_\+callback}} start\+\_\+cb, \doxymbox{\hyperlink{group__elements_gaa24402abf82f998956d2d0d3647dc109}{rcge\+\_\+element\+\_\+status\+\_\+callback}} enable\+\_\+cb, \doxymbox{\hyperlink{group__elements_ga7a84726421db16230053c9a4160056d7}{rcge\+\_\+element\+\_\+update\+\_\+callback}} update\+\_\+cb, \doxymbox{\hyperlink{group__elements_gae42f7bc4c5befd99711fa992b92e6ab5}{rcge\+\_\+element\+\_\+delete\+\_\+callback}} delete\+\_\+cb)
+\item 
+void \doxymbox{\hyperlink{group__elements_ga9fb6e506caa38424e88b71aa146f32c6}{rcge\+\_\+element\+\_\+attach}} (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}} element, unsigned int index, void \texorpdfstring{$\ast$}{*}comp)
+\item 
+void \doxymbox{\hyperlink{group__elements_ga911e5bb955d8135b4c6669aee1b72bc9}{rcge\+\_\+element\+\_\+start}} (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}} element)
+\item 
+void \doxymbox{\hyperlink{group__elements_ga66287a114895b04cfdac050e59910aad}{rcge\+\_\+element\+\_\+update}} (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}} element, double delta\+\_\+time)
+\item 
+void \doxymbox{\hyperlink{group__elements_ga1ed294a9c43c5fe85a6012457ed13efb}{rcge\+\_\+element\+\_\+enable}} (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}} element, bool enable)
+\item 
+bool \doxymbox{\hyperlink{group__elements_ga95de7b71c635836228c41f0c505a103b}{rcge\+\_\+element\+\_\+status}} (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}} element)
+\item 
+void \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__elements_ga63769ced15c7abf72166b57d11263a70}{rcge\+\_\+element\+\_\+comp\+\_\+get}} (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}} element, unsigned int index)
+\item 
+void \doxymbox{\hyperlink{group__elements_gab647d3bc8ccee34d558b2fadc85f6e76}{rcge\+\_\+element\+\_\+delete}} (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}} element)
+\item 
+\doxymbox{\hyperlink{group__elements_ga628cb3986875939189522ec0748db5d2}{rcge\+\_\+element\+\_\+manager}} \doxymbox{\hyperlink{group__elements_gab930c0cbff6856fc351e6889fb8dc55f}{rcge\+\_\+element\+\_\+manager\+\_\+create}} (unsigned int buffer\+\_\+size)
+\item 
+unsigned int \doxymbox{\hyperlink{group__elements_ga7159295a16286badbcadaf9a783f662d}{rcge\+\_\+element\+\_\+manager\+\_\+attach}} (\doxymbox{\hyperlink{group__elements_ga628cb3986875939189522ec0748db5d2}{rcge\+\_\+element\+\_\+manager}} manager, \doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}} element)
+\item 
+\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}} \doxymbox{\hyperlink{group__elements_gab2775f1fb84ddafea260384a289bd7c7}{rcge\+\_\+element\+\_\+manager\+\_\+element\+\_\+get}} (\doxymbox{\hyperlink{group__elements_ga628cb3986875939189522ec0748db5d2}{rcge\+\_\+element\+\_\+manager}} manager, unsigned int index)
+\item 
+void \doxymbox{\hyperlink{group__elements_ga6ccf6875a32888495ad705984f58c47d}{rcge\+\_\+element\+\_\+manager\+\_\+update}} (\doxymbox{\hyperlink{group__elements_ga628cb3986875939189522ec0748db5d2}{rcge\+\_\+element\+\_\+manager}} manager, double delta\+\_\+time)
+\item 
+void \doxymbox{\hyperlink{group__elements_gabdb0e5c8a6a044e192965f8023e9b45b}{rcge\+\_\+element\+\_\+manager\+\_\+delete}} (\doxymbox{\hyperlink{group__elements_ga628cb3986875939189522ec0748db5d2}{rcge\+\_\+element\+\_\+manager}} manager)
+\end{DoxyCompactItemize}
+
+
+\label{group__elements_doc-typedef-members}
+\Hypertarget{group__elements_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element@{rcge\_element}}
+\index{rcge\_element@{rcge\_element}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element}{rcge\_element}}
+{\footnotesize\ttfamily \label{group__elements_ga714d98cafb18ba007d50622bbe9d84cd} 
+typedef struct rcge\+\_\+element\+\_\+\+CDT\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}}
+
+Datatype representing an element \Hypertarget{group__elements_ga628cb3986875939189522ec0748db5d2}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_manager@{rcge\_element\_manager}}
+\index{rcge\_element\_manager@{rcge\_element\_manager}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_manager}{rcge\_element\_manager}}
+{\footnotesize\ttfamily \label{group__elements_ga628cb3986875939189522ec0748db5d2} 
+typedef struct rcge\+\_\+element\+\_\+manager\+\_\+\+CDT\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__elements_ga628cb3986875939189522ec0748db5d2}{rcge\+\_\+element\+\_\+manager}}}
+
+Datatype representing an element manager. \Hypertarget{group__elements_ga7677f5a490502ba8b72ceef49e0f2f89}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_start\_callback@{rcge\_element\_start\_callback}}
+\index{rcge\_element\_start\_callback@{rcge\_element\_start\_callback}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_start\_callback}{rcge\_element\_start\_callback}}
+{\footnotesize\ttfamily \label{group__elements_ga7677f5a490502ba8b72ceef49e0f2f89} 
+typedef void(\texorpdfstring{$\ast$}{*} rcge\+\_\+element\+\_\+start\+\_\+callback) (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}})}
+
+
+
+Function pointer representing callbacks executed when an element is first enabled. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em element} & The element that just first got enabled. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__elements_gaa24402abf82f998956d2d0d3647dc109}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_status\_callback@{rcge\_element\_status\_callback}}
+\index{rcge\_element\_status\_callback@{rcge\_element\_status\_callback}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_status\_callback}{rcge\_element\_status\_callback}}
+{\footnotesize\ttfamily \label{group__elements_gaa24402abf82f998956d2d0d3647dc109} 
+typedef void(\texorpdfstring{$\ast$}{*} rcge\+\_\+element\+\_\+status\+\_\+callback) (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}, bool)}
+
+
+
+Function pointer representing callbacks executed when an element is enabled or disabled. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em element} & The element that just got enabled/\+disabled. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__elements_ga7a84726421db16230053c9a4160056d7}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_update\_callback@{rcge\_element\_update\_callback}}
+\index{rcge\_element\_update\_callback@{rcge\_element\_update\_callback}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_update\_callback}{rcge\_element\_update\_callback}}
+{\footnotesize\ttfamily \label{group__elements_ga7a84726421db16230053c9a4160056d7} 
+typedef void(\texorpdfstring{$\ast$}{*} rcge\+\_\+element\+\_\+update\+\_\+callback) (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}, double)}
+
+
+
+Function pointer representing callbacks executed when an element is updated per frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em element} & The element that is updating. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__elements_gae42f7bc4c5befd99711fa992b92e6ab5}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_delete\_callback@{rcge\_element\_delete\_callback}}
+\index{rcge\_element\_delete\_callback@{rcge\_element\_delete\_callback}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_delete\_callback}{rcge\_element\_delete\_callback}}
+{\footnotesize\ttfamily \label{group__elements_gae42f7bc4c5befd99711fa992b92e6ab5} 
+typedef void(\texorpdfstring{$\ast$}{*} rcge\+\_\+element\+\_\+delete\+\_\+callback) (\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}})}
+
+
+
+Function pointer representing callbacks executed when an element is deleted. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em element} & The element that is deleted. \\
+\hline
+\end{DoxyParams}
+
+
+\label{group__elements_doc-func-members}
+\Hypertarget{group__elements_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group__elements_ga82e9c9aed90d40ef89db5dbdf2ae4504}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_create@{rcge\_element\_create}}
+\index{rcge\_element\_create@{rcge\_element\_create}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_create()}{rcge\_element\_create()}}
+{\footnotesize\ttfamily \label{group__elements_ga82e9c9aed90d40ef89db5dbdf2ae4504} 
+\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}} rcge\+\_\+element\+\_\+create (\begin{DoxyParamCaption}\item[{unsigned int}]{comp\+\_\+no}{, }\item[{\doxymbox{\hyperlink{group__elements_ga7677f5a490502ba8b72ceef49e0f2f89}{rcge\+\_\+element\+\_\+start\+\_\+callback}}}]{start\+\_\+cb}{, }\item[{\doxymbox{\hyperlink{group__elements_gaa24402abf82f998956d2d0d3647dc109}{rcge\+\_\+element\+\_\+status\+\_\+callback}}}]{enable\+\_\+cb}{, }\item[{\doxymbox{\hyperlink{group__elements_ga7a84726421db16230053c9a4160056d7}{rcge\+\_\+element\+\_\+update\+\_\+callback}}}]{update\+\_\+cb}{, }\item[{\doxymbox{\hyperlink{group__elements_gae42f7bc4c5befd99711fa992b92e6ab5}{rcge\+\_\+element\+\_\+delete\+\_\+callback}}}]{delete\+\_\+cb}{}\end{DoxyParamCaption})}
+
+
+
+Creates an element. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em comp\+\_\+no} & Number of components the element to be created has. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em start\+\_\+cb} & The function to be called when the element to be created is first enabled. See \doxylink{group__elements_ga7677f5a490502ba8b72ceef49e0f2f89}{rcge\+\_\+element\+\_\+start\+\_\+callback}. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em enable\+\_\+cb} & The function to be called when the element to be created is enabled or disabled. See \doxylink{group__elements_gaa24402abf82f998956d2d0d3647dc109}{rcge\+\_\+element\+\_\+status\+\_\+callback}. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em update\+\_\+cb} & The function to be called when the element to be created is updated per frame. See \doxylink{group__elements_ga7a84726421db16230053c9a4160056d7}{rcge\+\_\+element\+\_\+update\+\_\+callback}. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em delete\+\_\+cb} & The function to be called when the element to be created is deleted. See \doxylink{group__elements_gae42f7bc4c5befd99711fa992b92e6ab5}{rcge\+\_\+element\+\_\+delete\+\_\+callback}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The element created, NULL if failed. 
+\end{DoxyReturn}
+\Hypertarget{group__elements_ga9fb6e506caa38424e88b71aa146f32c6}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_attach@{rcge\_element\_attach}}
+\index{rcge\_element\_attach@{rcge\_element\_attach}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_attach()}{rcge\_element\_attach()}}
+{\footnotesize\ttfamily \label{group__elements_ga9fb6e506caa38424e88b71aa146f32c6} 
+void rcge\+\_\+element\+\_\+attach (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}}]{element}{, }\item[{unsigned int}]{index}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{comp}{}\end{DoxyParamCaption})}
+
+
+
+Attaches a component to an element. 
+
+\begin{DoxyNote}{Note}
+Two components cannot share the same index. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em element} & The element to be attached. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em index} & The index to assign to for the component to attach. It must be a non-\/negative int smaller than the total number of components the element has. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em comp} & The component to attach. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__elements_ga911e5bb955d8135b4c6669aee1b72bc9}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_start@{rcge\_element\_start}}
+\index{rcge\_element\_start@{rcge\_element\_start}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_start()}{rcge\_element\_start()}}
+{\footnotesize\ttfamily \label{group__elements_ga911e5bb955d8135b4c6669aee1b72bc9} 
+void rcge\+\_\+element\+\_\+start (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}}]{element}{}\end{DoxyParamCaption})}
+
+
+
+Enable an element for the first time after it\textquotesingle{}s initialisation. 
+
+\begin{DoxyNote}{Note}
+Only call once after attaching all components have been attached to the element with \doxylink{group__elements_ga9fb6e506caa38424e88b71aa146f32c6}{rcge\+\_\+element\+\_\+attach}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em element} & The element to enable. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__elements_ga66287a114895b04cfdac050e59910aad}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_update@{rcge\_element\_update}}
+\index{rcge\_element\_update@{rcge\_element\_update}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_update()}{rcge\_element\_update()}}
+{\footnotesize\ttfamily \label{group__elements_ga66287a114895b04cfdac050e59910aad} 
+void rcge\+\_\+element\+\_\+update (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}}]{element}{, }\item[{double}]{delta\+\_\+time}{}\end{DoxyParamCaption})}
+
+
+
+Updates an element. Call this per frame. 
+
+\begin{DoxyNote}{Note}
+If you created this element with a element manager, you do not have to call update. The element manager updates the element for you per frame. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em element} & The element to update. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em delta\+\_\+time} & Time passed from the last frame. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__elements_ga1ed294a9c43c5fe85a6012457ed13efb}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_enable@{rcge\_element\_enable}}
+\index{rcge\_element\_enable@{rcge\_element\_enable}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_enable()}{rcge\_element\_enable()}}
+{\footnotesize\ttfamily \label{group__elements_ga1ed294a9c43c5fe85a6012457ed13efb} 
+void rcge\+\_\+element\+\_\+enable (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}}]{element}{, }\item[{bool}]{enable}{}\end{DoxyParamCaption})}
+
+
+
+Enable or disable an element. When an element is disabled, it cannot be updated even if \doxylink{group__elements_ga66287a114895b04cfdac050e59910aad}{rcge\+\_\+element\+\_\+update} is called. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em element} & The element to enable or disable. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em enable} & Whether you want to enable or disable the element. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__elements_ga95de7b71c635836228c41f0c505a103b}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_status@{rcge\_element\_status}}
+\index{rcge\_element\_status@{rcge\_element\_status}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_status()}{rcge\_element\_status()}}
+{\footnotesize\ttfamily \label{group__elements_ga95de7b71c635836228c41f0c505a103b} 
+bool rcge\+\_\+element\+\_\+status (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}}]{element}{}\end{DoxyParamCaption})}
+
+
+
+Get the status of the element (enabled or disabled). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em element} & The element to access. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__elements_ga63769ced15c7abf72166b57d11263a70}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_comp\_get@{rcge\_element\_comp\_get}}
+\index{rcge\_element\_comp\_get@{rcge\_element\_comp\_get}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_comp\_get()}{rcge\_element\_comp\_get()}}
+{\footnotesize\ttfamily \label{group__elements_ga63769ced15c7abf72166b57d11263a70} 
+void \texorpdfstring{$\ast$}{*} rcge\+\_\+element\+\_\+comp\+\_\+get (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}}]{element}{, }\item[{unsigned int}]{index}{}\end{DoxyParamCaption})}
+
+
+
+Get a component from the element with the component\textquotesingle{}s index. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em element} & The element to access. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em index} & The component index. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__elements_gab647d3bc8ccee34d558b2fadc85f6e76}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_delete@{rcge\_element\_delete}}
+\index{rcge\_element\_delete@{rcge\_element\_delete}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_delete()}{rcge\_element\_delete()}}
+{\footnotesize\ttfamily \label{group__elements_gab647d3bc8ccee34d558b2fadc85f6e76} 
+void rcge\+\_\+element\+\_\+delete (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}}]{element}{}\end{DoxyParamCaption})}
+
+
+
+Deletes an element. 
+
+Element deletion must be done before the program terminates. Prevent memory leaks.
+
+\begin{DoxyNote}{Note}
+-\/ This function calls the element\textquotesingle{}s delete callbacks. Please delete the components in the callback, so if the element is deleted, it\textquotesingle{}s components are automatically deleted as well. 
+
+-\/ If you created an object with a element manager, you do not have to call this. The element manager deletes the element for you when the program terminates. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em element} & The element to access. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em index} & The component index. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__elements_gab930c0cbff6856fc351e6889fb8dc55f}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_manager\_create@{rcge\_element\_manager\_create}}
+\index{rcge\_element\_manager\_create@{rcge\_element\_manager\_create}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_manager\_create()}{rcge\_element\_manager\_create()}}
+{\footnotesize\ttfamily \label{group__elements_gab930c0cbff6856fc351e6889fb8dc55f} 
+\doxymbox{\hyperlink{group__elements_ga628cb3986875939189522ec0748db5d2}{rcge\+\_\+element\+\_\+manager}} rcge\+\_\+element\+\_\+manager\+\_\+create (\begin{DoxyParamCaption}\item[{unsigned int}]{buffer\+\_\+size}{}\end{DoxyParamCaption})}
+
+
+
+Creates an element manager. 
+
+An element manager would increase in size as there are more elements attached to it. Each time the manager expands, it would increase by the buffer size you have set.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em buffer\+\_\+size} & The buffer size you want for the element manager. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The element manager created, NULL if failed. 
+\end{DoxyReturn}
+\Hypertarget{group__elements_ga7159295a16286badbcadaf9a783f662d}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_manager\_attach@{rcge\_element\_manager\_attach}}
+\index{rcge\_element\_manager\_attach@{rcge\_element\_manager\_attach}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_manager\_attach()}{rcge\_element\_manager\_attach()}}
+{\footnotesize\ttfamily \label{group__elements_ga7159295a16286badbcadaf9a783f662d} 
+unsigned int rcge\+\_\+element\+\_\+manager\+\_\+attach (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__elements_ga628cb3986875939189522ec0748db5d2}{rcge\+\_\+element\+\_\+manager}}}]{manager}{, }\item[{\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}}}]{element}{}\end{DoxyParamCaption})}
+
+
+
+Attach an element to a specified element manager,. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em manager} & The element manager to be attached. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em element} & The element to attach. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The index of the element in the manager, UINT\+\_\+\+MAX if failed. 
+\end{DoxyReturn}
+\Hypertarget{group__elements_gab2775f1fb84ddafea260384a289bd7c7}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_manager\_element\_get@{rcge\_element\_manager\_element\_get}}
+\index{rcge\_element\_manager\_element\_get@{rcge\_element\_manager\_element\_get}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_manager\_element\_get()}{rcge\_element\_manager\_element\_get()}}
+{\footnotesize\ttfamily \label{group__elements_gab2775f1fb84ddafea260384a289bd7c7} 
+\doxymbox{\hyperlink{group__elements_ga714d98cafb18ba007d50622bbe9d84cd}{rcge\+\_\+element}} rcge\+\_\+element\+\_\+manager\+\_\+element\+\_\+get (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__elements_ga628cb3986875939189522ec0748db5d2}{rcge\+\_\+element\+\_\+manager}}}]{manager}{, }\item[{unsigned int}]{index}{}\end{DoxyParamCaption})}
+
+
+
+Get an element with it\textquotesingle{}s index from a specified element manager. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em manager} & The element manager to access. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em index} & The index of the element to be accessed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The target element, NULL if failed. 
+\end{DoxyReturn}
+\Hypertarget{group__elements_ga6ccf6875a32888495ad705984f58c47d}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_manager\_update@{rcge\_element\_manager\_update}}
+\index{rcge\_element\_manager\_update@{rcge\_element\_manager\_update}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_manager\_update()}{rcge\_element\_manager\_update()}}
+{\footnotesize\ttfamily \label{group__elements_ga6ccf6875a32888495ad705984f58c47d} 
+void rcge\+\_\+element\+\_\+manager\+\_\+update (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__elements_ga628cb3986875939189522ec0748db5d2}{rcge\+\_\+element\+\_\+manager}}}]{manager}{, }\item[{double}]{delta\+\_\+time}{}\end{DoxyParamCaption})}
+
+
+
+Update all the elements in an element manager. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em manager} & The element manager to update. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em delta\+\_\+time} & Time passed from the last frame update. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__elements_gabdb0e5c8a6a044e192965f8023e9b45b}\index{Elements and Element Managers@{Elements and Element Managers}!rcge\_element\_manager\_delete@{rcge\_element\_manager\_delete}}
+\index{rcge\_element\_manager\_delete@{rcge\_element\_manager\_delete}!Elements and Element Managers@{Elements and Element Managers}}
+\doxysubsubsection{\texorpdfstring{rcge\_element\_manager\_delete()}{rcge\_element\_manager\_delete()}}
+{\footnotesize\ttfamily \label{group__elements_gabdb0e5c8a6a044e192965f8023e9b45b} 
+void rcge\+\_\+element\+\_\+manager\+\_\+delete (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__elements_ga628cb3986875939189522ec0748db5d2}{rcge\+\_\+element\+\_\+manager}}}]{manager}{}\end{DoxyParamCaption})}
+
+
+
+Deletes the element manager. Does element deletion for all elements in it as well. 
+
+Element manager deletion must be done before the program terminates. Prevents memory leaks.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em manager} & The element manager to delete. \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,47 @@
+\doxysection{rcge\+\_\+transform.\+h}
+\hypertarget{rcge__transform_8h_source}{}\label{rcge__transform_8h_source}\doxymbox{\hyperlink{rcge__transform_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RCGE\_TRANSFORM\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RCGE\_TRANSFORM\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <cglm/cglm.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }rcge\_transform\_CDT*\ \doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00033\ \doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ \doxymbox{\hyperlink{group__transforms_ga727e104b0744730fbcac5b9ef9888d4c}{rcge\_transform\_create}}(vec3\ pos,\ versor\ rot,\ vec3\ scl,\ \textcolor{keywordtype}{bool}\ update\_view);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00041\ \doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ \doxymbox{\hyperlink{group__transforms_ga21fda785ab73608e6cd54350da9bb172}{rcge\_transform\_create\_zero}}(\textcolor{keywordtype}{bool}\ update\_view);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_gaf39ac32b582ba85502ac0c3fad3fe87a}{rcge\_transform\_pos\_get}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ vec3\ out);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_ga01bccc2106846f931f0ccf89149fbcab}{rcge\_transform\_rot\_get}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ versor\ out);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_ga6dd4135a05bd60dfc352cb64535349a1}{rcge\_transform\_scl\_get}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ vec3\ out);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_ga12b51d2955fa2a2ecce6794cc548ea91}{rcge\_transform\_model\_view\_get}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ mat4\ out);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_gaee540e87615e97aeacc53ada8e7ffd58}{rcge\_transform\_pos\_set}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ vec3\ new\_pos);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_ga16ca5e5b08da108982cda864eb5a2185}{rcge\_transform\_rot\_set}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ versor\ new\_rot);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_ga31704a5b62977b16b165bd87dc6ca654}{rcge\_transform\_scl\_set}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ vec3\ new\_scl);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00105\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_gae80a0c8f563ff0ecd6dc6661881f2537}{rcge\_transform\_add\_rot\_euler}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ vec3\ apply\_rot);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_ga2132995d82515a4e95d76a6f5bf1b134}{rcge\_transform\_up}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ vec3\ out);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00121\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_gae04cd0077ac86c35e840e5a5adeb8ee5}{rcge\_transform\_right}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ vec3\ out);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00129\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_gaa7a81b0e73b924d2744175ed7af0a9fe}{rcge\_transform\_forward}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ vec3\ out);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00137\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_ga6a94860446b20e013ca1f072b90f0b2d}{rcge\_transform\_down}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ vec3\ out);}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00145\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_ga626432983767ff30f2a20a3f1a97aa14}{rcge\_transform\_left}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ vec3\ out);}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00153\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_ga7d9eb86fde3dff5d831b0e6a9bb4ab8d}{rcge\_transform\_backward}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform,\ vec3\ out);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00163\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__transforms_ga0655eb165c21f822c8a3315d0a06963c}{rcge\_transform\_delete}}(\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\_transform}}\ transform);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

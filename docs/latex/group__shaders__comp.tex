@@ -1,0 +1,43 @@
+\doxysubsection{Shader components and pipeline }
+\hypertarget{group__shaders__comp}{}\label{group__shaders__comp}\index{Shader components and pipeline@{Shader components and pipeline}}
+A shader is needed to be consisted of at least 2 components:\+ a vertex, and a fragment component. If you want, you can additionally make use of a geometric component.
+
+Vertex shader component:\+ Processes each vertex to determine its position in 3D space and pass data to the next stage. Geometric Shader Component:\+ Takes whole primitives and can create, modify, or discard geometry before shape assembly. Fragment Shader Component:\+ Calculates the final color and appearance of each pixel on the screen.
+
+When mesh vertices data (i.\+e. Raw data of a 2D shape/\+3D model) are passed to the GPU for rendering, it goes through the shader component by component. The pipeline is as follows:\+
+\begin{DoxyItemize}
+\item 1. Passes data of vertices to vertex component of the shader
+\item 2. Passes output of vertex component to geometric component of the shader (optional)
+\item 3. Assembles shapes and rasterizes with the output data from the vertex component and the optional geometric component (Automatically done by the engine, no components needed)
+\item 4. Passes the shape data resulted to the fragment component of the shader
+\item 5. Renders the colors obtained from the shader to the screen
+\end{DoxyItemize}
+
+i.\+e Mesh Vertices Data \+[Shader Input]\+ -\/-\/\texorpdfstring{$>$}{>} Vertex Component -\/\texorpdfstring{$>$}{>} Geometric Component (Opt.) -\/\texorpdfstring{$>$}{>} Shape Assembly \& Rasterisation (Auto.) -\/\texorpdfstring{$>$}{>} Fragment Shader -\/-\/\texorpdfstring{$>$}{>} \+[Shader Output]\+ Graphics Rendered
+
+In order to create your own shader component, you will need to write GLSL (Open\+GL Shader Language) source code for it. Then, call \doxylink{group__shaders_ga5e647894c3ff7042acc70b3b62151da3}{rcge\+\_\+shader\+\_\+comp\+\_\+create} to load it into the engine.
+
+A brief guide of GLSL (Credit:\+ Learn Open\+GL, by Joey de Vries):\+ GLSL is tailored for use with graphics and contains useful features specifically targeted at vector and matrix manipulation. Shaders always begin with a version declaration, followed by a list of input and output variables, uniforms and its main function. Each shader\textquotesingle{}s entry point is at its main function where we process any input variables and output the results in its output variables. Don\textquotesingle{}t worry if you don\textquotesingle{}t know what uniforms are, we\textquotesingle{}ll get to those shortly.
+
+A shader typically has the following structure:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#version\ version\_number}}
+\DoxyCodeLine{in\ type\ in\_variable\_name;}
+\DoxyCodeLine{in\ type\ in\_variable\_name;}
+\DoxyCodeLine{}
+\DoxyCodeLine{out\ type\ out\_variable\_name;}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{uniform\ type\ uniform\_name;}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ process\ input(s)\ and\ do\ some\ weird\ graphics\ stuff}}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ output\ processed\ stuff\ to\ output\ variable}}
+\DoxyCodeLine{\ \ out\_variable\_name\ =\ weird\_stuff\_we\_processed;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 

@@ -1,0 +1,367 @@
+\doxysection{Transforms }
+\hypertarget{group__transforms}{}\label{group__transforms}\index{Transforms@{Transforms}}
+
+
+\doxysubsection{Detailed Description}
+Transformation management. 
+
+This module allows the transformations of graphical 2D/\+3D objects. A transform is a transformation management object that allows the translation, rotation and scaling of objects.
+
+\begin{DoxyNote}{Note}
+In RCGE, it is defined that +X is {\bfseries{LEFTWARDS}}, +Y is UPWARDS, and +Z is FORWARD. 
+\end{DoxyNote}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct rcge\+\_\+transform\+\_\+\+CDT \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} \doxymbox{\hyperlink{group__transforms_ga727e104b0744730fbcac5b9ef9888d4c}{rcge\+\_\+transform\+\_\+create}} (vec3 pos, versor rot, vec3 scl, bool update\+\_\+view)
+\item 
+\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} \doxymbox{\hyperlink{group__transforms_ga21fda785ab73608e6cd54350da9bb172}{rcge\+\_\+transform\+\_\+create\+\_\+zero}} (bool update\+\_\+view)
+\item 
+void \doxymbox{\hyperlink{group__transforms_gaf39ac32b582ba85502ac0c3fad3fe87a}{rcge\+\_\+transform\+\_\+pos\+\_\+get}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__transforms_ga01bccc2106846f931f0ccf89149fbcab}{rcge\+\_\+transform\+\_\+rot\+\_\+get}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, versor out)
+\item 
+void \doxymbox{\hyperlink{group__transforms_ga6dd4135a05bd60dfc352cb64535349a1}{rcge\+\_\+transform\+\_\+scl\+\_\+get}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__transforms_ga12b51d2955fa2a2ecce6794cc548ea91}{rcge\+\_\+transform\+\_\+model\+\_\+view\+\_\+get}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, mat4 out)
+\item 
+void \doxymbox{\hyperlink{group__transforms_gaee540e87615e97aeacc53ada8e7ffd58}{rcge\+\_\+transform\+\_\+pos\+\_\+set}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, vec3 new\+\_\+pos)
+\item 
+void \doxymbox{\hyperlink{group__transforms_ga16ca5e5b08da108982cda864eb5a2185}{rcge\+\_\+transform\+\_\+rot\+\_\+set}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, versor new\+\_\+rot)
+\item 
+void \doxymbox{\hyperlink{group__transforms_ga31704a5b62977b16b165bd87dc6ca654}{rcge\+\_\+transform\+\_\+scl\+\_\+set}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, vec3 new\+\_\+scl)
+\item 
+void \doxymbox{\hyperlink{group__transforms_gae80a0c8f563ff0ecd6dc6661881f2537}{rcge\+\_\+transform\+\_\+add\+\_\+rot\+\_\+euler}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, vec3 apply\+\_\+rot)
+\item 
+void \doxymbox{\hyperlink{group__transforms_ga2132995d82515a4e95d76a6f5bf1b134}{rcge\+\_\+transform\+\_\+up}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__transforms_gae04cd0077ac86c35e840e5a5adeb8ee5}{rcge\+\_\+transform\+\_\+right}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__transforms_gaa7a81b0e73b924d2744175ed7af0a9fe}{rcge\+\_\+transform\+\_\+forward}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__transforms_ga6a94860446b20e013ca1f072b90f0b2d}{rcge\+\_\+transform\+\_\+down}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__transforms_ga626432983767ff30f2a20a3f1a97aa14}{rcge\+\_\+transform\+\_\+left}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__transforms_ga7d9eb86fde3dff5d831b0e6a9bb4ab8d}{rcge\+\_\+transform\+\_\+backward}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__transforms_ga0655eb165c21f822c8a3315d0a06963c}{rcge\+\_\+transform\+\_\+delete}} (\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} transform)
+\end{DoxyCompactItemize}
+
+
+\label{group__transforms_doc-typedef-members}
+\Hypertarget{group__transforms_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{group__transforms_ga52775277a5189c7eed4487581facb58c}\index{Transforms@{Transforms}!rcge\_transform@{rcge\_transform}}
+\index{rcge\_transform@{rcge\_transform}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform}{rcge\_transform}}
+{\footnotesize\ttfamily \label{group__transforms_ga52775277a5189c7eed4487581facb58c} 
+typedef struct rcge\+\_\+transform\+\_\+\+CDT\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}
+
+Datatype representing a transform. 
+
+\label{group__transforms_doc-func-members}
+\Hypertarget{group__transforms_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group__transforms_ga727e104b0744730fbcac5b9ef9888d4c}\index{Transforms@{Transforms}!rcge\_transform\_create@{rcge\_transform\_create}}
+\index{rcge\_transform\_create@{rcge\_transform\_create}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_create()}{rcge\_transform\_create()}}
+{\footnotesize\ttfamily \label{group__transforms_ga727e104b0744730fbcac5b9ef9888d4c} 
+\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} rcge\+\_\+transform\+\_\+create (\begin{DoxyParamCaption}\item[{vec3}]{pos}{, }\item[{versor}]{rot}{, }\item[{vec3}]{scl}{, }\item[{bool}]{update\+\_\+view}{}\end{DoxyParamCaption})}
+
+
+
+Creates a transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em pos} & Initial position of transform to be created. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em rot} & Initial rotation of transform to be created. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em scl} & Initial scale of transform to be created. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em update\+\_\+view} & Whether you want the transform to update view instead of model matrix. (i.\+e. TRUE if is for a camera, FALSE otherwise) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The transform created, NULL if failed. 
+\end{DoxyReturn}
+\Hypertarget{group__transforms_ga21fda785ab73608e6cd54350da9bb172}\index{Transforms@{Transforms}!rcge\_transform\_create\_zero@{rcge\_transform\_create\_zero}}
+\index{rcge\_transform\_create\_zero@{rcge\_transform\_create\_zero}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_create\_zero()}{rcge\_transform\_create\_zero()}}
+{\footnotesize\ttfamily \label{group__transforms_ga21fda785ab73608e6cd54350da9bb172} 
+\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} rcge\+\_\+transform\+\_\+create\+\_\+zero (\begin{DoxyParamCaption}\item[{bool}]{update\+\_\+view}{}\end{DoxyParamCaption})}
+
+
+
+Creates a transform with initial position at (0, 0, 0), rotation (0, 0, 0) in euler and scale (1, 1, 1). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em update\+\_\+view} & Whether you want the transform to update view instead of model matrix. (i.\+e. TRUE if is for a camera, FALSE otherwise) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The transform created, NULL if failed. 
+\end{DoxyReturn}
+\Hypertarget{group__transforms_gaf39ac32b582ba85502ac0c3fad3fe87a}\index{Transforms@{Transforms}!rcge\_transform\_pos\_get@{rcge\_transform\_pos\_get}}
+\index{rcge\_transform\_pos\_get@{rcge\_transform\_pos\_get}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_pos\_get()}{rcge\_transform\_pos\_get()}}
+{\footnotesize\ttfamily \label{group__transforms_gaf39ac32b582ba85502ac0c3fad3fe87a} 
+void rcge\+\_\+transform\+\_\+pos\+\_\+get (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the position of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The position of the specified transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_ga01bccc2106846f931f0ccf89149fbcab}\index{Transforms@{Transforms}!rcge\_transform\_rot\_get@{rcge\_transform\_rot\_get}}
+\index{rcge\_transform\_rot\_get@{rcge\_transform\_rot\_get}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_rot\_get()}{rcge\_transform\_rot\_get()}}
+{\footnotesize\ttfamily \label{group__transforms_ga01bccc2106846f931f0ccf89149fbcab} 
+void rcge\+\_\+transform\+\_\+rot\+\_\+get (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{versor}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the rotation of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The rotation (in quaternion) of the specified transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_ga6dd4135a05bd60dfc352cb64535349a1}\index{Transforms@{Transforms}!rcge\_transform\_scl\_get@{rcge\_transform\_scl\_get}}
+\index{rcge\_transform\_scl\_get@{rcge\_transform\_scl\_get}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_scl\_get()}{rcge\_transform\_scl\_get()}}
+{\footnotesize\ttfamily \label{group__transforms_ga6dd4135a05bd60dfc352cb64535349a1} 
+void rcge\+\_\+transform\+\_\+scl\+\_\+get (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the scale of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The scale of the specified transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_ga12b51d2955fa2a2ecce6794cc548ea91}\index{Transforms@{Transforms}!rcge\_transform\_model\_view\_get@{rcge\_transform\_model\_view\_get}}
+\index{rcge\_transform\_model\_view\_get@{rcge\_transform\_model\_view\_get}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_model\_view\_get()}{rcge\_transform\_model\_view\_get()}}
+{\footnotesize\ttfamily \label{group__transforms_ga12b51d2955fa2a2ecce6794cc548ea91} 
+void rcge\+\_\+transform\+\_\+model\+\_\+view\+\_\+get (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{mat4}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the model or view matrix of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The model matrix (if update\+\_\+view false) or view matrix (if update\+\_\+view true) of the specified transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_gaee540e87615e97aeacc53ada8e7ffd58}\index{Transforms@{Transforms}!rcge\_transform\_pos\_set@{rcge\_transform\_pos\_set}}
+\index{rcge\_transform\_pos\_set@{rcge\_transform\_pos\_set}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_pos\_set()}{rcge\_transform\_pos\_set()}}
+{\footnotesize\ttfamily \label{group__transforms_gaee540e87615e97aeacc53ada8e7ffd58} 
+void rcge\+\_\+transform\+\_\+pos\+\_\+set (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{vec3}]{new\+\_\+pos}{}\end{DoxyParamCaption})}
+
+
+
+Set the position of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to change. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em new\+\_\+pos} & The position you want to set to the transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_ga16ca5e5b08da108982cda864eb5a2185}\index{Transforms@{Transforms}!rcge\_transform\_rot\_set@{rcge\_transform\_rot\_set}}
+\index{rcge\_transform\_rot\_set@{rcge\_transform\_rot\_set}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_rot\_set()}{rcge\_transform\_rot\_set()}}
+{\footnotesize\ttfamily \label{group__transforms_ga16ca5e5b08da108982cda864eb5a2185} 
+void rcge\+\_\+transform\+\_\+rot\+\_\+set (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{versor}]{new\+\_\+rot}{}\end{DoxyParamCaption})}
+
+
+
+Set the rotation of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to change. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em new\+\_\+rot} & The rotation (in quaternion) you want to set to the transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_ga31704a5b62977b16b165bd87dc6ca654}\index{Transforms@{Transforms}!rcge\_transform\_scl\_set@{rcge\_transform\_scl\_set}}
+\index{rcge\_transform\_scl\_set@{rcge\_transform\_scl\_set}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_scl\_set()}{rcge\_transform\_scl\_set()}}
+{\footnotesize\ttfamily \label{group__transforms_ga31704a5b62977b16b165bd87dc6ca654} 
+void rcge\+\_\+transform\+\_\+scl\+\_\+set (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{vec3}]{new\+\_\+scl}{}\end{DoxyParamCaption})}
+
+
+
+Set the scale of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to change. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em new\+\_\+scl} & The scale you want to set to the transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_gae80a0c8f563ff0ecd6dc6661881f2537}\index{Transforms@{Transforms}!rcge\_transform\_add\_rot\_euler@{rcge\_transform\_add\_rot\_euler}}
+\index{rcge\_transform\_add\_rot\_euler@{rcge\_transform\_add\_rot\_euler}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_add\_rot\_euler()}{rcge\_transform\_add\_rot\_euler()}}
+{\footnotesize\ttfamily \label{group__transforms_gae80a0c8f563ff0ecd6dc6661881f2537} 
+void rcge\+\_\+transform\+\_\+add\+\_\+rot\+\_\+euler (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{vec3}]{apply\+\_\+rot}{}\end{DoxyParamCaption})}
+
+
+
+Add an euler rotation to current rotation of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to change. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em apply\+\_\+rot} & The rotation (in euler) you want to add to the transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_ga2132995d82515a4e95d76a6f5bf1b134}\index{Transforms@{Transforms}!rcge\_transform\_up@{rcge\_transform\_up}}
+\index{rcge\_transform\_up@{rcge\_transform\_up}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_up()}{rcge\_transform\_up()}}
+{\footnotesize\ttfamily \label{group__transforms_ga2132995d82515a4e95d76a6f5bf1b134} 
+void rcge\+\_\+transform\+\_\+up (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the upward direction normalised vector of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The upward direction normalised vector of a specified transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_gae04cd0077ac86c35e840e5a5adeb8ee5}\index{Transforms@{Transforms}!rcge\_transform\_right@{rcge\_transform\_right}}
+\index{rcge\_transform\_right@{rcge\_transform\_right}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_right()}{rcge\_transform\_right()}}
+{\footnotesize\ttfamily \label{group__transforms_gae04cd0077ac86c35e840e5a5adeb8ee5} 
+void rcge\+\_\+transform\+\_\+right (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the rightward direction normalised vector of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The rightward direction normalised vector of a specified transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_gaa7a81b0e73b924d2744175ed7af0a9fe}\index{Transforms@{Transforms}!rcge\_transform\_forward@{rcge\_transform\_forward}}
+\index{rcge\_transform\_forward@{rcge\_transform\_forward}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_forward()}{rcge\_transform\_forward()}}
+{\footnotesize\ttfamily \label{group__transforms_gaa7a81b0e73b924d2744175ed7af0a9fe} 
+void rcge\+\_\+transform\+\_\+forward (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the forward direction normalised vector of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The forward direction normalised vector of a specified transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_ga6a94860446b20e013ca1f072b90f0b2d}\index{Transforms@{Transforms}!rcge\_transform\_down@{rcge\_transform\_down}}
+\index{rcge\_transform\_down@{rcge\_transform\_down}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_down()}{rcge\_transform\_down()}}
+{\footnotesize\ttfamily \label{group__transforms_ga6a94860446b20e013ca1f072b90f0b2d} 
+void rcge\+\_\+transform\+\_\+down (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the downward direction normalised vector of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The downward direction normalised vector of a specified transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_ga626432983767ff30f2a20a3f1a97aa14}\index{Transforms@{Transforms}!rcge\_transform\_left@{rcge\_transform\_left}}
+\index{rcge\_transform\_left@{rcge\_transform\_left}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_left()}{rcge\_transform\_left()}}
+{\footnotesize\ttfamily \label{group__transforms_ga626432983767ff30f2a20a3f1a97aa14} 
+void rcge\+\_\+transform\+\_\+left (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the leftward direction normalised vector of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The leftward direction normalised vector of a specified transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_ga7d9eb86fde3dff5d831b0e6a9bb4ab8d}\index{Transforms@{Transforms}!rcge\_transform\_backward@{rcge\_transform\_backward}}
+\index{rcge\_transform\_backward@{rcge\_transform\_backward}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_backward()}{rcge\_transform\_backward()}}
+{\footnotesize\ttfamily \label{group__transforms_ga7d9eb86fde3dff5d831b0e6a9bb4ab8d} 
+void rcge\+\_\+transform\+\_\+backward (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the backward direction normalised vector of a specified transform. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The backward direction normalised vector of a specified transform. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__transforms_ga0655eb165c21f822c8a3315d0a06963c}\index{Transforms@{Transforms}!rcge\_transform\_delete@{rcge\_transform\_delete}}
+\index{rcge\_transform\_delete@{rcge\_transform\_delete}!Transforms@{Transforms}}
+\doxysubsubsection{\texorpdfstring{rcge\_transform\_delete()}{rcge\_transform\_delete()}}
+{\footnotesize\ttfamily \label{group__transforms_ga0655eb165c21f822c8a3315d0a06963c} 
+void rcge\+\_\+transform\+\_\+delete (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}}}]{transform}{}\end{DoxyParamCaption})}
+
+
+
+Deletes a transform. 
+
+Transform deletion must be done before the program finishes. Prevents memory leaks.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em transform} & The transform you want to delete. \\
+\hline
+\end{DoxyParams}

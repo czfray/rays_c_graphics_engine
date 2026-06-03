@@ -103,12 +103,12 @@ void rcge_camera_param_set(rcge_camera camera, bool is_perspective, double size_
     camera->size_or_fov = size_or_fov;
     camera->near = near;
     camera->far = far;
-    printf("[RCGE Camera] Camera params set to -> size/fov: %.2f, near: %.2f, far: %.2f\n", size_or_fov, near, far);
+    //printf("[RCGE Camera] Camera params set to -> size/fov: %.2f, near: %.2f, far: %.2f\n", size_or_fov, near, far);
 }
 
 double rcge_camera_fov_size_get(rcge_camera camera)
 {
-    if (camera == NULL) {printf("[RCGE Camera] Camera fov/size get failed: camera does not exist.\n"); return -1.0f;}
+    if (camera == NULL) {printf("[RCGE Camera] Camera fov/size get failed: camera does not exist.\n"); return NAN;}
     return camera->size_or_fov;
 }
 
@@ -117,7 +117,7 @@ void rcge_camera_fov_size_set(rcge_camera camera, double size_or_fov)
     if (camera == NULL) {printf("[RCGE Camera] Camera fov/size set failed: camera does not exist.\n"); return;}
     update_proj_uniform(camera->shader, camera->proj_uniform_index, camera->is_perspective, size_or_fov, camera->near, camera->far, camera->ratio);
     camera->size_or_fov = size_or_fov;
-    printf("[RCGE Camera] Camera fov set to %.2f\n", size_or_fov);
+    //printf("[RCGE Camera] Camera fov set to %.2f\n", size_or_fov);
 }
 
 void rcge_camera_ratio_set(rcge_camera camera, double ratio)
@@ -126,7 +126,7 @@ void rcge_camera_ratio_set(rcge_camera camera, double ratio)
     
     update_proj_uniform(camera->shader, camera->proj_uniform_index, camera->is_perspective, camera->size_or_fov, camera->near, camera->far, ratio);
     camera->ratio = ratio;
-    printf("[RCGE Camera] Camera ratio set to %.2f.\n", ratio);
+    //printf("[RCGE Camera] Camera ratio set to %.2f.\n", ratio);
 }
 
 void rcge_camera_up(rcge_camera camera, vec3 out)

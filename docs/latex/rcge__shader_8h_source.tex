@@ -1,0 +1,73 @@
+\doxysection{rcge\+\_\+shader.\+h}
+\hypertarget{rcge__shader_8h_source}{}\label{rcge__shader_8h_source}\doxymbox{\hyperlink{rcge__shader_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RCGE\_SHADER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RCGE\_SHADER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#include\ <cglm/cglm.h>}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#include\ <\doxymbox{\hyperlink{rcge__datatype_8h}{rcge/rcge\_datatype.h}}>}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00178\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }rcge\_shader\_comp\_CDT*\ \doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\_shader\_comp}};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00185\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{00186\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \doxymbox{\hyperlink{rcge__shader_8h_ga9bf06e4fa7cefb1dbef0ff25fa791413a5082c31f5607e79788d04a93b3bde3b8}{SHADER\_VERT}},\ }
+\DoxyCodeLine{00188\ \ \ \ \ \doxymbox{\hyperlink{rcge__shader_8h_ga9bf06e4fa7cefb1dbef0ff25fa791413a588a457c7600386629596469104dcd0c}{SHADER\_GEOM}},\ }
+\DoxyCodeLine{00189\ \ \ \ \ \doxymbox{\hyperlink{rcge__shader_8h_ga9bf06e4fa7cefb1dbef0ff25fa791413ab4eb7f7375c39c4ac42fa96cff44cb01}{SHADER\_FRAG}}\ }
+\DoxyCodeLine{00190\ \}\ \doxymbox{\hyperlink{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413}{rcge\_shader\_comp\_type}};}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00199\ \doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\_shader\_comp}}\ \doxymbox{\hyperlink{group__shaders_ga5e647894c3ff7042acc70b3b62151da3}{rcge\_shader\_comp\_create}}(\textcolor{keywordtype}{char}*\ path,\ \doxymbox{\hyperlink{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413}{rcge\_shader\_comp\_type}}\ type);}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00207\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_gab4c934d784f13ad82bc994c31aa7091d}{rcge\_shader\_comp\_delete}}(\doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\_shader\_comp}}\ shader\_comp);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }rcge\_shader\_CDT*\ \doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}};}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00222\ \doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ \doxymbox{\hyperlink{group__shaders_ga59204e5d6ef1ff3c6a6c533020fdf3ce}{rcge\_shader\_create}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ attrib\_no,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_no);}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00231\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_gac9abe388c30ac20d8be76b9ef8f08d7e}{rcge\_shader\_attach}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\_shader\_comp}}\ shader\_comp);}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00239\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_ga790ff83c14919e66b916c92931423426}{rcge\_shader\_compile}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00246\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\_shader\_use}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader);}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00265\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_ga34e533ec09a36523abf99d805f76157f}{rcge\_shader\_attrib\_set}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size,\ \doxymbox{\hyperlink{group__datatypes_ga7a090da8a8dc6768970b4a9ea026832f}{rcge\_datatype}}\ type,\ \textcolor{keywordtype}{bool}\ normalised);}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00278\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\_shader\_uniform\_loc\_set}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{char}*\ name);}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00291\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_gad64854929d77b4c5fb8f76243fd91a6c}{rcge\_shader\_color\_out\_location}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ color\_no,\ \textcolor{keywordtype}{char}*\ name);}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00299\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_ga32c335eba54265f6eac3d550532f29ec}{rcge\_shader\_delete}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader);}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00309\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_ga3e7fa80f07b6a466a64822d22150dabd}{rcge\_shader\_uniform\_float}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_loc\_index,\ \textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00319\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_gab40a8493a0ed4fc36e698e2229144880}{rcge\_shader\_uniform\_vec2}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_loc\_index,\ vec2\ value);}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00329\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_ga65d72c00a434a1de5a8781714003e50e}{rcge\_shader\_uniform\_vec3}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_loc\_index,\ vec3\ value);}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00339\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_gad351e3476890239d984c9c3383270ecb}{rcge\_shader\_uniform\_vec4}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_loc\_index,\ vec4\ value);}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00349\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_ga544a6489dbb1ddadadd720301bfd9dab}{rcge\_shader\_uniform\_int}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_loc\_index,\ \textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00359\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_ga5c6ded510f4cf55ee6d825f2ae6dc374}{rcge\_shader\_uniform\_ivec2}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_loc\_index,\ ivec2\ value);}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00369\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_ga46620cc5e4c4b2569395e35d912036e9}{rcge\_shader\_uniform\_ivec3}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_loc\_index,\ ivec3\ value);}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00379\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_ga8967e6b5057aec6244aa3878c66a0ee0}{rcge\_shader\_uniform\_ivec4}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_loc\_index,\ ivec4\ value);}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00389\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_gab155517a367a2a2332853e7286506acd}{rcge\_shader\_uniform\_uint}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_loc\_index,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00399\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_ga5a711252dca5977457ba38286ebbb38c}{rcge\_shader\_uniform\_mat2}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_loc\_index,\ mat2\ value);}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00409\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_gabfe8488b2c1cfd22aa5a4da3bfcd9546}{rcge\_shader\_uniform\_mat3}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_loc\_index,\ mat3\ value);}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00419\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{group__shaders_gaaabeff2e6a918e41cb829e70e5bd323d}{rcge\_shader\_uniform\_mat4}}(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uniform\_loc\_index,\ mat4\ value);}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \textcolor{comment}{//TODO:\ More\ uniform\ types\ to\ be\ added\ here!}}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \textcolor{keywordtype}{void}\ rcge\_shader\_attrib\_activate\_mesh(\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\_shader}}\ shader);\ \textcolor{comment}{//Assumes\ VAO\ of\ mesh\ is\ active.\ //TODO:\ MOVE\ THIS\ TO\ INTERNAL}}
+\DoxyCodeLine{00425\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

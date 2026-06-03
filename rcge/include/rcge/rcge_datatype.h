@@ -1,19 +1,34 @@
 #ifndef RCGE_DATATYPE_H
 #define RCGE_DATATYPE_H
 
+/** 
+ * @file rcge_datatype.h
+ * @brief Datatype enums for RCGE.
+ * 
+ * @defgroup datatypes Datatypes
+ * @brief Datatypes for RCGE.
+ * 
+ * This module allows datatypes to be inputted in parameters for RCGE functions.
+**/
+
+/**
+ * @ingroup datatypes
+ * @enum rcge_datatype 
+ * @brief Datatypes for RCGE
+**/
 typedef enum {
-    DATATYPE_BYTE,
-    DATATYPE_UNSIGNED_BYTE,
-    DATATYPE_SHORT,
-    DATATYPE_UNSIGNED_SHORT,
-    DATATYPE_INT,
-    DATATYPE_UNSIGNED_INT,
-    DATATYPE_FLOAT,
-    DATATYPE_DOUBLE,
-    DATATYPE_HALF_FLOAT,
-    DATATYPE_INT_2_10_10_10_REV,
-    DATATYPE_UNSIGNED_INT_2_10_10_10_REV,
-    DATATYPE_BOOL 
+    DATATYPE_BYTE, ///< Byte
+    DATATYPE_UNSIGNED_BYTE, ///< Unsigned Byte
+    DATATYPE_SHORT, ///< Short
+    DATATYPE_UNSIGNED_SHORT, ///< Unsigned Short 
+    DATATYPE_INT, ///< Integer
+    DATATYPE_UNSIGNED_INT, ///< Unsigned Integer 
+    DATATYPE_FLOAT, ///< Float
+    DATATYPE_DOUBLE, ///< Double
+    DATATYPE_HALF_FLOAT, ///< Half Float (16-bit)
+    DATATYPE_INT_2_10_10_10_REV, ///< Integer 2 10 10 10 Rev
+    DATATYPE_UNSIGNED_INT_2_10_10_10_REV, ///< Unsigned Integer 2 10 10 Rev
+    DATATYPE_BOOL ///< Boolean
 } rcge_datatype;
 
 #endif

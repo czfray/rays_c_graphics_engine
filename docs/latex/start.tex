@@ -1,0 +1,50 @@
+\chapter{01 Initialisation and Window Creation }
+\hypertarget{start}{}\label{start}\index{01 Initialisation and Window Creation@{01 Initialisation and Window Creation}}
+This section describe how to start using RCGE.\hypertarget{start_init}{}\doxysection{\texorpdfstring{1.\+1 Initialisation}{1.\+1 Initialisation}}\label{start_init}
+To use RCGE, you need to initialise it.
+
+Call rcge\+\_\+init at the very start of the program. That\textquotesingle{}s it.\hypertarget{start_windowcreation}{}\doxysection{\texorpdfstring{Window Creation}{Window Creation}}\label{start_windowcreation}
+After initialisation, creating an application window is the next most important thing. A window is much needed as it is where graphics are actually rendered to.
+
+To create a window, \doxylink{group__windows_ga2a9a3a1f4b8108c5f964c28c666087da}{rcge\+\_\+window\+\_\+create} needs to be called.
+
+An example for window creation:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{rcge__window_8h_a33a8e2942eb9d5011336d637dc53468e}{rcge\_window}}\ window\ =\ \doxymbox{\hyperlink{group__windows_ga2a9a3a1f4b8108c5f964c28c666087da}{rcge\_window\_create}}(800,\ 600,\ \textcolor{stringliteral}{"{}RCGE\ Test"{}},\ \textcolor{keyword}{true});\ \textcolor{comment}{//800x600\ resizable\ window\ named\ "{}RCGE\ Test"{}.}}
+
+\end{DoxyCode}
+\hypertarget{start_windowrun}{}\doxysection{\texorpdfstring{Run the window}{Run the window}}\label{start_windowrun}
+After window creation, you need to actually run the window to use it. To do that, you need to run \doxylink{group__windows_gaa39b1ccc0667a923a323d942298779a9}{rcge\+\_\+window\+\_\+run}.
+
+An example for window running:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__windows_gaa39b1ccc0667a923a323d942298779a9}{rcge\_window\_run}}(window,\ start,\ update,\ resize);\ \textcolor{comment}{//run\ the\ window}}
+
+\end{DoxyCode}
+
+
+The 2nd, 3rd and 4th parameters are user-\/defined callbacks. In this example, I have defined the following:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ start(\doxymbox{\hyperlink{rcge__window_8h_a33a8e2942eb9d5011336d637dc53468e}{rcge\_window}}\ window)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//Called\ when\ function\ first\ runs}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ update(\doxymbox{\hyperlink{rcge__window_8h_a33a8e2942eb9d5011336d637dc53468e}{rcge\_window}}\ window,\ \textcolor{keywordtype}{float}\ delta\_time)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//Called\ every\ frame\ update}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ resize(\doxymbox{\hyperlink{rcge__window_8h_a33a8e2942eb9d5011336d637dc53468e}{rcge\_window}}\ window,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//Called\ when\ window\ resizes}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+The 2nd parameter is type \doxylink{group__windows_ga60764c39241c79abcabc2e76c324eb76}{rcge\+\_\+start\+\_\+callback}. You can define and input a function with parameter (\doxylink{rcge__window_8h_a33a8e2942eb9d5011336d637dc53468e}{rcge\+\_\+window} window) and no return. The function would be automatically called when the window is first operational. In my example, function {\ttfamily start} is called when the window starts.
+
+The 3rd parameter is type \doxylink{group__windows_ga43c9244834dd1f47672a0f8f8f91695c}{rcge\+\_\+update\+\_\+callback}. You can define and input a function with parameter (\doxylink{rcge__window_8h_a33a8e2942eb9d5011336d637dc53468e}{rcge\+\_\+window} window, float delta\+\_\+time) and no return. The function would be automatically called for every frame update. In my example, function {\ttfamily update} is called every frame.
+
+The 4th parameter is type \doxylink{group__windows_gaa49602a92a1b7c839c197272c147d025}{rcge\+\_\+resize\+\_\+callback}. You can define and input a function with parameter (\doxylink{rcge__window_8h_a33a8e2942eb9d5011336d637dc53468e}{rcge\+\_\+window} window, int width, int height) and no return. The funtion would be automatically called everytime the window is resized. In my example, function {\ttfamily resize} is called everytime the window resizes. 

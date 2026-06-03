@@ -1,0 +1,257 @@
+\doxysection{Meshes }
+\hypertarget{group__meshes}{}\label{group__meshes}\index{Meshes@{Meshes}}
+
+
+\doxysubsection{Detailed Description}
+Mesh management. 
+
+This module allows the drawing of meshes. It manages how the mesh data is sent to the GPU, and allows the mesh to be drawn.
+
+A mesh is a 2D/\+3D graphical objects, and is represented by a vertex data array and an Index Data Array. This module can be considered an element component. See \doxylink{group__elements}{Elements and Element Managers} to know what it means.\hypertarget{group__meshes_meshes_vertex}{}\doxysubsubsection{\texorpdfstring{Vertex Data Array}{Vertex Data Array}}\label{group__meshes_meshes_vertex}
+The vertex data array stores all the vertices (points) of an object. Each vertex represents a point in 2D or 3D space and can include multiple attributes, such as:\+
+\begin{DoxyItemize}
+\item Position (e.\+g., x, y, z coordinates)
+\item Color
+\item Normal vector (used for lighting)
+\item Texture coordinates (UV)
+\end{DoxyItemize}
+
+How a vertex data array is read and interpreted depends on how attributes are set up in the shader the mesh is using. See section \doxysectlink{group__shaders_shaders_attrib}{Shaders Attributes}{2}.
+
+Suppose I have a vertex data array below:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{float}[]\ vertices\ =\ }
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ -\/0.5f,\ 0.0f,\ 0.0f,\ 0.0f,\ 0.0f,}
+\DoxyCodeLine{\ \ \ \ 0,\ 0.5f,\ 0.0,\ 0.5f,\ 1.0f,}
+\DoxyCodeLine{\ \ \ \ 0.5f,\ 0.0,\ 0.0,\ 1.0f,\ 0.0f,}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ and shader attributes are set like this:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga34e533ec09a36523abf99d805f76157f}{rcge\_shader\_attrib\_set}}(shader,\ 0,\ \textcolor{stringliteral}{"{}position"{}},\ 3,\ \doxymbox{\hyperlink{rcge__datatype_8h_ga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a}{DATATYPE\_FLOAT}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga34e533ec09a36523abf99d805f76157f}{rcge\_shader\_attrib\_set}}(shader,\ 1,\ \textcolor{stringliteral}{"{}texcoord"{}},\ 2,\ \doxymbox{\hyperlink{rcge__datatype_8h_ga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a}{DATATYPE\_FLOAT}},\ \textcolor{keyword}{false});}
+
+\end{DoxyCode}
+ Then each vertex will be represented by 3+2=5 floating point number. For my example, the array {\ttfamily vertices} represents 3 vertices:\+
+\begin{DoxyEnumerate}
+\item A vertex with "{}position"{} (-\/0.\+5, 0, 0) with "{}texcoord"{} (0, 0)
+\item A vertex with "{}position"{} (0, 0.\+5, 0) with "{}texcoord"{} (0.\+5, 1)
+\item A vertex with "{}position"{} (0.\+5, 0, 0) with "{}texcoord"{} (1, 0)
+\end{DoxyEnumerate}
+
+A vertex data array only represent vertices, but not shapes.\hypertarget{group__meshes_meshes_indices}{}\doxysubsubsection{\texorpdfstring{Index Data Array}{Index Data Array}}\label{group__meshes_meshes_indices}
+To represent a shape, we need an addition integer array, called an index data array, on top of the vertex data array.
+
+Lets take the following vertex data array:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{float}[]\ vertices\ =\ }
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ -\/0.5f,\ -\/0.5f,\ 0.0f,\ 0.0f,\ 0.0f,\ \textcolor{comment}{//Index\ 0}}
+\DoxyCodeLine{\ \ \ \ -\/0.5,\ 0.5f,\ 0.0f,\ 0.0f,\ 1.0f,\ \textcolor{comment}{//Index\ 1}}
+\DoxyCodeLine{\ \ \ \ 0.5f,\ 0.5f,\ 0.0f,\ 1.0f,\ 1.0f,\ \textcolor{comment}{//Index\ 2}}
+\DoxyCodeLine{\ \ \ \ 0.5f,\ -\/0.5f,\ 0.0f,\ 1.0f,\ 0.0f,\ \textcolor{comment}{//Index\ 3}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ The array {\ttfamily vertices} represents 4 vertices. Each vertices will have an index, the first vertex has index 0, second has index 1, etc. If we want to represent a square with these 4 vertices, we need to make use of the 4 vertex indices.
+
+\begin{DoxyNote}{Note}
+RCGE draws triangles, and cannot directly draw a square.
+\end{DoxyNote}
+To use the above 4 vertices to draw a square, we need to draw two triangles:\+
+\begin{DoxyItemize}
+\item Triangle 1 has vertices of index 0, 1, 2
+\item Triangle 2 has vertices of index 2, 3, 0
+\end{DoxyItemize}
+
+Meaning that a square shape can be represented with the following array:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}[]\ indices\ =}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ 0,\ 1,\ 2,}
+\DoxyCodeLine{\ \ \ \ 2,\ 3,\ 0}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ This array represents a square, and tells the engine to draw two triangles:\+
+\begin{DoxyItemize}
+\item 1st triangle, drawing from vertex 0, to vertex 1, to vertex 2, and then back to vertex 0
+\item 2nd triangle, drawing from vertex 2, to vertex 3, to vertex 0, and then back to vertex 2
+\end{DoxyItemize}
+
+The above order of vertices is clockwise. You can also draw the square with anti-\/clockwise order:\+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}[]\ indices\ =}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ 2,\ 1,\ 0}
+\DoxyCodeLine{\ \ \ \ 0,\ 3,\ 2}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ But a clockwise order is recommended, since if backface culling is enabled, only clockwise ordered will be regarded as front-\/facing, and only front-\/facing shapes are rendered.
+
+To see the specific implementation of mesh creation with a vertices and an index data array, go to \doxylink{group__meshes_ga1d4aaf3f0b209d0f1286248515dad054}{rcge\+\_\+mesh\+\_\+create}. To draw a mesh, you need to run rcge\+\_\+draw\+\_\+mesh every frame. \doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct rcge\+\_\+mesh\+\_\+\+CDT \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__meshes_ga0200e8eaf9308f982dbf2987ecfbccec}{rcge\+\_\+mesh}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{group__meshes_gac33ea186711f95db334be4e429b018ad}{rcge\+\_\+mesh\+\_\+draw\+\_\+type}} \{ \doxymbox{\hyperlink{group__meshes_gac33ea186711f95db334be4e429b018adad24010eb4728b3acea84ced19f354158}{MESH\+\_\+\+STATIC}}
+, \doxymbox{\hyperlink{group__meshes_gac33ea186711f95db334be4e429b018ada602f6902a7e36829c2d449829dcdb6c2}{MESH\+\_\+\+DYNAMIC}}
+, \doxymbox{\hyperlink{group__meshes_gac33ea186711f95db334be4e429b018ada4c2d6ac0bfa14a48e07843afd79891fb}{MESH\+\_\+\+STREAM}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__meshes_ga0200e8eaf9308f982dbf2987ecfbccec}{rcge\+\_\+mesh}} \doxymbox{\hyperlink{group__meshes_ga1d4aaf3f0b209d0f1286248515dad054}{rcge\+\_\+mesh\+\_\+create}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, int model\+\_\+uniform\+\_\+index, \doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}} texture, float \texorpdfstring{$\ast$}{*}vertices, unsigned int vertices\+\_\+size, unsigned int \texorpdfstring{$\ast$}{*}indices, unsigned int indices\+\_\+size, \doxymbox{\hyperlink{group__meshes_gac33ea186711f95db334be4e429b018ad}{rcge\+\_\+mesh\+\_\+draw\+\_\+type}} draw\+\_\+type)
+\item 
+\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} \doxymbox{\hyperlink{group__meshes_ga81c97961bf82159c64164592f2260e57}{rcge\+\_\+mesh\+\_\+transform\+\_\+get}} (\doxymbox{\hyperlink{group__meshes_ga0200e8eaf9308f982dbf2987ecfbccec}{rcge\+\_\+mesh}} mesh)
+\item 
+void \doxymbox{\hyperlink{group__meshes_gade5d248ba4125f12dfa6b3b8ad5c0616}{rcge\+\_\+mesh\+\_\+draw}} (\doxymbox{\hyperlink{group__meshes_ga0200e8eaf9308f982dbf2987ecfbccec}{rcge\+\_\+mesh}} mesh)
+\item 
+void \doxymbox{\hyperlink{group__meshes_ga7bb5554e663434891a8b4e57c73c24b6}{rcge\+\_\+mesh\+\_\+delete}} (\doxymbox{\hyperlink{group__meshes_ga0200e8eaf9308f982dbf2987ecfbccec}{rcge\+\_\+mesh}} mesh)
+\end{DoxyCompactItemize}
+
+
+\label{group__meshes_doc-typedef-members}
+\Hypertarget{group__meshes_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{group__meshes_ga0200e8eaf9308f982dbf2987ecfbccec}\index{Meshes@{Meshes}!rcge\_mesh@{rcge\_mesh}}
+\index{rcge\_mesh@{rcge\_mesh}!Meshes@{Meshes}}
+\doxysubsubsection{\texorpdfstring{rcge\_mesh}{rcge\_mesh}}
+{\footnotesize\ttfamily \label{group__meshes_ga0200e8eaf9308f982dbf2987ecfbccec} 
+typedef struct rcge\+\_\+mesh\+\_\+\+CDT\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__meshes_ga0200e8eaf9308f982dbf2987ecfbccec}{rcge\+\_\+mesh}}}
+
+Datatype representing a mesh. Can be used as an element component. See \doxylink{group__elements}{Elements and Element Managers}. 
+
+\label{group__meshes_doc-enum-members}
+\Hypertarget{group__meshes_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{group__meshes_gac33ea186711f95db334be4e429b018ad}\index{Meshes@{Meshes}!rcge\_mesh\_draw\_type@{rcge\_mesh\_draw\_type}}
+\index{rcge\_mesh\_draw\_type@{rcge\_mesh\_draw\_type}!Meshes@{Meshes}}
+\doxysubsubsection{\texorpdfstring{rcge\_mesh\_draw\_type}{rcge\_mesh\_draw\_type}}
+{\footnotesize\ttfamily \label{group__meshes_gac33ea186711f95db334be4e429b018ad} 
+enum \doxymbox{\hyperlink{group__meshes_gac33ea186711f95db334be4e429b018ad}{rcge\+\_\+mesh\+\_\+draw\+\_\+type}}}
+
+
+
+Draw frequency type of a mesh. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MESH\_STATIC@{MESH\_STATIC}!Meshes@{Meshes}}
+\index{Meshes@{Meshes}!MESH\_STATIC@{MESH\_STATIC}}
+}\Hypertarget{group__meshes_gac33ea186711f95db334be4e429b018adad24010eb4728b3acea84ced19f354158}\label{group__meshes_gac33ea186711f95db334be4e429b018adad24010eb4728b3acea84ced19f354158} 
+MESH\+\_\+\+STATIC&Static, mesh data is set only once, used many times. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MESH\_DYNAMIC@{MESH\_DYNAMIC}!Meshes@{Meshes}}
+\index{Meshes@{Meshes}!MESH\_DYNAMIC@{MESH\_DYNAMIC}}
+}\Hypertarget{group__meshes_gac33ea186711f95db334be4e429b018ada602f6902a7e36829c2d449829dcdb6c2}\label{group__meshes_gac33ea186711f95db334be4e429b018ada602f6902a7e36829c2d449829dcdb6c2} 
+MESH\+\_\+\+DYNAMIC&Dynamic, mesh data is set only once, used at most few times. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MESH\_STREAM@{MESH\_STREAM}!Meshes@{Meshes}}
+\index{Meshes@{Meshes}!MESH\_STREAM@{MESH\_STREAM}}
+}\Hypertarget{group__meshes_gac33ea186711f95db334be4e429b018ada4c2d6ac0bfa14a48e07843afd79891fb}\label{group__meshes_gac33ea186711f95db334be4e429b018ada4c2d6ac0bfa14a48e07843afd79891fb} 
+MESH\+\_\+\+STREAM&Stream, mesh data is changed a lot, used many times. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{group__meshes_doc-func-members}
+\Hypertarget{group__meshes_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group__meshes_ga1d4aaf3f0b209d0f1286248515dad054}\index{Meshes@{Meshes}!rcge\_mesh\_create@{rcge\_mesh\_create}}
+\index{rcge\_mesh\_create@{rcge\_mesh\_create}!Meshes@{Meshes}}
+\doxysubsubsection{\texorpdfstring{rcge\_mesh\_create()}{rcge\_mesh\_create()}}
+{\footnotesize\ttfamily \label{group__meshes_ga1d4aaf3f0b209d0f1286248515dad054} 
+\doxymbox{\hyperlink{group__meshes_ga0200e8eaf9308f982dbf2987ecfbccec}{rcge\+\_\+mesh}} rcge\+\_\+mesh\+\_\+create (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{int}]{model\+\_\+uniform\+\_\+index}{, }\item[{\doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}}}]{texture}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{vertices}{, }\item[{unsigned int}]{vertices\+\_\+size}{, }\item[{unsigned int \texorpdfstring{$\ast$}{*}}]{indices}{, }\item[{unsigned int}]{indices\+\_\+size}{, }\item[{\doxymbox{\hyperlink{group__meshes_gac33ea186711f95db334be4e429b018ad}{rcge\+\_\+mesh\+\_\+draw\+\_\+type}}}]{draw\+\_\+type}{}\end{DoxyParamCaption})}
+
+
+
+Creates a mesh. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & Shader the mesh to be created uses. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em model\+\_\+uniform\+\_\+index} & The index of the uniform for model matrix in {\ttfamily shader}. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em texture} & The texture of the mesh to be created. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em vertices} & The vertex data array for the mesh to be created. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em vertices\+\_\+size} & The array size (number of floats) of {\ttfamily vertices}. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em indices} & The index data array for the mesh to be created. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em indices\+\_\+size} & The array size (number of integers) of {\ttfamily indices}. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em draw\+\_\+type} & Draw frequency type of the mesh to be created. See \doxylink{group__meshes_gac33ea186711f95db334be4e429b018ad}{rcge\+\_\+mesh\+\_\+draw\+\_\+type} to see which one to choose. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The mesh created, NULL if failed. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Ensure the intended shader is currently active before creating the mesh by using \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+\Hypertarget{group__meshes_ga81c97961bf82159c64164592f2260e57}\index{Meshes@{Meshes}!rcge\_mesh\_transform\_get@{rcge\_mesh\_transform\_get}}
+\index{rcge\_mesh\_transform\_get@{rcge\_mesh\_transform\_get}!Meshes@{Meshes}}
+\doxysubsubsection{\texorpdfstring{rcge\_mesh\_transform\_get()}{rcge\_mesh\_transform\_get()}}
+{\footnotesize\ttfamily \label{group__meshes_ga81c97961bf82159c64164592f2260e57} 
+\doxymbox{\hyperlink{group__transforms_ga52775277a5189c7eed4487581facb58c}{rcge\+\_\+transform}} rcge\+\_\+mesh\+\_\+transform\+\_\+get (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__meshes_ga0200e8eaf9308f982dbf2987ecfbccec}{rcge\+\_\+mesh}}}]{mesh}{}\end{DoxyParamCaption})}
+
+
+
+Get the transform of a specified mesh. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em mesh} & The mesh to access. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The transform of the specified mesh, NULL if failed. 
+\end{DoxyReturn}
+\Hypertarget{group__meshes_gade5d248ba4125f12dfa6b3b8ad5c0616}\index{Meshes@{Meshes}!rcge\_mesh\_draw@{rcge\_mesh\_draw}}
+\index{rcge\_mesh\_draw@{rcge\_mesh\_draw}!Meshes@{Meshes}}
+\doxysubsubsection{\texorpdfstring{rcge\_mesh\_draw()}{rcge\_mesh\_draw()}}
+{\footnotesize\ttfamily \label{group__meshes_gade5d248ba4125f12dfa6b3b8ad5c0616} 
+void rcge\+\_\+mesh\+\_\+draw (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__meshes_ga0200e8eaf9308f982dbf2987ecfbccec}{rcge\+\_\+mesh}}}]{mesh}{}\end{DoxyParamCaption})}
+
+
+
+Draw the specified mesh for a frame. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em mesh} & The mesh to draw. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Ensure the shader of the mesh is currently active before drawing by using \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+\Hypertarget{group__meshes_ga7bb5554e663434891a8b4e57c73c24b6}\index{Meshes@{Meshes}!rcge\_mesh\_delete@{rcge\_mesh\_delete}}
+\index{rcge\_mesh\_delete@{rcge\_mesh\_delete}!Meshes@{Meshes}}
+\doxysubsubsection{\texorpdfstring{rcge\_mesh\_delete()}{rcge\_mesh\_delete()}}
+{\footnotesize\ttfamily \label{group__meshes_ga7bb5554e663434891a8b4e57c73c24b6} 
+void rcge\+\_\+mesh\+\_\+delete (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__meshes_ga0200e8eaf9308f982dbf2987ecfbccec}{rcge\+\_\+mesh}}}]{mesh}{}\end{DoxyParamCaption})}
+
+
+
+Deltes the mesh. 
+
+Mesh deletion needs to be done before the program terminates. Prevent memory leaks.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em mesh} & The mesh to delete. \\
+\hline
+\end{DoxyParams}

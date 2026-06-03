@@ -1,0 +1,49 @@
+\doxysection{rcge\+\_\+camera.\+h File Reference}
+\hypertarget{rcge__camera_8h}{}\label{rcge__camera_8h}\index{rcge\_camera.h@{rcge\_camera.h}}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct rcge\+\_\+camera\+\_\+\+CDT \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} \doxymbox{\hyperlink{group__cameras_ga0033f2b18b37f18100ab48bc83dbdd0c}{rcge\+\_\+camera\+\_\+create}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int view\+\_\+uniform\+\_\+index, unsigned int proj\+\_\+uniform\+\_\+index, bool is\+\_\+perspective, double size\+\_\+or\+\_\+fov, double near, double far, double ratio)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gaf82f1f57e98fe18ac33e4e91130387b9}{rcge\+\_\+camera\+\_\+param\+\_\+set}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, bool is\+\_\+perspective, double size\+\_\+or\+\_\+fov, double near, double far)
+\item 
+double \doxymbox{\hyperlink{group__cameras_gac4df1f04cccb62ef900a242d82da01f5}{rcge\+\_\+camera\+\_\+fov\+\_\+size\+\_\+get}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga36942f0966974f3d6da9adeb26668b38}{rcge\+\_\+camera\+\_\+fov\+\_\+size\+\_\+set}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, double size\+\_\+or\+\_\+fov)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gabd2dd72e1f629725d30ef205283f1038}{rcge\+\_\+camera\+\_\+ratio\+\_\+set}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, double ratio)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gafb913be74f1d4999e8f0f331f0a42fe0}{rcge\+\_\+camera\+\_\+pos\+\_\+get}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gaca9327086b99348523cb299dc37b6177}{rcge\+\_\+camera\+\_\+rot\+\_\+get}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, versor out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga0aec0fc0b146d9a10163f674e13cbfc7}{rcge\+\_\+camera\+\_\+pos\+\_\+set}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 new\+\_\+pos)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gaacd34bfab40ff13ed76232a48d5b1d1c}{rcge\+\_\+camera\+\_\+rot\+\_\+set}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, versor new\+\_\+rot)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga2c8ecf86c1f37cde4e05e8cb5b9b5d27}{rcge\+\_\+camera\+\_\+add\+\_\+rot\+\_\+euler}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 apply\+\_\+rot)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gad2a174e6b988128716b7c059c61456d3}{rcge\+\_\+camera\+\_\+up}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gae9cbc8bebbf88a3757ccbcf41810e18c}{rcge\+\_\+camera\+\_\+right}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga574f79def0fe48e6ce05d5028098e71e}{rcge\+\_\+camera\+\_\+forward}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga9250626dddf286603dbe7a7a6087e8ce}{rcge\+\_\+camera\+\_\+down}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga0128286a4b35b49df7ea50aea7955c0b}{rcge\+\_\+camera\+\_\+left}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gab09070a4ea2b767d4c82b3dbbbd4d87c}{rcge\+\_\+camera\+\_\+backward}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga0ee733bb57266d2b6dfd4fc5de872681}{rcge\+\_\+camera\+\_\+delete}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Camera management. 
+

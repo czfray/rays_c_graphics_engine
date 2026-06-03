@@ -25,7 +25,7 @@ rcge_element rcge_element_create(unsigned int comp_no, rcge_element_start_callba
     element->delete_cb = delete_cb;
     element->enabled = false;
 
-    printf("[RCGE Element] Element created.\n");
+    //printf("[RCGE Element] Element created.\n");
     return element;
 }
 
@@ -34,7 +34,7 @@ void rcge_element_attach(rcge_element element, unsigned int index, void* comp)
     //TODO: CHECK IF OUT OF RANGE
     if (element == NULL) {printf("[RCGE Element] Element component attach failed: element does not exist.\n"); return;}
     (element->components)[index] = comp;
-    printf("[RCGE Element] Element attached component at index %d.\n", index);
+    //printf("[RCGE Element] Element attached component at index %d.\n", index);
 }
 
 void rcge_element_start(rcge_element element)
@@ -82,7 +82,7 @@ void rcge_element_delete(rcge_element element)
 
     free(element->components);
     free(element);
-    printf("[RCGE Element] Element deleted.\n");
+    //printf("[RCGE Element] Element deleted.\n");
 }
 
 struct rcge_element_manager_CDT

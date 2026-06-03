@@ -1,0 +1,407 @@
+\doxysection{Cameras }
+\hypertarget{group__cameras}{}\label{group__cameras}\index{Cameras@{Cameras}}
+
+
+\doxysubsection{Detailed Description}
+Camera management. 
+
+This module manages the camera. Sets the perspective of render.
+
+A Camera is required for a thing to actually be rendered on the screen. Christopher Nolan wont be able to make peak batman movies without a camera, right?
+
+One camera per shader.
+
+A camera can be in perspective mode (for 3D rendering) or orthogonal mode (for 2D rendering). In perspective mode, you set the field of view (fov). In orthogonal mode, you set the size.
+
+This module can be considered an element component. See \doxylink{group__elements}{Elements and Element Managers} to know what it means. \doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct rcge\+\_\+camera\+\_\+\+CDT \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} \doxymbox{\hyperlink{group__cameras_ga0033f2b18b37f18100ab48bc83dbdd0c}{rcge\+\_\+camera\+\_\+create}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int view\+\_\+uniform\+\_\+index, unsigned int proj\+\_\+uniform\+\_\+index, bool is\+\_\+perspective, double size\+\_\+or\+\_\+fov, double near, double far, double ratio)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gaf82f1f57e98fe18ac33e4e91130387b9}{rcge\+\_\+camera\+\_\+param\+\_\+set}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, bool is\+\_\+perspective, double size\+\_\+or\+\_\+fov, double near, double far)
+\item 
+double \doxymbox{\hyperlink{group__cameras_gac4df1f04cccb62ef900a242d82da01f5}{rcge\+\_\+camera\+\_\+fov\+\_\+size\+\_\+get}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga36942f0966974f3d6da9adeb26668b38}{rcge\+\_\+camera\+\_\+fov\+\_\+size\+\_\+set}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, double size\+\_\+or\+\_\+fov)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gabd2dd72e1f629725d30ef205283f1038}{rcge\+\_\+camera\+\_\+ratio\+\_\+set}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, double ratio)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gafb913be74f1d4999e8f0f331f0a42fe0}{rcge\+\_\+camera\+\_\+pos\+\_\+get}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gaca9327086b99348523cb299dc37b6177}{rcge\+\_\+camera\+\_\+rot\+\_\+get}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, versor out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga0aec0fc0b146d9a10163f674e13cbfc7}{rcge\+\_\+camera\+\_\+pos\+\_\+set}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 new\+\_\+pos)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gaacd34bfab40ff13ed76232a48d5b1d1c}{rcge\+\_\+camera\+\_\+rot\+\_\+set}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, versor new\+\_\+rot)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga2c8ecf86c1f37cde4e05e8cb5b9b5d27}{rcge\+\_\+camera\+\_\+add\+\_\+rot\+\_\+euler}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 apply\+\_\+rot)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gad2a174e6b988128716b7c059c61456d3}{rcge\+\_\+camera\+\_\+up}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gae9cbc8bebbf88a3757ccbcf41810e18c}{rcge\+\_\+camera\+\_\+right}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga574f79def0fe48e6ce05d5028098e71e}{rcge\+\_\+camera\+\_\+forward}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga9250626dddf286603dbe7a7a6087e8ce}{rcge\+\_\+camera\+\_\+down}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga0128286a4b35b49df7ea50aea7955c0b}{rcge\+\_\+camera\+\_\+left}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_gab09070a4ea2b767d4c82b3dbbbd4d87c}{rcge\+\_\+camera\+\_\+backward}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera, vec3 out)
+\item 
+void \doxymbox{\hyperlink{group__cameras_ga0ee733bb57266d2b6dfd4fc5de872681}{rcge\+\_\+camera\+\_\+delete}} (\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} camera)
+\end{DoxyCompactItemize}
+
+
+\label{group__cameras_doc-typedef-members}
+\Hypertarget{group__cameras_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}\index{Cameras@{Cameras}!rcge\_camera@{rcge\_camera}}
+\index{rcge\_camera@{rcge\_camera}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera}{rcge\_camera}}
+{\footnotesize\ttfamily \label{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d} 
+typedef struct rcge\+\_\+camera\+\_\+\+CDT\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}
+
+Datatype representing a camera. Can be used as an element component. See \doxylink{group__elements}{Elements and Element Managers}. 
+
+\label{group__cameras_doc-func-members}
+\Hypertarget{group__cameras_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group__cameras_ga0033f2b18b37f18100ab48bc83dbdd0c}\index{Cameras@{Cameras}!rcge\_camera\_create@{rcge\_camera\_create}}
+\index{rcge\_camera\_create@{rcge\_camera\_create}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_create()}{rcge\_camera\_create()}}
+{\footnotesize\ttfamily \label{group__cameras_ga0033f2b18b37f18100ab48bc83dbdd0c} 
+\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}} rcge\+\_\+camera\+\_\+create (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{view\+\_\+uniform\+\_\+index}{, }\item[{unsigned int}]{proj\+\_\+uniform\+\_\+index}{, }\item[{bool}]{is\+\_\+perspective}{, }\item[{double}]{size\+\_\+or\+\_\+fov}{, }\item[{double}]{near}{, }\item[{double}]{far}{, }\item[{double}]{ratio}{}\end{DoxyParamCaption})}
+
+
+
+Creates a camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to use for the camera. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em view\+\_\+uniform\+\_\+index} & The index of the view matrix uniform in the shader used. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em proj\+\_\+uniform\+\_\+index} & The index of the projection matrix uniform in the shader used. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em is\+\_\+perspective} & Whether the camera is perspective (3D) or orthogonal (Flat 2D). \\
+\hline
+\doxymbox{\texttt{in}}  & {\em size\+\_\+or\+\_\+fov} & The fov (in radians, if perspective) or the size (if orthogonal) you want the camera to have. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em near} & The near plane of the camera. Things with less distance of {\ttfamily near} units from the camera would not be rendered. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em far} & The far plane of the camera. Things with further distance of {\ttfamily near} units from the camera would not be rendered. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em ratio} & The window aspect ratio at the time of creation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The camera created, NULL if failed. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Make sure {\ttfamily shader} is currently active before calling this by using \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+\Hypertarget{group__cameras_gaf82f1f57e98fe18ac33e4e91130387b9}\index{Cameras@{Cameras}!rcge\_camera\_param\_set@{rcge\_camera\_param\_set}}
+\index{rcge\_camera\_param\_set@{rcge\_camera\_param\_set}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_param\_set()}{rcge\_camera\_param\_set()}}
+{\footnotesize\ttfamily \label{group__cameras_gaf82f1f57e98fe18ac33e4e91130387b9} 
+void rcge\+\_\+camera\+\_\+param\+\_\+set (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{bool}]{is\+\_\+perspective}{, }\item[{double}]{size\+\_\+or\+\_\+fov}{, }\item[{double}]{near}{, }\item[{double}]{far}{}\end{DoxyParamCaption})}
+
+
+
+Change parameters like perspective/\+orthogonal, fov, far, and near plane for a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera to change. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em is\+\_\+perspective} & Whether you want to change the camera to perspective (3D) or orthogonal (Flat 2D). \\
+\hline
+\doxymbox{\texttt{in}}  & {\em size\+\_\+or\+\_\+fov} & The fov (in radians, if perspective) or the size (if orthogonal) you want the camera to change to. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em near} & The near plane of the camera to change to. Things with less distance of {\ttfamily near} units from the camera would not be rendered. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em far} & The far plane of the camera to change to. Things with further distance of {\ttfamily near} units from the camera would not be rendered. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em ratio} & The window aspect ratio at the time of creation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Make sure the shader camera uses is currently active before calling this by using \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+\Hypertarget{group__cameras_gac4df1f04cccb62ef900a242d82da01f5}\index{Cameras@{Cameras}!rcge\_camera\_fov\_size\_get@{rcge\_camera\_fov\_size\_get}}
+\index{rcge\_camera\_fov\_size\_get@{rcge\_camera\_fov\_size\_get}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_fov\_size\_get()}{rcge\_camera\_fov\_size\_get()}}
+{\footnotesize\ttfamily \label{group__cameras_gac4df1f04cccb62ef900a242d82da01f5} 
+double rcge\+\_\+camera\+\_\+fov\+\_\+size\+\_\+get (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{}\end{DoxyParamCaption})}
+
+
+
+Get the fov (if perspective) or size (if orthogonal) of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera to access. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The fov (if perspective) or size (if orthogonal) of a specified camera, NAN if failed. 
+\end{DoxyReturn}
+\Hypertarget{group__cameras_ga36942f0966974f3d6da9adeb26668b38}\index{Cameras@{Cameras}!rcge\_camera\_fov\_size\_set@{rcge\_camera\_fov\_size\_set}}
+\index{rcge\_camera\_fov\_size\_set@{rcge\_camera\_fov\_size\_set}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_fov\_size\_set()}{rcge\_camera\_fov\_size\_set()}}
+{\footnotesize\ttfamily \label{group__cameras_ga36942f0966974f3d6da9adeb26668b38} 
+void rcge\+\_\+camera\+\_\+fov\+\_\+size\+\_\+set (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{double}]{size\+\_\+or\+\_\+fov}{}\end{DoxyParamCaption})}
+
+
+
+Change the fov (if perspective) or size (if orthogonal) of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera to change. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em size\+\_\+or\+\_\+fov} & The fov (in radians, if perspective) or the size (if orthogonal) you want the camera to change to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Make sure the shader the camera uses is currently active before calling this by using \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+\Hypertarget{group__cameras_gabd2dd72e1f629725d30ef205283f1038}\index{Cameras@{Cameras}!rcge\_camera\_ratio\_set@{rcge\_camera\_ratio\_set}}
+\index{rcge\_camera\_ratio\_set@{rcge\_camera\_ratio\_set}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_ratio\_set()}{rcge\_camera\_ratio\_set()}}
+{\footnotesize\ttfamily \label{group__cameras_gabd2dd72e1f629725d30ef205283f1038} 
+void rcge\+\_\+camera\+\_\+ratio\+\_\+set (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{double}]{ratio}{}\end{DoxyParamCaption})}
+
+
+
+Set the window aspect ratio of the screen to the camera. Called everytime the window is resized. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera to change. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em ratio} & The window\textquotesingle{}s aspect ratio. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Make sure the shader the camera uses is currently active before calling this by using \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+\Hypertarget{group__cameras_gafb913be74f1d4999e8f0f331f0a42fe0}\index{Cameras@{Cameras}!rcge\_camera\_pos\_get@{rcge\_camera\_pos\_get}}
+\index{rcge\_camera\_pos\_get@{rcge\_camera\_pos\_get}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_pos\_get()}{rcge\_camera\_pos\_get()}}
+{\footnotesize\ttfamily \label{group__cameras_gafb913be74f1d4999e8f0f331f0a42fe0} 
+void rcge\+\_\+camera\+\_\+pos\+\_\+get (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the position of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The position of the specified camera. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__cameras_gaca9327086b99348523cb299dc37b6177}\index{Cameras@{Cameras}!rcge\_camera\_rot\_get@{rcge\_camera\_rot\_get}}
+\index{rcge\_camera\_rot\_get@{rcge\_camera\_rot\_get}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_rot\_get()}{rcge\_camera\_rot\_get()}}
+{\footnotesize\ttfamily \label{group__cameras_gaca9327086b99348523cb299dc37b6177} 
+void rcge\+\_\+camera\+\_\+rot\+\_\+get (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{versor}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the rotation of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The rotation (in quaternion) of the specified camera. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__cameras_ga0aec0fc0b146d9a10163f674e13cbfc7}\index{Cameras@{Cameras}!rcge\_camera\_pos\_set@{rcge\_camera\_pos\_set}}
+\index{rcge\_camera\_pos\_set@{rcge\_camera\_pos\_set}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_pos\_set()}{rcge\_camera\_pos\_set()}}
+{\footnotesize\ttfamily \label{group__cameras_ga0aec0fc0b146d9a10163f674e13cbfc7} 
+void rcge\+\_\+camera\+\_\+pos\+\_\+set (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{vec3}]{new\+\_\+pos}{}\end{DoxyParamCaption})}
+
+
+
+Set the position of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera you want to change. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em new\+\_\+pos} & The position you want to set to the camera. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Make sure the shader the camera uses is currently active before calling this by using \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+\Hypertarget{group__cameras_gaacd34bfab40ff13ed76232a48d5b1d1c}\index{Cameras@{Cameras}!rcge\_camera\_rot\_set@{rcge\_camera\_rot\_set}}
+\index{rcge\_camera\_rot\_set@{rcge\_camera\_rot\_set}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_rot\_set()}{rcge\_camera\_rot\_set()}}
+{\footnotesize\ttfamily \label{group__cameras_gaacd34bfab40ff13ed76232a48d5b1d1c} 
+void rcge\+\_\+camera\+\_\+rot\+\_\+set (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{versor}]{new\+\_\+rot}{}\end{DoxyParamCaption})}
+
+
+
+Set the rotation of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera you want to change. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em new\+\_\+rot} & The rotation (in quaternion) you want to set to the camera. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Make sure the shader the camera uses is currently active before calling this by using \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+\Hypertarget{group__cameras_ga2c8ecf86c1f37cde4e05e8cb5b9b5d27}\index{Cameras@{Cameras}!rcge\_camera\_add\_rot\_euler@{rcge\_camera\_add\_rot\_euler}}
+\index{rcge\_camera\_add\_rot\_euler@{rcge\_camera\_add\_rot\_euler}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_add\_rot\_euler()}{rcge\_camera\_add\_rot\_euler()}}
+{\footnotesize\ttfamily \label{group__cameras_ga2c8ecf86c1f37cde4e05e8cb5b9b5d27} 
+void rcge\+\_\+camera\+\_\+add\+\_\+rot\+\_\+euler (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{vec3}]{apply\+\_\+rot}{}\end{DoxyParamCaption})}
+
+
+
+Add an euler rotation to current rotation of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera you want to change. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em apply\+\_\+rot} & The rotation (in euler) you want to add to the camera. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Make sure the shader the camera uses is currently active before calling this by using \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+\Hypertarget{group__cameras_gad2a174e6b988128716b7c059c61456d3}\index{Cameras@{Cameras}!rcge\_camera\_up@{rcge\_camera\_up}}
+\index{rcge\_camera\_up@{rcge\_camera\_up}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_up()}{rcge\_camera\_up()}}
+{\footnotesize\ttfamily \label{group__cameras_gad2a174e6b988128716b7c059c61456d3} 
+void rcge\+\_\+camera\+\_\+up (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the upward direction normalised vector of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The upward direction normalised vector of a specified camera. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__cameras_gae9cbc8bebbf88a3757ccbcf41810e18c}\index{Cameras@{Cameras}!rcge\_camera\_right@{rcge\_camera\_right}}
+\index{rcge\_camera\_right@{rcge\_camera\_right}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_right()}{rcge\_camera\_right()}}
+{\footnotesize\ttfamily \label{group__cameras_gae9cbc8bebbf88a3757ccbcf41810e18c} 
+void rcge\+\_\+camera\+\_\+right (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the rightward direction normalised vector of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The rightward direction normalised vector of a specified camera. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__cameras_ga574f79def0fe48e6ce05d5028098e71e}\index{Cameras@{Cameras}!rcge\_camera\_forward@{rcge\_camera\_forward}}
+\index{rcge\_camera\_forward@{rcge\_camera\_forward}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_forward()}{rcge\_camera\_forward()}}
+{\footnotesize\ttfamily \label{group__cameras_ga574f79def0fe48e6ce05d5028098e71e} 
+void rcge\+\_\+camera\+\_\+forward (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the forward direction normalised vector of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The forward direction normalised vector of a specified camera. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__cameras_ga9250626dddf286603dbe7a7a6087e8ce}\index{Cameras@{Cameras}!rcge\_camera\_down@{rcge\_camera\_down}}
+\index{rcge\_camera\_down@{rcge\_camera\_down}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_down()}{rcge\_camera\_down()}}
+{\footnotesize\ttfamily \label{group__cameras_ga9250626dddf286603dbe7a7a6087e8ce} 
+void rcge\+\_\+camera\+\_\+down (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the downward direction normalised vector of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The downward direction normalised vector of a specified camera. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__cameras_ga0128286a4b35b49df7ea50aea7955c0b}\index{Cameras@{Cameras}!rcge\_camera\_left@{rcge\_camera\_left}}
+\index{rcge\_camera\_left@{rcge\_camera\_left}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_left()}{rcge\_camera\_left()}}
+{\footnotesize\ttfamily \label{group__cameras_ga0128286a4b35b49df7ea50aea7955c0b} 
+void rcge\+\_\+camera\+\_\+left (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the leftward direction normalised vector of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The leftward direction normalised vector of a specified camera. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__cameras_gab09070a4ea2b767d4c82b3dbbbd4d87c}\index{Cameras@{Cameras}!rcge\_camera\_backward@{rcge\_camera\_backward}}
+\index{rcge\_camera\_backward@{rcge\_camera\_backward}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_backward()}{rcge\_camera\_backward()}}
+{\footnotesize\ttfamily \label{group__cameras_gab09070a4ea2b767d4c82b3dbbbd4d87c} 
+void rcge\+\_\+camera\+\_\+backward (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{, }\item[{vec3}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Get the backward direction normalised vector of a specified camera. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera you want to access. \\
+\hline
+\doxymbox{\texttt{out}}  & {\em out} & The backward direction normalised vector of a specified camera. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__cameras_ga0ee733bb57266d2b6dfd4fc5de872681}\index{Cameras@{Cameras}!rcge\_camera\_delete@{rcge\_camera\_delete}}
+\index{rcge\_camera\_delete@{rcge\_camera\_delete}!Cameras@{Cameras}}
+\doxysubsubsection{\texorpdfstring{rcge\_camera\_delete()}{rcge\_camera\_delete()}}
+{\footnotesize\ttfamily \label{group__cameras_ga0ee733bb57266d2b6dfd4fc5de872681} 
+void rcge\+\_\+camera\+\_\+delete (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__cameras_gad89dbac3dee08aeb83dcd28809a8388d}{rcge\+\_\+camera}}}]{camera}{}\end{DoxyParamCaption})}
+
+
+
+Deletes a camera. 
+
+Camera deletion must be done before program terminates. Prevents memory leaks.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em camera} & The camera you want to delete. \\
+\hline
+\end{DoxyParams}

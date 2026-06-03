@@ -1,0 +1,170 @@
+\doxysection{Textures }
+\hypertarget{group__textures}{}\label{group__textures}\index{Textures@{Textures}}
+
+
+\doxysubsection{Detailed Description}
+Image texture management. 
+
+This module allows the creation and usage of image textures. Image textures can be rendered on meshes. \doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct rcge\+\_\+texture\+\_\+\+CDT \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7de}{rcge\+\_\+texture\+\_\+wrap\+\_\+type}} \{ \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea3dcb394cc04b1f4a20936c3f5bdc7c5f}{TEX\+\_\+\+REPEAT}}
+, \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea3fa3067b0466494e84e904b6426a119a}{TEX\+\_\+\+MIRRORED\+\_\+\+REPEAT}}
+, \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea0a4cdfb8e8cfc751741e65d2987a19f4}{TEX\+\_\+\+CLAMP\+\_\+\+TO\+\_\+\+EDGE}}
+, \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea1ef61a362c075f0222c93234128f5eb9}{TEX\+\_\+\+CLAMP\+\_\+\+TO\+\_\+\+BORDER}}
+ \}
+\item 
+enum \doxymbox{\hyperlink{group__textures_ga9674787010c192c7be9a11cdc6b6c2db}{rcge\+\_\+texture\+\_\+filter\+\_\+type}} \{ \doxymbox{\hyperlink{group__textures_ga9674787010c192c7be9a11cdc6b6c2dba5a320f382520f0ba216e23f5aab65985}{TEX\+\_\+\+LINEAR}}
+, \doxymbox{\hyperlink{group__textures_ga9674787010c192c7be9a11cdc6b6c2dbad312ac53577059764f0aa5447b7d8709}{TEX\+\_\+\+NEAREST}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}} \doxymbox{\hyperlink{group__textures_ga280e7f887d44659563aa0e87b5c64b30}{rcge\+\_\+texture\+\_\+create}} (char \texorpdfstring{$\ast$}{*}path, \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7de}{rcge\+\_\+texture\+\_\+wrap\+\_\+type}} wrap, \doxymbox{\hyperlink{group__textures_ga9674787010c192c7be9a11cdc6b6c2db}{rcge\+\_\+texture\+\_\+filter\+\_\+type}} filter)
+\item 
+void \doxymbox{\hyperlink{group__textures_ga641fabb0eb989aa58d3aabd73d34775b}{rcge\+\_\+texture\+\_\+use}} (\doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}} texture)
+\item 
+void \doxymbox{\hyperlink{group__textures_gabe24972a8350da7577b66b6f9514248e}{rcge\+\_\+texture\+\_\+delete}} (\doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}} texture)
+\end{DoxyCompactItemize}
+
+
+\label{group__textures_doc-typedef-members}
+\Hypertarget{group__textures_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}\index{Textures@{Textures}!rcge\_texture@{rcge\_texture}}
+\index{rcge\_texture@{rcge\_texture}!Textures@{Textures}}
+\doxysubsubsection{\texorpdfstring{rcge\_texture}{rcge\_texture}}
+{\footnotesize\ttfamily \label{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126} 
+typedef struct rcge\+\_\+texture\+\_\+\+CDT\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}}}
+
+Datatype representing an image texture. 
+
+\label{group__textures_doc-enum-members}
+\Hypertarget{group__textures_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7de}\index{Textures@{Textures}!rcge\_texture\_wrap\_type@{rcge\_texture\_wrap\_type}}
+\index{rcge\_texture\_wrap\_type@{rcge\_texture\_wrap\_type}!Textures@{Textures}}
+\doxysubsubsection{\texorpdfstring{rcge\_texture\_wrap\_type}{rcge\_texture\_wrap\_type}}
+{\footnotesize\ttfamily \label{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7de} 
+enum \doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7de}{rcge\+\_\+texture\+\_\+wrap\+\_\+type}}}
+
+
+
+Type of texture wrapping methods. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TEX\_REPEAT@{TEX\_REPEAT}!Textures@{Textures}}
+\index{Textures@{Textures}!TEX\_REPEAT@{TEX\_REPEAT}}
+}\Hypertarget{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea3dcb394cc04b1f4a20936c3f5bdc7c5f}\label{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea3dcb394cc04b1f4a20936c3f5bdc7c5f} 
+TEX\+\_\+\+REPEAT&Repeats the texture. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TEX\_MIRRORED\_REPEAT@{TEX\_MIRRORED\_REPEAT}!Textures@{Textures}}
+\index{Textures@{Textures}!TEX\_MIRRORED\_REPEAT@{TEX\_MIRRORED\_REPEAT}}
+}\Hypertarget{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea3fa3067b0466494e84e904b6426a119a}\label{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea3fa3067b0466494e84e904b6426a119a} 
+TEX\+\_\+\+MIRRORED\+\_\+\+REPEAT&Repeats the texture but mirrors the image with each repeat. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TEX\_CLAMP\_TO\_EDGE@{TEX\_CLAMP\_TO\_EDGE}!Textures@{Textures}}
+\index{Textures@{Textures}!TEX\_CLAMP\_TO\_EDGE@{TEX\_CLAMP\_TO\_EDGE}}
+}\Hypertarget{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea0a4cdfb8e8cfc751741e65d2987a19f4}\label{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea0a4cdfb8e8cfc751741e65d2987a19f4} 
+TEX\+\_\+\+CLAMP\+\_\+\+TO\+\_\+\+EDGE&Stretched edge pattern. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TEX\_CLAMP\_TO\_BORDER@{TEX\_CLAMP\_TO\_BORDER}!Textures@{Textures}}
+\index{Textures@{Textures}!TEX\_CLAMP\_TO\_BORDER@{TEX\_CLAMP\_TO\_BORDER}}
+}\Hypertarget{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea1ef61a362c075f0222c93234128f5eb9}\label{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7dea1ef61a362c075f0222c93234128f5eb9} 
+TEX\+\_\+\+CLAMP\+\_\+\+TO\+\_\+\+BORDER&Blank color outside border. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{group__textures_ga9674787010c192c7be9a11cdc6b6c2db}\index{Textures@{Textures}!rcge\_texture\_filter\_type@{rcge\_texture\_filter\_type}}
+\index{rcge\_texture\_filter\_type@{rcge\_texture\_filter\_type}!Textures@{Textures}}
+\doxysubsubsection{\texorpdfstring{rcge\_texture\_filter\_type}{rcge\_texture\_filter\_type}}
+{\footnotesize\ttfamily \label{group__textures_ga9674787010c192c7be9a11cdc6b6c2db} 
+enum \doxymbox{\hyperlink{group__textures_ga9674787010c192c7be9a11cdc6b6c2db}{rcge\+\_\+texture\+\_\+filter\+\_\+type}}}
+
+
+
+Type of texture filter methods. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TEX\_LINEAR@{TEX\_LINEAR}!Textures@{Textures}}
+\index{Textures@{Textures}!TEX\_LINEAR@{TEX\_LINEAR}}
+}\Hypertarget{group__textures_ga9674787010c192c7be9a11cdc6b6c2dba5a320f382520f0ba216e23f5aab65985}\label{group__textures_ga9674787010c192c7be9a11cdc6b6c2dba5a320f382520f0ba216e23f5aab65985} 
+TEX\+\_\+\+LINEAR&Blocky texture and can see individual pixels. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TEX\_NEAREST@{TEX\_NEAREST}!Textures@{Textures}}
+\index{Textures@{Textures}!TEX\_NEAREST@{TEX\_NEAREST}}
+}\Hypertarget{group__textures_ga9674787010c192c7be9a11cdc6b6c2dbad312ac53577059764f0aa5447b7d8709}\label{group__textures_ga9674787010c192c7be9a11cdc6b6c2dbad312ac53577059764f0aa5447b7d8709} 
+TEX\+\_\+\+NEAREST&Smooth texture and individual pixels are blurred. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{group__textures_doc-func-members}
+\Hypertarget{group__textures_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group__textures_ga280e7f887d44659563aa0e87b5c64b30}\index{Textures@{Textures}!rcge\_texture\_create@{rcge\_texture\_create}}
+\index{rcge\_texture\_create@{rcge\_texture\_create}!Textures@{Textures}}
+\doxysubsubsection{\texorpdfstring{rcge\_texture\_create()}{rcge\_texture\_create()}}
+{\footnotesize\ttfamily \label{group__textures_ga280e7f887d44659563aa0e87b5c64b30} 
+\doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}} rcge\+\_\+texture\+\_\+create (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{path}{, }\item[{\doxymbox{\hyperlink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7de}{rcge\+\_\+texture\+\_\+wrap\+\_\+type}}}]{wrap}{, }\item[{\doxymbox{\hyperlink{group__textures_ga9674787010c192c7be9a11cdc6b6c2db}{rcge\+\_\+texture\+\_\+filter\+\_\+type}}}]{filter}{}\end{DoxyParamCaption})}
+
+
+
+Creates an image texture from an image file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em path} & Relative path of the image file to be used for creating the texture. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em wrap} & The wrapping method to use for the texture. See \doxylink{group__textures_ga4d9ab0ca8007ed3cd31389dab146f7de}{rcge\+\_\+texture\+\_\+wrap\+\_\+type} for what can be put here. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em filter} & The filter method to use for the texture. See \doxylink{group__textures_ga9674787010c192c7be9a11cdc6b6c2db}{rcge\+\_\+texture\+\_\+filter\+\_\+type} for what can be put here. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The texture created, NULL if failed. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Image file is read from the bottom {\bfseries{RIGHT}} pixel to the upper {\bfseries{LEFT}} pixel. 
+\end{DoxyNote}
+\Hypertarget{group__textures_ga641fabb0eb989aa58d3aabd73d34775b}\index{Textures@{Textures}!rcge\_texture\_use@{rcge\_texture\_use}}
+\index{rcge\_texture\_use@{rcge\_texture\_use}!Textures@{Textures}}
+\doxysubsubsection{\texorpdfstring{rcge\_texture\_use()}{rcge\_texture\_use()}}
+{\footnotesize\ttfamily \label{group__textures_ga641fabb0eb989aa58d3aabd73d34775b} 
+void rcge\+\_\+texture\+\_\+use (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}}}]{texture}{}\end{DoxyParamCaption})}
+
+
+
+Set the texture to be the active one. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em texture} & The texture to be used. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__textures_gabe24972a8350da7577b66b6f9514248e}\index{Textures@{Textures}!rcge\_texture\_delete@{rcge\_texture\_delete}}
+\index{rcge\_texture\_delete@{rcge\_texture\_delete}!Textures@{Textures}}
+\doxysubsubsection{\texorpdfstring{rcge\_texture\_delete()}{rcge\_texture\_delete()}}
+{\footnotesize\ttfamily \label{group__textures_gabe24972a8350da7577b66b6f9514248e} 
+void rcge\+\_\+texture\+\_\+delete (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__textures_gadcf8995ec68bcf48fbd0ebf8ce407126}{rcge\+\_\+texture}}}]{texture}{}\end{DoxyParamCaption})}
+
+
+
+Deletes the image texture. Texture deletion must be called at the end of the program. This prevents memory leaks. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em texture} & The texture to be deleted. \\
+\hline
+\end{DoxyParams}

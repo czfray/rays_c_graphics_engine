@@ -77,7 +77,7 @@ void rcge_window_run(rcge_window window, rcge_start_callback start_cb, rcge_upda
     printf("[RCGE Window] Window started running.\n");
     window->resize_cb = resize_cb;
 
-    start_cb(window);
+    if (start_cb != NULL) start_cb(window);
     GLFWwindow* gl_window = window->gl_window;
     glfwMakeContextCurrent(gl_window);
 
@@ -89,7 +89,7 @@ void rcge_window_run(rcge_window window, rcge_start_callback start_cb, rcge_upda
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         double current_time = glfwGetTime();
-        update_cb(window, current_time - window->last_update_time);
+        if (update_cb != NULL) update_cb(window, current_time - window->last_update_time);
         window->last_update_time = current_time;
 
         glfwSwapBuffers(gl_window); //Swap back and front buffers
@@ -106,6 +106,8 @@ float rcge_window_ratio(rcge_window window)
     glfwGetFramebufferSize(window->gl_window, &buf_w, &buf_h); 
     return ((float) buf_w) / buf_h;
 }
+
+//TODO: Merge this with init?
 
 void* rcge_window_raw_pointer(rcge_window window) {return (void*)window->gl_window;}
 

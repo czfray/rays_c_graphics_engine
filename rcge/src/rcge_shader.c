@@ -190,12 +190,12 @@ void rcge_shader_delete(rcge_shader shader)
     printf("[RCGE Shader] Shader %d deleted.\n", gl_shader_program);
 }
 
-void rcge_shader_color_out_location(rcge_shader shader, unsigned int color_no, char* loc_name)
+void rcge_shader_color_out_location(rcge_shader shader, unsigned int color_no, char* name)
 {
     if (shader == NULL) {printf("[RCGE Shader] Shader set color out location failed: shader does not exist.\n"); return;}
     GLuint gl_shader_program = shader->gl_shader_program;
-    glBindFragDataLocation(gl_shader_program, color_no, loc_name);
-    printf("[RCGE Shader] Shader %d set color out location of %d to \"%s\".\n", gl_shader_program, color_no, loc_name);
+    glBindFragDataLocation(gl_shader_program, color_no, name);
+    printf("[RCGE Shader] Shader %d set color out location of %d to \"%s\".\n", gl_shader_program, color_no, name);
 }
 
 int rcge_shader_uniform_index_to_loc(rcge_shader shader, unsigned int index)

@@ -7,16 +7,6 @@
 #include <string.h>
 #include <math.h>
 
-/*
- *
- * Ray's C Graphics Engine (RCGE)
- * A OpenGL-based graphic engine written in plain C.
- * 
- * Author: Chan Ray
- * Start Date: May 10th, 2026
- * 
- */
-
 int frame;
 double time;
 
@@ -40,35 +30,35 @@ void start(rcge_window window)
 
     float vertices[] =
     {
-        -0.5, -0.5, -0.5,   1.0, 1.0,
-        -0.5, 0.5, -0.5,    1.0, 0,
-        0.5, 0.5, -0.5,     0, 0,
-        0.5, -0.5, -0.5,    0, 1.0, 
-
-        -0.5, -0.5, 0.5,    1.0, 1.0,
-        -0.5, 0.5, 0.5,     1.0, 0,
-        -0.5, 0.5, -0.5,    0, 0,
-        -0.5, -0.5, -0.5,   0, 1.0, 
-
-        0.5, -0.5, 0.5,     1.0, 1.0,
-        0.5, 0.5, 0.5,      1.0, 0,
-        -0.5, 0.5, 0.5,     0, 0,
-        -0.5, -0.5, 0.5,    0, 1.0, 
-
-        0.5, -0.5, -0.5,    1.0, 1.0,
-        0.5, 0.5, -0.5,     1.0, 0,
-        0.5, 0.5, 0.5,      0, 0,
-        0.5, -0.5, 0.5,     0, 1.0, 
-
+        -0.5, -0.5, -0.5,   1.0, 0.0,
         -0.5, 0.5, -0.5,    1.0, 1.0,
-        -0.5, 0.5, 0.5,     1.0, 0,
-        0.5, 0.5, 0.5,      0, 0,
-        0.5, 0.5, -0.5,     0, 1.0, 
+        0.5, 0.5, -0.5,     0.0, 1.0,
+        0.5, -0.5, -0.5,    0.0, 0.0, 
 
-        -0.5, -0.5, 0.5,    1.0, 1.0,
-        -0.5, -0.5, -0.5,   1.0, 0,
-        0.5, -0.5, -0.5,    0, 0,
-        0.5, -0.5, 0.5,     0, 1.0, 
+        -0.5, -0.5, 0.5,    1.0, 0.0,
+        -0.5, 0.5, 0.5,     1.0, 1.0,
+        -0.5, 0.5, -0.5,    0.0, 1.0,
+        -0.5, -0.5, -0.5,   0.0, 0.0, 
+
+        0.5, -0.5, 0.5,     1.0, 0.0,
+        0.5, 0.5, 0.5,      1.0, 1.0,
+        -0.5, 0.5, 0.5,     0.0, 1.0,
+        -0.5, -0.5, 0.5,    0.0, 0.0, 
+
+        0.5, -0.5, -0.5,    1.0, 0.0,
+        0.5, 0.5, -0.5,     1.0, 1.0,
+        0.5, 0.5, 0.5,      0.0, 1.0,
+        0.5, -0.5, 0.5,     0.0, 0.0,
+
+        -0.5, 0.5, -0.5,    1.0, 0.0,
+        -0.5, 0.5, 0.5,     1.0, 1.0,
+        0.5, 0.5, 0.5,      0.0, 1.0,
+        0.5, 0.5, -0.5,     0.0, 0.0,
+
+        -0.5, -0.5, 0.5,    1.0, 0.0,
+        -0.5, -0.5, -0.5,   1.0, 1.0,
+        0.5, -0.5, -0.5,    0.0, 1.0,
+        0.5, -0.5, 0.5,     0.0, 0.0
     };
 
     unsigned int indices[] = 
@@ -94,11 +84,12 @@ void start(rcge_window window)
 
     mesh_element_index = rcge_singlemesh_create_in_manager(element_manager, shader, 0, keven_texture, vertices, 120, indices, 36, MESH_STATIC);
 
-    for (int k = -10; k < 10; k++)
+    int no = 5;
+    for (int k = -no; k < no; k++)
     {
-        for (int j = -10; j < 10; j++)
+        for (int j = -no; j < no; j++)
         {
-            for (int i = -10; i < 10; i++)
+            for (int i = -no; i < no; i++)
             {
                 if (i == 0 && j == 0 && k == 0) continue;
                 unsigned int index = rcge_singlemesh_create_in_manager(element_manager, shader, 0, keven_texture, vertices, 120, indices, 36, MESH_STATIC);
@@ -230,7 +221,7 @@ void update(rcge_window window, double delta_time)
     if (rcge_io_input_pressed(window, IO_KEY_BACKSPACE))
     {
         rcge_camera_rot_set(camera, GLM_QUAT_IDENTITY);
-        vec3 def = {0, 0, -5};
+        vec3 def = {0, 0, -2};
         rcge_camera_pos_set(camera, def);
     }
 
@@ -247,7 +238,7 @@ void resize(rcge_window window, int width, int height)
 int main(void)
 {
     rcge_init();
-    rcge_window window = rcge_window_create(608, 1080, "RCGE Test", true);
+    rcge_window window = rcge_window_create(800, 600, "RCGE Test", true); //608, 1080
     
     rcge_shader_comp vertex_comp = rcge_shader_comp_create("shaders/default.vert", SHADER_VERT);
     rcge_shader_comp fragment_comp = rcge_shader_comp_create("shaders/default.frag", SHADER_FRAG);
@@ -275,7 +266,7 @@ int main(void)
 
     keven_texture = rcge_texture_create("textures/keven.png", TEX_CLAMP_TO_EDGE, TEX_LINEAR);
     rcge_texture_use(keven_texture);
-    rcge_shader_uniform_int(shader, 4, 0); //OPTIONAL, default is 0 already, only need if multiple texture layer.
+    rcge_shader_uniform_int(shader, 4, 0); //OPTIONAL, default is 0 already, only need if multiple texture layer. //TODO THIS IS UGLY AF
 
     element_manager = rcge_element_manager_create(128);
 

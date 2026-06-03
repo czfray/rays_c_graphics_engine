@@ -1,0 +1,753 @@
+\doxysection{Shader Components and Shaders }
+\hypertarget{group__shaders}{}\label{group__shaders}\index{Shader Components and Shaders@{Shader Components and Shaders}}
+
+
+\doxysubsection{Detailed Description}
+Shader management. 
+
+This module allows the creating and using of shaders. Shaders are programs run in the GPU that determines how graphics are rendered on screen. They are necessary for all graphics rendering, even for simple unlit meshes.
+
+To initialise a shader, you must:\+
+
+
+\begin{DoxyEnumerate}
+\item Create shader (See \doxylink{group__shaders_ga59204e5d6ef1ff3c6a6c533020fdf3ce}{rcge\+\_\+shader\+\_\+create})
+\item Attach shader components (See section \doxysectlink{group__shaders_shaders_comp}{Shader Components and Pipeline}{2} on what components are)
+\item Set outputs (See section \doxysectlink{group__shaders_shaders_colorout}{Shaders Output and Color Buffer}{2} on what outputs are)
+\item Compile (See \doxylink{group__shaders_ga790ff83c14919e66b916c92931423426}{rcge\+\_\+shader\+\_\+compile})
+\item Set attributes \& uniforms (See section \doxysectlink{group__shaders_shaders_attrib}{Shaders Attributes}{2} and \doxysectlink{group__shaders_shaders_uniform}{Shaders Uniforms}{2} on what attributes and uniforms are)
+\item Use shader (See \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use})
+\end{DoxyEnumerate}
+
+An example has been provided in section \doxysectlink{group__shaders_shaders_example}{Shader Setup Sample Code}{2}. \DoxyHorRuler{0}
+ \hypertarget{group__shaders_shaders_comp}{}\doxysubsubsection{\texorpdfstring{Shader Components and Pipeline}{Shader Components and Pipeline}}\label{group__shaders_shaders_comp}
+A shader is needed to be consisted of at least 2 components:\+ a vertex, and a fragment component. If you want, you can additionally make use of a geometric component.
+
+Vertex shader component:\+ Processes each vertex to determine its position in 3D space and pass data to the next stage. Geometric Shader Component:\+ Takes whole primitives and can create, modify, or discard geometry before shape assembly. Fragment Shader Component:\+ Calculates the final color and appearance of each pixel on the screen.
+
+When mesh vertices data (i.\+e. Raw data of a 2D shape/\+3D model) are passed to the GPU for rendering, it goes through the shader component by component. The pipeline is as follows:\+
+\begin{DoxyEnumerate}
+\item Passes data of vertices to vertex component of the shader
+\item Passes output of vertex component to geometric component of the shader (optional)
+\item Assembles shapes and rasterizes with the output data from the vertex component and the optional geometric component (Automatically done by the engine, no components needed)
+\item Passes the shape data resulted to the fragment component of the shader
+\item Renders the colors obtained from the shader to the screen
+\end{DoxyEnumerate}
+
+i.\+e Mesh Vertices Data \+[Shader Input]\+ -\/-\/\texorpdfstring{$>$}{>} Vertex Component -\/\texorpdfstring{$>$}{>} Geometric Component (Opt.) -\/\texorpdfstring{$>$}{>} Shape Assembly \& Rasterisation (Auto.) -\/\texorpdfstring{$>$}{>} Fragment Shader -\/-\/\texorpdfstring{$>$}{>} \+[Shader Output]\+ Graphics Rendered \DoxyHorRuler{0}
+ \hypertarget{group__shaders_shaders_comp_source}{}\doxysubsubsection{\texorpdfstring{Shader Component Code (GLSL)}{Shader Component Code (GLSL)}}\label{group__shaders_shaders_comp_source}
+In order to create your own shader component, you will need to write {\bfseries{GLSL (Open\+GL Shader Language)}} source code for it. Then, call \doxylink{group__shaders_ga5e647894c3ff7042acc70b3b62151da3}{rcge\+\_\+shader\+\_\+comp\+\_\+create} to load it into the engine.
+
+A brief guide of GLSL {\itshape (Credit:\+ Learn Open\+GL, by Joey de Vries)}:\+~\newline
+GLSL is tailored for use with graphics and contains useful features specifically targeted at vector and matrix manipulation. Shaders always begin with a version declaration, followed by a list of input and output variables, uniforms and its main function. Each shader\textquotesingle{}s entry point is at its main function where we process any input variables and output the results in its output variables. Don\textquotesingle{}t worry if you don\textquotesingle{}t know what uniforms are, we\textquotesingle{}ll get to those shortly.
+
+A shader typically has the following structure:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#version\ version\_number\ }\textcolor{comment}{//Usually\ "{}150\ core"{}}}
+\DoxyCodeLine{in\ type\ in\_variable\_name;}
+\DoxyCodeLine{in\ type\ in\_variable\_name;}
+\DoxyCodeLine{}
+\DoxyCodeLine{out\ type\ out\_variable\_name;}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{uniform\ type\ uniform\_name;}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ process\ input(s)\ and\ do\ some\ weird\ graphics\ stuff}}
+\DoxyCodeLine{\ \ ...}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ output\ processed\ stuff\ to\ output\ variable}}
+\DoxyCodeLine{\ \ out\_variable\_name\ =\ weird\_stuff\_we\_processed;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+{\bfseries{For details of implementation of shader and shader component creation, see}}:\+
+\begin{DoxyItemize}
+\item \doxylink{group__shaders_ga5e647894c3ff7042acc70b3b62151da3}{rcge\+\_\+shader\+\_\+comp\+\_\+create}
+\item \doxylink{group__shaders_gab4c934d784f13ad82bc994c31aa7091d}{rcge\+\_\+shader\+\_\+comp\+\_\+delete}
+\item \doxylink{group__shaders_gac9abe388c30ac20d8be76b9ef8f08d7e}{rcge\+\_\+shader\+\_\+attach}
+\item \doxylink{group__shaders_ga790ff83c14919e66b916c92931423426}{rcge\+\_\+shader\+\_\+compile}
+\item \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}
+\item \doxylink{group__shaders_ga32c335eba54265f6eac3d550532f29ec}{rcge\+\_\+shader\+\_\+delete} \DoxyHorRuler{0}
+ 
+\end{DoxyItemize}\hypertarget{group__shaders_shaders_attrib}{}\doxysubsubsection{\texorpdfstring{Shaders Attributes}{Shaders Attributes}}\label{group__shaders_shaders_attrib}
+Attributes are the mesh vertices input into the shader. Since the inputs are first passed through the vertex component, attributes can also be defined as the inputs of the shader vertex component. So basically, attributes are to provide per-\/vertex data like position, normals, texture coordinates, and colors that define the shape and surface of a mesh. Attributes are usually used to input position, and texture UV coordinates data of vertices of a mesh.
+
+Suppose I have a vertex shader component with source code as following:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#version\ 150\ core}}
+\DoxyCodeLine{}
+\DoxyCodeLine{in\ vec3\ position;}
+\DoxyCodeLine{in\ vec2\ texcoord;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{}
+\DoxyCodeLine{void\ main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ ...}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ Then the shader with this component would have two attributes:\+ "{}position"{} and "{}texcoord"{}.
+
+This section only explains what an attribute is. To see the details on how to set them up, go to \doxylink{group__shaders_ga34e533ec09a36523abf99d805f76157f}{rcge\+\_\+shader\+\_\+attrib\+\_\+set}. \DoxyHorRuler{0}
+ \hypertarget{group__shaders_shaders_uniform}{}\doxysubsubsection{\texorpdfstring{Shaders Uniforms}{Shaders Uniforms}}\label{group__shaders_shaders_uniform}
+Uniforms are another type of input of a shader. It is a shader input that is constant for the entire draw call (the same value is used for all vertices and fragments). (Attributes, on the other hand, is an input that changes per vertex.) Uniforms are usually used for global data that affects the whole object being drawn instead of just single vertices, like transformation matrices (model/\+view/\+projection), lighting parameters, time values, and texture settings.
+
+Suppose I have a shader component with source code as following:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#version\ 150\ core}}
+\DoxyCodeLine{}
+\DoxyCodeLine{in\ vec3\ position;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{uniform\ mat4\ model;}
+\DoxyCodeLine{uniform\ mat4\ view;}
+\DoxyCodeLine{uniform\ mat4\ proj;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ ...}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ Then the shader with this component would have uniforms "{}model"{}, "{}view"{} and "{}proj"{}, all of type mat4.
+
+This section only explains what a uniform is. ~\newline
+To see the details on how to set them up, go to \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}. ~\newline
+To see the details on how to set values of uniforms, see functions with naming format {\bfseries{rcge\+\_\+shader\+\_\+uniform\+\_\+\+XXX}}. \DoxyHorRuler{0}
+ \hypertarget{group__shaders_shaders_colorout}{}\doxysubsubsection{\texorpdfstring{Shaders Output and Color Buffer}{Shaders Output and Color Buffer}}\label{group__shaders_shaders_colorout}
+Shaders will output color values. Since the outputs are returned from the fragment component, they are the same as the outputs of the shader fragment component.
+
+Suppose I have a shader having a fragment component with source code as following:\+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#version\ 150\ core}}
+\DoxyCodeLine{}
+\DoxyCodeLine{in\ vec2\ \_texcoord;}
+\DoxyCodeLine{out\ vec4\ outColor;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{void\ main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ ...}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ The shader has output "{}out\+Color"{}.
+
+To see how to setup outputs so that they could actually be rendered, please see \doxylink{group__shaders_gad64854929d77b4c5fb8f76243fd91a6c}{rcge\+\_\+shader\+\_\+color\+\_\+out\+\_\+location} \DoxyHorRuler{0}
+ \hypertarget{group__shaders_shaders_example}{}\doxysubsubsection{\texorpdfstring{Shader Setup Sample Code}{Shader Setup Sample Code}}\label{group__shaders_shaders_example}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\_shader\_comp}}\ vertex\_comp\ =\ \doxymbox{\hyperlink{group__shaders_ga5e647894c3ff7042acc70b3b62151da3}{rcge\_shader\_comp\_create}}(\textcolor{stringliteral}{"{}shaders/default.vert"{}},\ \doxymbox{\hyperlink{rcge__shader_8h_ga9bf06e4fa7cefb1dbef0ff25fa791413a5082c31f5607e79788d04a93b3bde3b8}{SHADER\_VERT}});}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\_shader\_comp}}\ fragment\_comp\ =\ \doxymbox{\hyperlink{group__shaders_ga5e647894c3ff7042acc70b3b62151da3}{rcge\_shader\_comp\_create}}(\textcolor{stringliteral}{"{}shaders/default.frag"{}},\ \doxymbox{\hyperlink{rcge__shader_8h_ga9bf06e4fa7cefb1dbef0ff25fa791413ab4eb7f7375c39c4ac42fa96cff44cb01}{SHADER\_FRAG}});}
+\DoxyCodeLine{shader\ =\ \doxymbox{\hyperlink{group__shaders_ga59204e5d6ef1ff3c6a6c533020fdf3ce}{rcge\_shader\_create}}(2,\ 5);}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_gac9abe388c30ac20d8be76b9ef8f08d7e}{rcge\_shader\_attach}}(shader,\ vertex\_comp);}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_gac9abe388c30ac20d8be76b9ef8f08d7e}{rcge\_shader\_attach}}(shader,\ fragment\_comp);}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_gad64854929d77b4c5fb8f76243fd91a6c}{rcge\_shader\_color\_out\_location}}(shader,\ 0,\ \textcolor{stringliteral}{"{}outColor"{}});}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga790ff83c14919e66b916c92931423426}{rcge\_shader\_compile}}(shader);}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga34e533ec09a36523abf99d805f76157f}{rcge\_shader\_attrib\_set}}(shader,\ 0,\ \textcolor{stringliteral}{"{}position"{}},\ 3,\ \doxymbox{\hyperlink{rcge__datatype_8h_ga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a}{DATATYPE\_FLOAT}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga34e533ec09a36523abf99d805f76157f}{rcge\_shader\_attrib\_set}}(shader,\ 1,\ \textcolor{stringliteral}{"{}texcoord"{}},\ 2,\ \doxymbox{\hyperlink{rcge__datatype_8h_ga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a}{DATATYPE\_FLOAT}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\_shader\_uniform\_loc\_set}}(shader,\ 0,\ \textcolor{stringliteral}{"{}model"{}});}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\_shader\_uniform\_loc\_set}}(shader,\ 1,\ \textcolor{stringliteral}{"{}view"{}});}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\_shader\_uniform\_loc\_set}}(shader,\ 2,\ \textcolor{stringliteral}{"{}proj"{}});}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\_shader\_uniform\_loc\_set}}(shader,\ 3,\ \textcolor{stringliteral}{"{}color"{}});}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\_shader\_uniform\_loc\_set}}(shader,\ 4,\ \textcolor{stringliteral}{"{}tex"{}});}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\_shader\_use}}(shader);\ }
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_gab4c934d784f13ad82bc994c31aa7091d}{rcge\_shader\_comp\_delete}}(vertex\_comp);}
+\DoxyCodeLine{\doxymbox{\hyperlink{group__shaders_gab4c934d784f13ad82bc994c31aa7091d}{rcge\_shader\_comp\_delete}}(fragment\_comp);}
+
+\end{DoxyCode}
+ \doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct rcge\+\_\+shader\+\_\+comp\+\_\+\+CDT \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\+\_\+shader\+\_\+comp}}
+\item 
+typedef struct rcge\+\_\+shader\+\_\+\+CDT \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413}{rcge\+\_\+shader\+\_\+comp\+\_\+type}} \{ \doxymbox{\hyperlink{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413a5082c31f5607e79788d04a93b3bde3b8}{SHADER\+\_\+\+VERT}}
+, \doxymbox{\hyperlink{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413a588a457c7600386629596469104dcd0c}{SHADER\+\_\+\+GEOM}}
+, \doxymbox{\hyperlink{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413ab4eb7f7375c39c4ac42fa96cff44cb01}{SHADER\+\_\+\+FRAG}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\+\_\+shader\+\_\+comp}} \doxymbox{\hyperlink{group__shaders_ga5e647894c3ff7042acc70b3b62151da3}{rcge\+\_\+shader\+\_\+comp\+\_\+create}} (char \texorpdfstring{$\ast$}{*}path, \doxymbox{\hyperlink{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413}{rcge\+\_\+shader\+\_\+comp\+\_\+type}} type)
+\item 
+void \doxymbox{\hyperlink{group__shaders_gab4c934d784f13ad82bc994c31aa7091d}{rcge\+\_\+shader\+\_\+comp\+\_\+delete}} (\doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\+\_\+shader\+\_\+comp}} shader\+\_\+comp)
+\item 
+\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} \doxymbox{\hyperlink{group__shaders_ga59204e5d6ef1ff3c6a6c533020fdf3ce}{rcge\+\_\+shader\+\_\+create}} (unsigned int attrib\+\_\+no, unsigned int uniform\+\_\+no)
+\item 
+void \doxymbox{\hyperlink{group__shaders_gac9abe388c30ac20d8be76b9ef8f08d7e}{rcge\+\_\+shader\+\_\+attach}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, \doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\+\_\+shader\+\_\+comp}} shader\+\_\+comp)
+\item 
+void \doxymbox{\hyperlink{group__shaders_ga790ff83c14919e66b916c92931423426}{rcge\+\_\+shader\+\_\+compile}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader)
+\item 
+void \doxymbox{\hyperlink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader)
+\item 
+void \doxymbox{\hyperlink{group__shaders_ga34e533ec09a36523abf99d805f76157f}{rcge\+\_\+shader\+\_\+attrib\+\_\+set}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int index, char \texorpdfstring{$\ast$}{*}name, unsigned int size, \doxymbox{\hyperlink{group__datatypes_ga7a090da8a8dc6768970b4a9ea026832f}{rcge\+\_\+datatype}} type, bool normalised)
+\item 
+void \doxymbox{\hyperlink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int index, char \texorpdfstring{$\ast$}{*}name)
+\item 
+void \doxymbox{\hyperlink{group__shaders_gad64854929d77b4c5fb8f76243fd91a6c}{rcge\+\_\+shader\+\_\+color\+\_\+out\+\_\+location}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int color\+\_\+no, char \texorpdfstring{$\ast$}{*}name)
+\item 
+void \doxymbox{\hyperlink{group__shaders_ga32c335eba54265f6eac3d550532f29ec}{rcge\+\_\+shader\+\_\+delete}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader)
+\item 
+void \doxymbox{\hyperlink{group__shaders_ga3e7fa80f07b6a466a64822d22150dabd}{rcge\+\_\+shader\+\_\+uniform\+\_\+float}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int uniform\+\_\+loc\+\_\+index, float value)
+\item 
+void \doxymbox{\hyperlink{group__shaders_gab40a8493a0ed4fc36e698e2229144880}{rcge\+\_\+shader\+\_\+uniform\+\_\+vec2}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int uniform\+\_\+loc\+\_\+index, vec2 value)
+\item 
+void \doxymbox{\hyperlink{group__shaders_ga65d72c00a434a1de5a8781714003e50e}{rcge\+\_\+shader\+\_\+uniform\+\_\+vec3}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int uniform\+\_\+loc\+\_\+index, vec3 value)
+\item 
+void \doxymbox{\hyperlink{group__shaders_gad351e3476890239d984c9c3383270ecb}{rcge\+\_\+shader\+\_\+uniform\+\_\+vec4}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int uniform\+\_\+loc\+\_\+index, vec4 value)
+\item 
+void \doxymbox{\hyperlink{group__shaders_ga544a6489dbb1ddadadd720301bfd9dab}{rcge\+\_\+shader\+\_\+uniform\+\_\+int}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int uniform\+\_\+loc\+\_\+index, int value)
+\item 
+void \doxymbox{\hyperlink{group__shaders_ga5c6ded510f4cf55ee6d825f2ae6dc374}{rcge\+\_\+shader\+\_\+uniform\+\_\+ivec2}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int uniform\+\_\+loc\+\_\+index, ivec2 value)
+\item 
+void \doxymbox{\hyperlink{group__shaders_ga46620cc5e4c4b2569395e35d912036e9}{rcge\+\_\+shader\+\_\+uniform\+\_\+ivec3}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int uniform\+\_\+loc\+\_\+index, ivec3 value)
+\item 
+void \doxymbox{\hyperlink{group__shaders_ga8967e6b5057aec6244aa3878c66a0ee0}{rcge\+\_\+shader\+\_\+uniform\+\_\+ivec4}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int uniform\+\_\+loc\+\_\+index, ivec4 value)
+\item 
+void \doxymbox{\hyperlink{group__shaders_gab155517a367a2a2332853e7286506acd}{rcge\+\_\+shader\+\_\+uniform\+\_\+uint}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int uniform\+\_\+loc\+\_\+index, unsigned int value)
+\item 
+void \doxymbox{\hyperlink{group__shaders_ga5a711252dca5977457ba38286ebbb38c}{rcge\+\_\+shader\+\_\+uniform\+\_\+mat2}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int uniform\+\_\+loc\+\_\+index, mat2 value)
+\item 
+void \doxymbox{\hyperlink{group__shaders_gabfe8488b2c1cfd22aa5a4da3bfcd9546}{rcge\+\_\+shader\+\_\+uniform\+\_\+mat3}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int uniform\+\_\+loc\+\_\+index, mat3 value)
+\item 
+void \doxymbox{\hyperlink{group__shaders_gaaabeff2e6a918e41cb829e70e5bd323d}{rcge\+\_\+shader\+\_\+uniform\+\_\+mat4}} (\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} shader, unsigned int uniform\+\_\+loc\+\_\+index, mat4 value)
+\end{DoxyCompactItemize}
+
+
+\label{group__shaders_doc-typedef-members}
+\Hypertarget{group__shaders_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{group__shaders_ga9d4195036a32b2bd5e027b5950177281}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_comp@{rcge\_shader\_comp}}
+\index{rcge\_shader\_comp@{rcge\_shader\_comp}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_comp}{rcge\_shader\_comp}}
+{\footnotesize\ttfamily \label{group__shaders_ga9d4195036a32b2bd5e027b5950177281} 
+typedef struct rcge\+\_\+shader\+\_\+comp\+\_\+\+CDT\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\+\_\+shader\+\_\+comp}}}
+
+Datatype representing a component of a shader. \Hypertarget{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader@{rcge\_shader}}
+\index{rcge\_shader@{rcge\_shader}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader}{rcge\_shader}}
+{\footnotesize\ttfamily \label{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73} 
+typedef struct rcge\+\_\+shader\+\_\+\+CDT\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}
+
+Datatype representing a shader. 
+
+\label{group__shaders_doc-enum-members}
+\Hypertarget{group__shaders_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_comp\_type@{rcge\_shader\_comp\_type}}
+\index{rcge\_shader\_comp\_type@{rcge\_shader\_comp\_type}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_comp\_type}{rcge\_shader\_comp\_type}}
+{\footnotesize\ttfamily \label{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413} 
+enum \doxymbox{\hyperlink{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413}{rcge\+\_\+shader\+\_\+comp\+\_\+type}}}
+
+
+
+Shader component types. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SHADER\_VERT@{SHADER\_VERT}!Shader Components and Shaders@{Shader Components and Shaders}}
+\index{Shader Components and Shaders@{Shader Components and Shaders}!SHADER\_VERT@{SHADER\_VERT}}
+}\Hypertarget{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413a5082c31f5607e79788d04a93b3bde3b8}\label{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413a5082c31f5607e79788d04a93b3bde3b8} 
+SHADER\+\_\+\+VERT&Vertex shader component. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SHADER\_GEOM@{SHADER\_GEOM}!Shader Components and Shaders@{Shader Components and Shaders}}
+\index{Shader Components and Shaders@{Shader Components and Shaders}!SHADER\_GEOM@{SHADER\_GEOM}}
+}\Hypertarget{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413a588a457c7600386629596469104dcd0c}\label{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413a588a457c7600386629596469104dcd0c} 
+SHADER\+\_\+\+GEOM&Geometric shader component. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SHADER\_FRAG@{SHADER\_FRAG}!Shader Components and Shaders@{Shader Components and Shaders}}
+\index{Shader Components and Shaders@{Shader Components and Shaders}!SHADER\_FRAG@{SHADER\_FRAG}}
+}\Hypertarget{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413ab4eb7f7375c39c4ac42fa96cff44cb01}\label{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413ab4eb7f7375c39c4ac42fa96cff44cb01} 
+SHADER\+\_\+\+FRAG&Fragment shader component. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{group__shaders_doc-func-members}
+\Hypertarget{group__shaders_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group__shaders_ga5e647894c3ff7042acc70b3b62151da3}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_comp\_create@{rcge\_shader\_comp\_create}}
+\index{rcge\_shader\_comp\_create@{rcge\_shader\_comp\_create}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_comp\_create()}{rcge\_shader\_comp\_create()}}
+{\footnotesize\ttfamily \label{group__shaders_ga5e647894c3ff7042acc70b3b62151da3} 
+\doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\+\_\+shader\+\_\+comp}} rcge\+\_\+shader\+\_\+comp\+\_\+create (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{path}{, }\item[{\doxymbox{\hyperlink{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413}{rcge\+\_\+shader\+\_\+comp\+\_\+type}}}]{type}{}\end{DoxyParamCaption})}
+
+
+
+Creates a shader component from source code file (written in GLSL). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em path} & Relative path of the shader component source code file to be used for the new component. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em type} & The type of the new shader component. See \doxylink{group__shaders_ga9bf06e4fa7cefb1dbef0ff25fa791413}{rcge\+\_\+shader\+\_\+comp\+\_\+type}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The shader component created, NULL if failed. 
+\end{DoxyReturn}
+\Hypertarget{group__shaders_gab4c934d784f13ad82bc994c31aa7091d}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_comp\_delete@{rcge\_shader\_comp\_delete}}
+\index{rcge\_shader\_comp\_delete@{rcge\_shader\_comp\_delete}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_comp\_delete()}{rcge\_shader\_comp\_delete()}}
+{\footnotesize\ttfamily \label{group__shaders_gab4c934d784f13ad82bc994c31aa7091d} 
+void rcge\+\_\+shader\+\_\+comp\+\_\+delete (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\+\_\+shader\+\_\+comp}}}]{shader\+\_\+comp}{}\end{DoxyParamCaption})}
+
+
+
+Deletes a shader component. Shader component deletion must be done after it has been attached to a shader AND the shader has compiled. This prevents memory leaks. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader\+\_\+comp} & The shader component to be deleted. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_ga59204e5d6ef1ff3c6a6c533020fdf3ce}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_create@{rcge\_shader\_create}}
+\index{rcge\_shader\_create@{rcge\_shader\_create}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_create()}{rcge\_shader\_create()}}
+{\footnotesize\ttfamily \label{group__shaders_ga59204e5d6ef1ff3c6a6c533020fdf3ce} 
+\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}} rcge\+\_\+shader\+\_\+create (\begin{DoxyParamCaption}\item[{unsigned int}]{attrib\+\_\+no}{, }\item[{unsigned int}]{uniform\+\_\+no}{}\end{DoxyParamCaption})}
+
+
+
+Creates a shader. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em attrib\+\_\+no} & Number of attributes that the new shader will have. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+no} & Number of uniforms that the new shader will have. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The shader created, NULL if failed. 
+\end{DoxyReturn}
+\Hypertarget{group__shaders_gac9abe388c30ac20d8be76b9ef8f08d7e}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_attach@{rcge\_shader\_attach}}
+\index{rcge\_shader\_attach@{rcge\_shader\_attach}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_attach()}{rcge\_shader\_attach()}}
+{\footnotesize\ttfamily \label{group__shaders_gac9abe388c30ac20d8be76b9ef8f08d7e} 
+void rcge\+\_\+shader\+\_\+attach (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{\doxymbox{\hyperlink{group__shaders_ga9d4195036a32b2bd5e027b5950177281}{rcge\+\_\+shader\+\_\+comp}}}]{shader\+\_\+comp}{}\end{DoxyParamCaption})}
+
+
+
+Attaches a specified shader component to a specified shader. 
+
+\begin{DoxyNote}{Note}
+Has to be called after \doxylink{group__shaders_ga59204e5d6ef1ff3c6a6c533020fdf3ce}{rcge\+\_\+shader\+\_\+create} and before \doxylink{group__shaders_ga790ff83c14919e66b916c92931423426}{rcge\+\_\+shader\+\_\+compile}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & Shader to be attached. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em shader\+\_\+comp} & Shader component to attach. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_ga790ff83c14919e66b916c92931423426}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_compile@{rcge\_shader\_compile}}
+\index{rcge\_shader\_compile@{rcge\_shader\_compile}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_compile()}{rcge\_shader\_compile()}}
+{\footnotesize\ttfamily \label{group__shaders_ga790ff83c14919e66b916c92931423426} 
+void rcge\+\_\+shader\+\_\+compile (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{}\end{DoxyParamCaption})}
+
+
+
+Compiles the shader. 
+
+\begin{DoxyNote}{Note}
+Do not \doxylink{group__shaders_gac9abe388c30ac20d8be76b9ef8f08d7e}{rcge\+\_\+shader\+\_\+attach} or \doxylink{group__shaders_gad64854929d77b4c5fb8f76243fd91a6c}{rcge\+\_\+shader\+\_\+color\+\_\+out\+\_\+location} after running this. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & Shader to be compiled. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_ga0303317abc7fcb74551d4777b665d987}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_use@{rcge\_shader\_use}}
+\index{rcge\_shader\_use@{rcge\_shader\_use}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_use()}{rcge\_shader\_use()}}
+{\footnotesize\ttfamily \label{group__shaders_ga0303317abc7fcb74551d4777b665d987} 
+void rcge\+\_\+shader\+\_\+use (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{}\end{DoxyParamCaption})}
+
+
+
+Set the shader to be the active one. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & Shader to be used. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_ga34e533ec09a36523abf99d805f76157f}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_attrib\_set@{rcge\_shader\_attrib\_set}}
+\index{rcge\_shader\_attrib\_set@{rcge\_shader\_attrib\_set}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_attrib\_set()}{rcge\_shader\_attrib\_set()}}
+{\footnotesize\ttfamily \label{group__shaders_ga34e533ec09a36523abf99d805f76157f} 
+void rcge\+\_\+shader\+\_\+attrib\+\_\+set (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{index}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{unsigned int}]{size}{, }\item[{\doxymbox{\hyperlink{group__datatypes_ga7a090da8a8dc6768970b4a9ea026832f}{rcge\+\_\+datatype}}}]{type}{, }\item[{bool}]{normalised}{}\end{DoxyParamCaption})}
+
+
+
+Initialises a shader attribute, and assigning an index for it. During shader initialisation, you must initialise each shader attributes one by one. This function determines how mesh data is read. If you assign a lower index for an attribute, that attribute would be read first. e.\+g. if I assign vector3 attribute "{}a"{} to index 0, vector2 attribute "{}b"{} to index "{}0"{}, the data \{0.\+0, 1.\+0, 2.\+0, 3.\+0, 4.\+0\} would be read as {\ttfamily a = vec3(0.\+0, 1.\+0, 2.\+0)} and {\ttfamily b = vec2(3.\+0, 4.\+0)}. 
+
+\begin{DoxyNote}{Note}
+Two attributes cannot share the same index. 
+
+Shader attribute index is SEPERATE from uniform index. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s attribute initialised. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em index} & The index to assign to for the attribute to be initialised. It must be a non-\/negative int smaller than the total number of attributes the shader has. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em name} & The name of the attribute to be initialised set in the source code of the shaders\textquotesingle{} components. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em size} & The number of data the attribute to be initialised has. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em type} & The datatype of the attribute to be initialised. See \doxylink{group__datatypes_ga7a090da8a8dc6768970b4a9ea026832f}{rcge\+\_\+datatype} to see what to input here for each datatype. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em normalised} & Whether you want the attribute to be normalised. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Regarding size:\+ Attributes containing either 5 floats, ints or bools have all have size 5. The sizeof datatype does not matter here. 
+
+Regarding normalised:\+ Normalised attribute example -\/\texorpdfstring{$>$}{>} Passing vec3(128, 128, 128) to a normalised attribute would become vec3(1, 1, 1) 
+\end{DoxyNote}
+\Hypertarget{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_loc\_set@{rcge\_shader\_uniform\_loc\_set}}
+\index{rcge\_shader\_uniform\_loc\_set@{rcge\_shader\_uniform\_loc\_set}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_loc\_set()}{rcge\_shader\_uniform\_loc\_set()}}
+{\footnotesize\ttfamily \label{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{index}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{name}{}\end{DoxyParamCaption})}
+
+
+
+Initialise a shader uniform, and assigning an index for it. During shader initialisation, you must initialise each shader uniforms one by one. The index can be used later to set values of specified uniforms later on. 
+
+\begin{DoxyNote}{Note}
+Two uniforms cannot share the same index. 
+
+Shader uniform index is SEPERATE from attribute index. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform initialised. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em index} & The index to assign to for the uniform to be initialised. It must be a non-\/negative int smaller than the total number of uniforms the shader has. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em name} & The name of the uniform to be initialised set in the source code of the shaders\textquotesingle{} components. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_gad64854929d77b4c5fb8f76243fd91a6c}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_color\_out\_location@{rcge\_shader\_color\_out\_location}}
+\index{rcge\_shader\_color\_out\_location@{rcge\_shader\_color\_out\_location}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_color\_out\_location()}{rcge\_shader\_color\_out\_location()}}
+{\footnotesize\ttfamily \label{group__shaders_gad64854929d77b4c5fb8f76243fd91a6c} 
+void rcge\+\_\+shader\+\_\+color\+\_\+out\+\_\+location (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{color\+\_\+no}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{name}{}\end{DoxyParamCaption})}
+
+
+
+Set shader output color buffer location. All shader after passing through the fragment component would have color output(s). For the output(s) to be drawn, it (or each of them) has to be assigned to a color buffer location. Only after assigning, can the shader color outputs be sent to a color buffer and rendered. 
+
+\begin{DoxyNote}{Note}
+Has to be called after \doxylink{group__shaders_ga59204e5d6ef1ff3c6a6c533020fdf3ce}{rcge\+\_\+shader\+\_\+create} and before \doxylink{group__shaders_ga790ff83c14919e66b916c92931423426}{rcge\+\_\+shader\+\_\+compile}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s output color buffer location set. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em color\+\_\+no} & The color buffer location to be assigned to the output. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em name} & The name of the output set in the source code of the shaders\textquotesingle{} components. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_ga32c335eba54265f6eac3d550532f29ec}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_delete@{rcge\_shader\_delete}}
+\index{rcge\_shader\_delete@{rcge\_shader\_delete}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_delete()}{rcge\_shader\_delete()}}
+{\footnotesize\ttfamily \label{group__shaders_ga32c335eba54265f6eac3d550532f29ec} 
+void rcge\+\_\+shader\+\_\+delete (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{}\end{DoxyParamCaption})}
+
+
+
+Deletes a shader. Shader deletion must be done before the program terminates. This prevents memory leaks. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to be deleted. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_ga3e7fa80f07b6a466a64822d22150dabd}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_float@{rcge\_shader\_uniform\_float}}
+\index{rcge\_shader\_uniform\_float@{rcge\_shader\_uniform\_float}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_float()}{rcge\_shader\_uniform\_float()}}
+{\footnotesize\ttfamily \label{group__shaders_ga3e7fa80f07b6a466a64822d22150dabd} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+float (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{uniform\+\_\+loc\+\_\+index}{, }\item[{float}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets value of a specified {\itshape float} uniform of a specified shader. 
+
+\begin{DoxyNote}{Note}
+Please ensure the target shader is set active before calling this with \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform changed. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+loc\+\_\+index} & The index of the uniform to be changed. (Assigned when user call \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em value} & The value to set to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_gab40a8493a0ed4fc36e698e2229144880}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_vec2@{rcge\_shader\_uniform\_vec2}}
+\index{rcge\_shader\_uniform\_vec2@{rcge\_shader\_uniform\_vec2}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_vec2()}{rcge\_shader\_uniform\_vec2()}}
+{\footnotesize\ttfamily \label{group__shaders_gab40a8493a0ed4fc36e698e2229144880} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+vec2 (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{uniform\+\_\+loc\+\_\+index}{, }\item[{vec2}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets value of a specified {\itshape vec2} uniform of a specified shader. 
+
+\begin{DoxyNote}{Note}
+Please ensure the target shader is set active before calling this with \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform changed. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+loc\+\_\+index} & The index of the uniform to be changed. (Assigned when user call \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em value} & The value to set to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_ga65d72c00a434a1de5a8781714003e50e}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_vec3@{rcge\_shader\_uniform\_vec3}}
+\index{rcge\_shader\_uniform\_vec3@{rcge\_shader\_uniform\_vec3}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_vec3()}{rcge\_shader\_uniform\_vec3()}}
+{\footnotesize\ttfamily \label{group__shaders_ga65d72c00a434a1de5a8781714003e50e} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+vec3 (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{uniform\+\_\+loc\+\_\+index}{, }\item[{vec3}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets value of a specified {\itshape vec3} uniform of a specified shader. 
+
+\begin{DoxyNote}{Note}
+Please ensure the target shader is set active before calling this with \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform changed. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+loc\+\_\+index} & The index of the uniform to be changed. (Assigned when user call \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em value} & The value to set to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_gad351e3476890239d984c9c3383270ecb}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_vec4@{rcge\_shader\_uniform\_vec4}}
+\index{rcge\_shader\_uniform\_vec4@{rcge\_shader\_uniform\_vec4}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_vec4()}{rcge\_shader\_uniform\_vec4()}}
+{\footnotesize\ttfamily \label{group__shaders_gad351e3476890239d984c9c3383270ecb} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+vec4 (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{uniform\+\_\+loc\+\_\+index}{, }\item[{vec4}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets value of a specified {\itshape vec4} uniform of a specified shader. 
+
+\begin{DoxyNote}{Note}
+Please ensure the target shader is set active before calling this with \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform changed. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+loc\+\_\+index} & The index of the uniform to be changed. (Assigned when user call \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em value} & The value to set to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_ga544a6489dbb1ddadadd720301bfd9dab}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_int@{rcge\_shader\_uniform\_int}}
+\index{rcge\_shader\_uniform\_int@{rcge\_shader\_uniform\_int}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_int()}{rcge\_shader\_uniform\_int()}}
+{\footnotesize\ttfamily \label{group__shaders_ga544a6489dbb1ddadadd720301bfd9dab} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+int (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{uniform\+\_\+loc\+\_\+index}{, }\item[{int}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets value of a specified {\itshape int} uniform of a specified shader. 
+
+\begin{DoxyNote}{Note}
+Please ensure the target shader is set active before calling this with \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform changed. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+loc\+\_\+index} & The index of the uniform to be changed. (Assigned when user call \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em value} & The value to set to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_ga5c6ded510f4cf55ee6d825f2ae6dc374}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_ivec2@{rcge\_shader\_uniform\_ivec2}}
+\index{rcge\_shader\_uniform\_ivec2@{rcge\_shader\_uniform\_ivec2}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_ivec2()}{rcge\_shader\_uniform\_ivec2()}}
+{\footnotesize\ttfamily \label{group__shaders_ga5c6ded510f4cf55ee6d825f2ae6dc374} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+ivec2 (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{uniform\+\_\+loc\+\_\+index}{, }\item[{ivec2}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets value of a specified {\itshape ivec2} uniform of a specified shader. 
+
+\begin{DoxyNote}{Note}
+Please ensure the target shader is set active before calling this with \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform changed. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+loc\+\_\+index} & The index of the uniform to be changed. (Assigned when user call \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em value} & The value to set to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_ga46620cc5e4c4b2569395e35d912036e9}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_ivec3@{rcge\_shader\_uniform\_ivec3}}
+\index{rcge\_shader\_uniform\_ivec3@{rcge\_shader\_uniform\_ivec3}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_ivec3()}{rcge\_shader\_uniform\_ivec3()}}
+{\footnotesize\ttfamily \label{group__shaders_ga46620cc5e4c4b2569395e35d912036e9} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+ivec3 (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{uniform\+\_\+loc\+\_\+index}{, }\item[{ivec3}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets value of a specified {\itshape ivec3} uniform of a specified shader. 
+
+\begin{DoxyNote}{Note}
+Please ensure the target shader is set active before calling this with \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform changed. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+loc\+\_\+index} & The index of the uniform to be changed. (Assigned when user call \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em value} & The value to set to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_ga8967e6b5057aec6244aa3878c66a0ee0}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_ivec4@{rcge\_shader\_uniform\_ivec4}}
+\index{rcge\_shader\_uniform\_ivec4@{rcge\_shader\_uniform\_ivec4}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_ivec4()}{rcge\_shader\_uniform\_ivec4()}}
+{\footnotesize\ttfamily \label{group__shaders_ga8967e6b5057aec6244aa3878c66a0ee0} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+ivec4 (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{uniform\+\_\+loc\+\_\+index}{, }\item[{ivec4}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets value of a specified {\itshape ivec4} uniform of a specified shader. 
+
+\begin{DoxyNote}{Note}
+Please ensure the target shader is set active before calling this with \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform changed. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+loc\+\_\+index} & The index of the uniform to be changed. (Assigned when user call \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em value} & The value to set to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_gab155517a367a2a2332853e7286506acd}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_uint@{rcge\_shader\_uniform\_uint}}
+\index{rcge\_shader\_uniform\_uint@{rcge\_shader\_uniform\_uint}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_uint()}{rcge\_shader\_uniform\_uint()}}
+{\footnotesize\ttfamily \label{group__shaders_gab155517a367a2a2332853e7286506acd} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+uint (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{uniform\+\_\+loc\+\_\+index}{, }\item[{unsigned int}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets value of a specified {\itshape uint} uniform of a specified shader. 
+
+\begin{DoxyNote}{Note}
+Please ensure the target shader is set active before calling this with \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform changed. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+loc\+\_\+index} & The index of the uniform to be changed. (Assigned when user call \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em value} & The value to set to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_ga5a711252dca5977457ba38286ebbb38c}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_mat2@{rcge\_shader\_uniform\_mat2}}
+\index{rcge\_shader\_uniform\_mat2@{rcge\_shader\_uniform\_mat2}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_mat2()}{rcge\_shader\_uniform\_mat2()}}
+{\footnotesize\ttfamily \label{group__shaders_ga5a711252dca5977457ba38286ebbb38c} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+mat2 (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{uniform\+\_\+loc\+\_\+index}{, }\item[{mat2}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets value of a specified {\itshape mat2} uniform of a specified shader. 
+
+\begin{DoxyNote}{Note}
+Please ensure the target shader is set active before calling this with \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform changed. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+loc\+\_\+index} & The index of the uniform to be changed. (Assigned when user call \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em value} & The value to set to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_gabfe8488b2c1cfd22aa5a4da3bfcd9546}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_mat3@{rcge\_shader\_uniform\_mat3}}
+\index{rcge\_shader\_uniform\_mat3@{rcge\_shader\_uniform\_mat3}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_mat3()}{rcge\_shader\_uniform\_mat3()}}
+{\footnotesize\ttfamily \label{group__shaders_gabfe8488b2c1cfd22aa5a4da3bfcd9546} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+mat3 (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{uniform\+\_\+loc\+\_\+index}{, }\item[{mat3}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets value of a specified {\itshape mat3} uniform of a specified shader. 
+
+\begin{DoxyNote}{Note}
+Please ensure the target shader is set active before calling this with \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform changed. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+loc\+\_\+index} & The index of the uniform to be changed. (Assigned when user call \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em value} & The value to set to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__shaders_gaaabeff2e6a918e41cb829e70e5bd323d}\index{Shader Components and Shaders@{Shader Components and Shaders}!rcge\_shader\_uniform\_mat4@{rcge\_shader\_uniform\_mat4}}
+\index{rcge\_shader\_uniform\_mat4@{rcge\_shader\_uniform\_mat4}!Shader Components and Shaders@{Shader Components and Shaders}}
+\doxysubsubsection{\texorpdfstring{rcge\_shader\_uniform\_mat4()}{rcge\_shader\_uniform\_mat4()}}
+{\footnotesize\ttfamily \label{group__shaders_gaaabeff2e6a918e41cb829e70e5bd323d} 
+void rcge\+\_\+shader\+\_\+uniform\+\_\+mat4 (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{group__shaders_ga88bb5c583966f78ac01c4cd092ff8c73}{rcge\+\_\+shader}}}]{shader}{, }\item[{unsigned int}]{uniform\+\_\+loc\+\_\+index}{, }\item[{mat4}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets value of a specified {\itshape mat4} uniform of a specified shader. 
+
+\begin{DoxyNote}{Note}
+Please ensure the target shader is set active before calling this with \doxylink{group__shaders_ga0303317abc7fcb74551d4777b665d987}{rcge\+\_\+shader\+\_\+use}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em shader} & The shader to have it\textquotesingle{}s uniform changed. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em uniform\+\_\+loc\+\_\+index} & The index of the uniform to be changed. (Assigned when user call \doxylink{group__shaders_ga3d14bd61a7e8951a26d2385a0c7f380b}{rcge\+\_\+shader\+\_\+uniform\+\_\+loc\+\_\+set}) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em value} & The value to set to. \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,36 @@
+var indexSectionsWithContent =
+{
+  0: "0abcdegimoprstuvw",
+  1: "r",
+  2: "r",
+  3: "r",
+  4: "r",
+  5: "dimst",
+  6: "acdeimostw",
+  7: "0abcdegimoprsuv"
+};
+
+var indexSectionNames =
+{
+  0: "all",
+  1: "files",
+  2: "functions",
+  3: "typedefs",
+  4: "enums",
+  5: "enumvalues",
+  6: "groups",
+  7: "pages"
+};
+
+var indexSectionLabels =
+{
+  0: "All",
+  1: "Files",
+  2: "Functions",
+  3: "Typedefs",
+  4: "Enumerations",
+  5: "Enumerator",
+  6: "Modules",
+  7: "Pages"
+};
+

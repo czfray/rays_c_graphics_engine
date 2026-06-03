@@ -1,11 +1,16 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
+#include <stbi/stb_image.h>
+
 #include <rcge/rcge_io.h>
 #include <rcge/rcge_window.h>
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#define RCGE_IO_KEY_THRESHOLD 0
+#define RCGE_IO_MOUSE_THRESHOLD 121
 
 char *rcge_io_read_file_all(char *path, int buffer_size)
 {
@@ -41,6 +46,22 @@ char *rcge_io_read_file_all(char *path, int buffer_size)
     printf("[RCGE IO] File \"%s\" all lines read.\n", path);
     fclose(file);
     return result;
+}
+
+unsigned char* rcge_io_read_image(char *path, unsigned int* width, unsigned int* height, unsigned int* channel_no, unsigned int desired_channel_no)
+{
+    char* image = stbi_load(path, width, height, channel_no, desired_channel_no);
+    if (image == NULL)
+    {
+        printf("[RCGE IO] Image file \"%s\" failed to be read: STBI failed. Log -> %s.\n", path, stbi_failure_reason());
+        return NULL;
+    }
+    return image;
+}
+
+void rcge_io_free_image(unsigned char* image)
+{
+    stbi_image_free(image);
 }
 
 int gl_input_id(rcge_io_input input)

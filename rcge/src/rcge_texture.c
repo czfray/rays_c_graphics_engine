@@ -1,7 +1,7 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
-#include <soil/SOIL.h> //TODO: soil is outdated?
 #include <rcge/rcge_texture.h>
+#include <rcge/rcge_io.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -43,11 +43,11 @@ rcge_texture rcge_texture_create(char* path, rcge_texture_wrap_type wrap, rcge_t
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, gl_filter);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, gl_filter);
 
-    int width, height;
-    unsigned char* image = SOIL_load_image(path, &width, &height, 0, SOIL_LOAD_RGBA);
-    if (image == NULL) {printf("[RCGE Texture] Texture %d failed to load (%s): SOIL failed to load image => %s\n", gl_texture, path, SOIL_last_result()); return NULL;}
+    int width, height, channel_no;
+    unsigned char* image = rcge_io_read_image(path, &width, &height, &channel_no, 4);
+    if (image == NULL) {printf("[RCGE Texture] Texture %d failed to load (%s): image load failed.\n", gl_texture, path); return NULL;}
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-    SOIL_free_image_data(image);
+    rcge_io_free_image(image);
     glGenerateMipmap(GL_TEXTURE_2D);
     //TODO: More checks could be done here?
 

@@ -41,6 +41,17 @@
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "cleanbuildrcge",
       "externalConsole": false
+    },
+
+    {
+      "name": "Build Docs",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${env:ComSpec}",
+      "args": ["/c", "exit"],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "builddocs",
+      "externalConsole": false
     }
   ]
 }

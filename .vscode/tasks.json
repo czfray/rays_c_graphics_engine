@@ -4,7 +4,7 @@
     {
       "label": "buildappdb",
       "type": "shell",
-      "command": "gcc main.c -Ircge/include -Ilibs/cglm/include -Lrcge/lib -Llibs/glfw/lib -Llibs/soil/lib -lrcge -lglfw3 -lsoil -lopengl32 -lgdi32 -o appdb",
+      "command": "gcc main.c -Ircge/include -Ilibs/cglm/include -Lrcge/lib -Llibs/glfw/lib -lrcge -lglfw3 -lopengl32 -lgdi32 -o appdb",
       "group": {
         "kind": "build",
         "isDefault": false
@@ -26,7 +26,7 @@
     {
       "label": "buildapp",
       "type": "shell",
-      "command": "gcc main.c -Ircge/include -Ilibs/cglm/include -Lrcge/lib -Llibs/glfw/lib -Llibs/soil/lib -lrcge -lglfw3 -lsoil -lopengl32 -lgdi32 -mwindows -O2 -o app",
+      "command": "gcc main.c -Ircge/include -Ilibs/cglm/include -Lrcge/lib -Llibs/glfw/lib -lrcge -lglfw3 -lopengl32 -lgdi32 -mwindows -O2 -o app",
       "group": {
         "kind": "build",
         "isDefault": true
@@ -36,7 +36,7 @@
     {
       "label": "compilercge",
       "type": "shell",
-      "command": "gcc -c rcge/src/*.c libs/glad/src/glad.c -Ircge/include -Ilibs/glfw/include -Ilibs/glad/include -Ilibs/soil/include -Ilibs/cglm/include -O2",
+      "command": "gcc -c rcge/src/*.c libs/glad/src/glad.c -Ircge/include -Ilibs/glfw/include -Ilibs/glad/include -Ilibs/cglm/include -Ilibs/stbi/include -O2",
       "group": {
         "kind": "build",
         "isDefault": false
@@ -51,7 +51,8 @@
         "kind": "build",
         "isDefault": false
       },
-      "dependsOn": "compilercge"
+      "dependsOn": ["builddocs", "compilercge"],
+      "dependsOrder": "sequence"
     },
 
     {
@@ -63,6 +64,16 @@
         "isDefault": false
       },
       "dependsOn": "buildrcge"
+    },
+
+    {
+      "label": "builddocs",
+      "type": "shell",
+      "command": "doxygen docs/Doxyfile",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
     }
   ]
 }

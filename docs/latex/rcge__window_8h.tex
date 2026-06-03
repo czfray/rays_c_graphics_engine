@@ -1,0 +1,32 @@
+\doxysection{rcge\+\_\+window.\+h File Reference}
+\hypertarget{rcge__window_8h}{}\label{rcge__window_8h}\index{rcge\_window.h@{rcge\_window.h}}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct rcge\+\_\+window\+\_\+\+CDT \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__windows_ga33a8e2942eb9d5011336d637dc53468e}{rcge\+\_\+window}}
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__windows_ga60764c39241c79abcabc2e76c324eb76}{rcge\+\_\+start\+\_\+callback}}) (\doxymbox{\hyperlink{group__windows_ga33a8e2942eb9d5011336d637dc53468e}{rcge\+\_\+window}})
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__windows_ga43c9244834dd1f47672a0f8f8f91695c}{rcge\+\_\+update\+\_\+callback}}) (\doxymbox{\hyperlink{group__windows_ga33a8e2942eb9d5011336d637dc53468e}{rcge\+\_\+window}}, double)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{group__windows_gaa49602a92a1b7c839c197272c147d025}{rcge\+\_\+resize\+\_\+callback}}) (\doxymbox{\hyperlink{group__windows_ga33a8e2942eb9d5011336d637dc53468e}{rcge\+\_\+window}}, int, int)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group__windows_ga33a8e2942eb9d5011336d637dc53468e}{rcge\+\_\+window}} \doxymbox{\hyperlink{group__windows_ga2a9a3a1f4b8108c5f964c28c666087da}{rcge\+\_\+window\+\_\+create}} (int width, int height, const char \texorpdfstring{$\ast$}{*}title, bool resizable)
+\item 
+void \doxymbox{\hyperlink{group__windows_gaa39b1ccc0667a923a323d942298779a9}{rcge\+\_\+window\+\_\+run}} (\doxymbox{\hyperlink{group__windows_ga33a8e2942eb9d5011336d637dc53468e}{rcge\+\_\+window}} window, \doxymbox{\hyperlink{group__windows_ga60764c39241c79abcabc2e76c324eb76}{rcge\+\_\+start\+\_\+callback}} start\+\_\+cb, \doxymbox{\hyperlink{group__windows_ga43c9244834dd1f47672a0f8f8f91695c}{rcge\+\_\+update\+\_\+callback}} update\+\_\+cb, \doxymbox{\hyperlink{group__windows_gaa49602a92a1b7c839c197272c147d025}{rcge\+\_\+resize\+\_\+callback}} resize\+\_\+cb)
+\item 
+float \doxymbox{\hyperlink{group__windows_gadb75461b765376c6ffa920780c0f8940}{rcge\+\_\+window\+\_\+ratio}} (\doxymbox{\hyperlink{group__windows_ga33a8e2942eb9d5011336d637dc53468e}{rcge\+\_\+window}} window)
+\item 
+void \doxymbox{\hyperlink{group__windows_gadfccb7eb00d403c34496c5ac10ec94ee}{rcge\+\_\+window\+\_\+stop}} (\doxymbox{\hyperlink{group__windows_ga33a8e2942eb9d5011336d637dc53468e}{rcge\+\_\+window}} window)
+\item 
+\Hypertarget{rcge__window_8h_ac1f09cb0926640def13a32dff1c79798}\label{rcge__window_8h_ac1f09cb0926640def13a32dff1c79798} 
+void \texorpdfstring{$\ast$}{*} {\bfseries rcge\+\_\+window\+\_\+raw\+\_\+pointer} (\doxymbox{\hyperlink{group__windows_ga33a8e2942eb9d5011336d637dc53468e}{rcge\+\_\+window}} window)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Window and main loop management. 
+

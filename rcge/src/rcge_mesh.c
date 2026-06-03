@@ -72,7 +72,7 @@ rcge_mesh rcge_mesh_create(rcge_shader shader, int model_uniform_index, rcge_tex
     mesh->model_uniform_index = model_uniform_index;
 
     update_model_uniform(mesh);
-    printf("[RCGE Mesh] Mesh %d created.\n", vao);
+    //printf("[RCGE Mesh] Mesh %d created.\n", vao);
     return mesh;
 }
 
@@ -100,5 +100,5 @@ void rcge_mesh_delete(rcge_mesh mesh)
     glDeleteVertexArrays(1, &vao);
     rcge_transform_delete(mesh->transform);
     free(mesh);
-    printf("[RCGE Mesh] Mesh %d deleted.\n", vao);
+    //printf("[RCGE Mesh] Mesh %d deleted.\n", vao);
 }

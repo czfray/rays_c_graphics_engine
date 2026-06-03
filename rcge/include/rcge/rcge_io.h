@@ -1,11 +1,53 @@
 #ifndef RCGE_IO_H
 #define RCGE_IO_H
 
+/** 
+ * @file rcge_io.h
+ * @brief I/O management.
+ * 
+ * @defgroup io I/O 
+ * @brief I/O management.
+ * 
+ * This modules allows read and write of files, as well as reading keyboard and mouse inputs.
+**/
+
 #include <rcge/rcge_window.h>
 #include <stdbool.h>
 
-char *rcge_io_read_file_all(char *path, int buffer_size);
+/**
+ * @ingroup io
+ * @brief Get all lines of text from a file.
+ * @param[in] path Relative path of the file to be read.
+ * @param[in] buffer_size Read buffer size.
+ * @return The text of file, NULL if failed.
+**/
+char* rcge_io_read_file_all(char *path, int buffer_size);
 
+/**
+ * @ingroup io
+ * @brief Get pixel data from an image file.
+ * @param[in] path Relative path of the file to be read.
+ * @param[out] width Width of the image read.
+ * @param[out] height Height of the image read.
+ * @param[out] channel_no Number of channels of image read originally. (3=RGB, 4=RGBA)
+ * @param[in] desired_channel_no Force the image to have this amount of number of channels. (0=original, 3=RGB, 4=RGBA)
+ * @return The pixel data of image, NULL if failed.
+ * @note Do not call free(), but call @ref rcge_io_free_image to free the pixel data.
+**/
+unsigned char* rcge_io_read_image(char *path, unsigned int* width, unsigned int* height, unsigned int* channel_no, unsigned int desired_channel_no);
+
+/**
+ * @ingroup io
+ * @brief Free image pixel data. Prevents memory leaks.
+ * @param[in] image Image data to be freed.
+**/
+void rcge_io_free_image(unsigned char* image);
+
+/**
+ * @ingroup io
+ * @enum rcge_io_input
+ * @brief All keyboard and mouse inputs.
+**/
 typedef enum
 {
     IO_KEY_SPACE = 0,
@@ -144,17 +186,41 @@ typedef enum
     IO_MOUSE_MIDDLE
 } rcge_io_input;
 
-#define RCGE_IO_KEY_THRESHOLD 0
-#define RCGE_IO_MOUSE_THRESHOLD 121
-
+/**
+ * @ingroup io
+ * @enum rcge_io_input_type
+ * @brief Types of inputs.
+**/
 typedef enum
 {
-    IO_TYPE_KEYBOARD,
-    IO_TYPE_MOUSE
+    IO_TYPE_KEYBOARD, ///< Keyboard
+    IO_TYPE_MOUSE ///< Mouse
 } rcge_io_input_type;
 
+/**
+ * @ingroup io
+ * @brief See which input type is an input.
+ * @param[in] input The input to check.
+ * @return The input type of the specified input.
+**/
 rcge_io_input_type rcge_io_input_type_get(rcge_io_input input);
+
+/**
+ * @ingroup io
+ * @brief See if a specific input is pressed.
+ * @param[in] window The application window.
+ * @param[in] input The input to check.
+ * @return Whether the specified input is pressed or not.
+**/
 bool rcge_io_input_pressed(rcge_window window, rcge_io_input input);
+
+/**
+ * @ingroup io
+ * @brief The location of mouse (cursor) on screen.
+ * @param[in] window The application window.
+ * @param[out] x The horizontal location of the cursor.
+ * @param[out] y The vertical location of the cursor.
+**/
 void rcge_io_mouse_loc(rcge_window window, double* x, double* y);
 
 #endif
