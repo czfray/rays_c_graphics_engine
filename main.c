@@ -19,14 +19,14 @@ unsigned int mesh_element_index;
 rcge_camera camera;
 rcge_element_manager element_manager;
 
-void start(rcge_window window)
+void start()
 {
     int frame = 0;
     time = 0;
     printf("Testing app start!\n");
 
     rcge_shader_uniform_vec4(shader, 3, GLM_VEC4_ONE); //TODO SET MESH COLOR
-    rcge_io_mouse_loc(window, &lastX, &lastY);
+    rcge_io_mouse_loc(&lastX, &lastY);
 
     float vertices[] =
     {
@@ -82,7 +82,7 @@ void start(rcge_window window)
         22, 23, 20
     };
 
-    mesh_element_index = rcge_singlemesh_create_in_manager(element_manager, shader, 0, keven_texture, vertices, 120, indices, 36, MESH_STATIC);
+    mesh_element_index = rcge_singlemesh_create_in_manager(element_manager, shader, RCGE_DEF_UNLIT_SHADER_MODEL_UNF, keven_texture, vertices, 120, indices, 36, MESH_STATIC);
 
     int no = 5;
     for (int k = -no; k < no; k++)
@@ -92,7 +92,7 @@ void start(rcge_window window)
             for (int i = -no; i < no; i++)
             {
                 if (i == 0 && j == 0 && k == 0) continue;
-                unsigned int index = rcge_singlemesh_create_in_manager(element_manager, shader, 0, keven_texture, vertices, 120, indices, 36, MESH_STATIC);
+                unsigned int index = rcge_singlemesh_create_in_manager(element_manager, shader, RCGE_DEF_UNLIT_SHADER_MODEL_UNF, keven_texture, vertices, 120, indices, 36, MESH_STATIC);
                 rcge_transform transform = rcge_mesh_transform_get(rcge_singlemesh_mesh_get(rcge_element_manager_element_get(element_manager, index)));
                 vec3 pos = {i * 3, j * 3, k * 3};
                 rcge_transform_pos_set(transform, pos);
@@ -115,9 +115,11 @@ void update_fps(double delta_time)
     }
 }
 
-void update(rcge_window window, double delta_time)
+bool fstest = false;
+
+void update(double delta_time)
 {
-    if (rcge_io_input_pressed(window, IO_KEY_ESCAPE)) rcge_window_stop(window);
+    if (rcge_io_input_pressed(IO_KEY_ESCAPE)) rcge_stop();
     
     rcge_transform transform = rcge_mesh_transform_get(rcge_singlemesh_mesh_get(rcge_element_manager_element_get(element_manager, mesh_element_index)));
 
@@ -130,47 +132,41 @@ void update(rcge_window window, double delta_time)
     vec3 nz_axis = {0, 0, -1};
 
     float currentfov = rcge_camera_fov_size_get(camera);
-    if (rcge_io_input_pressed(window, IO_MOUSE_LEFT)) rcge_camera_fov_size_set(camera, currentfov + 100 * delta_time);
-    if (rcge_io_input_pressed(window, IO_MOUSE_RIGHT)) rcge_camera_fov_size_set(camera, currentfov - 100 * delta_time);
+    if (rcge_io_input_pressed(IO_MOUSE_LEFT)) rcge_camera_fov_size_set(camera, currentfov + 100 * delta_time);
+    if (rcge_io_input_pressed(IO_MOUSE_RIGHT)) rcge_camera_fov_size_set(camera, currentfov - 100 * delta_time);
 
     //cube scale
     vec3 apply_scl = GLM_VEC3_ZERO_INIT;
-    if (rcge_io_input_pressed(window, IO_KEY_KP_ADD)) glm_vec3_add(apply_scl, GLM_VEC3_ONE, apply_scl); 
-    if (rcge_io_input_pressed(window, IO_KEY_KP_SUBTRACT)) glm_vec3_sub(apply_scl, GLM_VEC3_ONE, apply_scl); 
+    if (rcge_io_input_pressed(IO_KEY_KP_ADD)) glm_vec3_add(apply_scl, GLM_VEC3_ONE, apply_scl); 
+    if (rcge_io_input_pressed(IO_KEY_KP_SUBTRACT)) glm_vec3_sub(apply_scl, GLM_VEC3_ONE, apply_scl); 
     glm_vec3_scale(apply_scl, 3 * delta_time, apply_scl);
 
-    vec3 new_scl;
-    rcge_transform_scl_get(transform, new_scl);
-    glm_vec3_add(new_scl, apply_scl, new_scl);
-    rcge_transform_scl_set(transform, new_scl);
+    rcge_transform_add_scl(transform, apply_scl);
 
     //cube pos
     vec3 apply_pos = GLM_VEC3_ZERO_INIT;
-    if (rcge_io_input_pressed(window, IO_KEY_LEFT)) glm_vec3_add(apply_pos, x_axis, apply_pos); 
-    if (rcge_io_input_pressed(window, IO_KEY_RIGHT)) glm_vec3_add(apply_pos, nx_axis, apply_pos); 
-    if (rcge_io_input_pressed(window, IO_KEY_PAGE_UP)) glm_vec3_add(apply_pos, y_axis, apply_pos); 
-    if (rcge_io_input_pressed(window, IO_KEY_PAGE_DOWN)) glm_vec3_add(apply_pos, ny_axis, apply_pos); 
-    if (rcge_io_input_pressed(window, IO_KEY_UP)) glm_vec3_add(apply_pos, z_axis, apply_pos); 
-    if (rcge_io_input_pressed(window, IO_KEY_DOWN)) glm_vec3_add(apply_pos, nz_axis, apply_pos); 
+    if (rcge_io_input_pressed(IO_KEY_LEFT)) glm_vec3_add(apply_pos, x_axis, apply_pos); 
+    if (rcge_io_input_pressed(IO_KEY_RIGHT)) glm_vec3_add(apply_pos, nx_axis, apply_pos); 
+    if (rcge_io_input_pressed(IO_KEY_PAGE_UP)) glm_vec3_add(apply_pos, y_axis, apply_pos); 
+    if (rcge_io_input_pressed(IO_KEY_PAGE_DOWN)) glm_vec3_add(apply_pos, ny_axis, apply_pos); 
+    if (rcge_io_input_pressed(IO_KEY_UP)) glm_vec3_add(apply_pos, z_axis, apply_pos); 
+    if (rcge_io_input_pressed(IO_KEY_DOWN)) glm_vec3_add(apply_pos, nz_axis, apply_pos); 
     glm_vec3_norm(apply_pos);
     glm_vec3_scale(apply_pos, 3 * delta_time, apply_pos);
 
-    vec3 new_pos;
-    rcge_transform_pos_get(transform, new_pos);
-    glm_vec3_add(apply_pos, new_pos, new_pos);
-    rcge_transform_pos_set(transform, new_pos);
+    rcge_transform_add_pos(transform, apply_pos);
 
     //cube rot
     vec3 apply_rot_euler = GLM_VEC3_ZERO_INIT;
-    if (rcge_io_input_pressed(window, IO_KEY_KP_8)) glm_vec3_add(apply_rot_euler, x_axis, apply_rot_euler); 
-    if (rcge_io_input_pressed(window, IO_KEY_KP_5)) glm_vec3_add(apply_rot_euler, nx_axis, apply_rot_euler); 
-    if (rcge_io_input_pressed(window, IO_KEY_KP_6)) glm_vec3_add(apply_rot_euler, y_axis, apply_rot_euler); 
-    if (rcge_io_input_pressed(window, IO_KEY_KP_4)) glm_vec3_add(apply_rot_euler, ny_axis, apply_rot_euler); 
-    if (rcge_io_input_pressed(window, IO_KEY_KP_9)) glm_vec3_add(apply_rot_euler, z_axis, apply_rot_euler); 
-    if (rcge_io_input_pressed(window, IO_KEY_KP_7)) glm_vec3_add(apply_rot_euler, nz_axis, apply_rot_euler); 
-
+    if (rcge_io_input_pressed(IO_KEY_KP_8)) glm_vec3_add(apply_rot_euler, x_axis, apply_rot_euler); 
+    if (rcge_io_input_pressed(IO_KEY_KP_5)) glm_vec3_add(apply_rot_euler, nx_axis, apply_rot_euler); 
+    if (rcge_io_input_pressed(IO_KEY_KP_6)) glm_vec3_add(apply_rot_euler, y_axis, apply_rot_euler); 
+    if (rcge_io_input_pressed(IO_KEY_KP_4)) glm_vec3_add(apply_rot_euler, ny_axis, apply_rot_euler); 
+    if (rcge_io_input_pressed(IO_KEY_KP_9)) glm_vec3_add(apply_rot_euler, z_axis, apply_rot_euler); 
+    if (rcge_io_input_pressed(IO_KEY_KP_7)) glm_vec3_add(apply_rot_euler, nz_axis, apply_rot_euler); 
     glm_vec3_norm(apply_rot_euler);
     glm_vec3_scale(apply_rot_euler, 5 * delta_time, apply_rot_euler);
+
     rcge_transform_add_rot_euler(transform, apply_rot_euler);
 
     //player pos
@@ -189,23 +185,21 @@ void update(rcge_window window, double delta_time)
     cam_right[1] = 0;
     glm_vec3_normalize(cam_right);
 
-    if (rcge_io_input_pressed(window, IO_KEY_A)) glm_vec3_add(apply_player_pos, cam_left, apply_player_pos); 
-    if (rcge_io_input_pressed(window, IO_KEY_D)) glm_vec3_add(apply_player_pos, cam_right, apply_player_pos); 
-    if (rcge_io_input_pressed(window, IO_KEY_W)) glm_vec3_add(apply_player_pos, cam_forward, apply_player_pos); 
-    if (rcge_io_input_pressed(window, IO_KEY_S)) glm_vec3_add(apply_player_pos, cam_backward, apply_player_pos);
+    if (rcge_io_input_pressed(IO_KEY_A)) glm_vec3_add(apply_player_pos, cam_left, apply_player_pos); 
+    if (rcge_io_input_pressed(IO_KEY_D)) glm_vec3_add(apply_player_pos, cam_right, apply_player_pos); 
+    if (rcge_io_input_pressed(IO_KEY_W)) glm_vec3_add(apply_player_pos, cam_forward, apply_player_pos); 
+    if (rcge_io_input_pressed(IO_KEY_S)) glm_vec3_add(apply_player_pos, cam_backward, apply_player_pos);
 
-    if (rcge_io_input_pressed(window, IO_KEY_SPACE)) glm_vec3_add(apply_player_pos, y_axis, apply_player_pos); 
-    if (rcge_io_input_pressed(window, IO_KEY_LEFT_SHIFT)) glm_vec3_add(apply_player_pos, ny_axis, apply_player_pos);        
+    if (rcge_io_input_pressed(IO_KEY_SPACE)) glm_vec3_add(apply_player_pos, y_axis, apply_player_pos); 
+    if (rcge_io_input_pressed(IO_KEY_LEFT_SHIFT)) glm_vec3_add(apply_player_pos, ny_axis, apply_player_pos);        
     glm_vec3_norm(apply_player_pos);
     glm_vec3_scale(apply_player_pos, 5 * delta_time, apply_player_pos);
 
-    rcge_camera_pos_get(camera, new_pos);
-    glm_vec3_add(apply_player_pos, new_pos, new_pos);
-    rcge_camera_pos_set(camera, new_pos);
+    rcge_camera_add_pos(camera, apply_player_pos);
 
     //player rot
     double x, y, dx, dy;
-    rcge_io_mouse_loc(window, &x, &y);
+    rcge_io_mouse_loc(&x, &y);
     dx = x - lastX;
     dy = y - lastY;
     lastX = x;
@@ -218,11 +212,17 @@ void update(rcge_window window, double delta_time)
     glm_vec3_scale(apply_player_rot, 0.004, apply_player_rot);
     rcge_camera_add_rot_euler(camera, apply_player_rot);
 
-    if (rcge_io_input_pressed(window, IO_KEY_BACKSPACE))
+    if (rcge_io_input_pressed(IO_KEY_BACKSPACE))
     {
         rcge_camera_rot_set(camera, GLM_QUAT_IDENTITY);
         vec3 def = {0, 0, -2};
         rcge_camera_pos_set(camera, def);
+    }
+
+    fstest = !fstest;
+    if (rcge_io_input_pressed(IO_KEY_F11))
+    {
+        rcge_display_mode_set(fstest? DISPLAY_BORDERLESS_FULLSCREEN: DISPLAY_WINDOW);
     }
 
     rcge_element_manager_update(element_manager, delta_time);
@@ -230,37 +230,20 @@ void update(rcge_window window, double delta_time)
     update_fps(delta_time);
 }
 
-void resize(rcge_window window, int width, int height)
+void resize(int width, int height)
 {
-    rcge_camera_ratio_set(camera, rcge_window_ratio(window));
+    rcge_camera_ratio_set(camera, rcge_display_ratio());
 }
 
 int main(void)
 {
-    rcge_init();
-    rcge_window window = rcge_window_create(800, 600, "RCGE Test", true); //608, 1080
-    
-    rcge_shader_comp vertex_comp = rcge_shader_comp_create("shaders/default.vert", SHADER_VERT);
-    rcge_shader_comp fragment_comp = rcge_shader_comp_create("shaders/default.frag", SHADER_FRAG);
-    shader = rcge_shader_create(2, 5);
-    rcge_shader_attach(shader, vertex_comp);
-    rcge_shader_attach(shader, fragment_comp);
-    rcge_shader_color_out_location(shader, 0, "outColor");
-    rcge_shader_compile(shader);
-    rcge_shader_attrib_set(shader, 0, "position", 3, DATATYPE_FLOAT, false);
-    rcge_shader_attrib_set(shader, 1, "texcoord", 2, DATATYPE_FLOAT, false);
-    rcge_shader_uniform_loc_set(shader, 0, "model");
-    rcge_shader_uniform_loc_set(shader, 1, "view");
-    rcge_shader_uniform_loc_set(shader, 2, "proj");
-    rcge_shader_uniform_loc_set(shader, 3, "color");
-    rcge_shader_uniform_loc_set(shader, 4, "tex");
-    rcge_shader_use(shader);
+    if (!rcge_init(1000, 800, "RCGE Test", true, start, update, resize)) return 1;
 
-    rcge_shader_comp_delete(vertex_comp);
-    rcge_shader_comp_delete(fragment_comp);
+    shader = rcge_default_unlit_shader_create();
+    rcge_shader_use(shader);
     
-    camera = rcge_camera_create(shader, 1, 2, true, 45.0f, 0.001f, 100.0f, rcge_window_ratio(window));
-    //camera = rcge_camera_create(shader, 1, 2, false, 2.0f, 1.0f, 100.0f, rcge_window_ratio(window));
+    camera = rcge_camera_create(shader, RCGE_DEF_UNLIT_SHADER_VIEW_UNF, RCGE_DEF_UNLIT_SHADER_PROJ_UNF, true, 45.0f, 0.001f, 100.0f);
+    //camera = rcge_camera_create(shader, 1, 2, false, 2.0f, 1.0f, 100.0f, rcge_display_ratio(window));
     vec3 cam_pos = {0.0f, 0.0f, -2.0f};
     rcge_camera_pos_set(camera, cam_pos);
 
@@ -270,12 +253,15 @@ int main(void)
 
     element_manager = rcge_element_manager_create(128);
 
-    rcge_window_run(window, start, update, resize);
+    rcge_io_mouse_use_raw(true);
+
+    rcge_run();
     
     rcge_element_manager_delete(element_manager);
     rcge_texture_delete(keven_texture);
     rcge_camera_delete(camera);
     rcge_shader_delete(shader);
+    
     rcge_terminate();
     return 0;
 }

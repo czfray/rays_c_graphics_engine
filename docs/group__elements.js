@@ -1,11 +1,11 @@
 var group__elements =
 [
     [ "rcge_element", "group__elements.html#ga714d98cafb18ba007d50622bbe9d84cd", null ],
-    [ "rcge_element_manager", "group__elements.html#ga628cb3986875939189522ec0748db5d2", null ],
     [ "rcge_element_start_callback", "group__elements.html#ga7677f5a490502ba8b72ceef49e0f2f89", null ],
     [ "rcge_element_status_callback", "group__elements.html#gaa24402abf82f998956d2d0d3647dc109", null ],
     [ "rcge_element_update_callback", "group__elements.html#ga7a84726421db16230053c9a4160056d7", null ],
     [ "rcge_element_delete_callback", "group__elements.html#gae42f7bc4c5befd99711fa992b92e6ab5", null ],
+    [ "rcge_element_manager", "group__elements.html#ga628cb3986875939189522ec0748db5d2", null ],
     [ "rcge_element_create", "group__elements.html#ga82e9c9aed90d40ef89db5dbdf2ae4504", null ],
     [ "rcge_element_attach", "group__elements.html#ga9fb6e506caa38424e88b71aa146f32c6", null ],
     [ "rcge_element_start", "group__elements.html#ga911e5bb955d8135b4c6669aee1b72bc9", null ],

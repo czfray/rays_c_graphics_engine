@@ -6,14 +6,12 @@
  * @brief Datatype enums for RCGE.
  * 
  * @defgroup datatypes Datatypes
- * @brief Datatypes for RCGE.
  * 
  * This module allows datatypes to be inputted in parameters for RCGE functions.
 **/
 
 /**
  * @ingroup datatypes
- * @enum rcge_datatype 
  * @brief Datatypes for RCGE
 **/
 typedef enum {

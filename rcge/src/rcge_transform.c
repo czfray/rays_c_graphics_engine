@@ -128,15 +128,35 @@ void rcge_transform_scl_set(rcge_transform transform, vec3 new_scl)
     update_matrix(transform);
 }
 
+void rcge_transform_add_pos(rcge_transform transform, vec3 apply_pos)
+{
+    if (transform == NULL) {printf("[RCGE Transform] Transform add position failed: transform does not exist.\n"); return;}
+    vec3 cur_pos;
+    rcge_transform_pos_get(transform, cur_pos);
+    vec3 new_pos;
+    glm_vec3_add(cur_pos, apply_pos, new_pos);
+    rcge_transform_pos_set(transform, new_pos);
+}
+
 void rcge_transform_add_rot_euler(rcge_transform transform, vec3 apply_rot)
 {
-    if (transform == NULL) {printf("[RCGE Transform] Transform scale set failed: transform does not exist.\n"); return;}
+    if (transform == NULL) {printf("[RCGE Transform] Transform add rotation failed: transform does not exist.\n"); return;}
     versor cur_rot;
     rcge_transform_rot_get(transform, cur_rot);
     versor apply_rot_quat;
     glm_euler_xyz_quat(apply_rot, apply_rot_quat);
     glm_quat_mul(apply_rot_quat, cur_rot, cur_rot);
     rcge_transform_rot_set(transform, cur_rot);
+}
+
+void rcge_transform_add_scl(rcge_transform transform, vec3 apply_scl)
+{
+    if (transform == NULL) {printf("[RCGE Transform] Transform add scale failed: transform does not exist.\n"); return;}
+    vec3 cur_scl;
+    rcge_transform_scl_get(transform, cur_scl);
+    vec3 new_scl;
+    glm_vec3_add(cur_scl, apply_scl, new_scl);
+    rcge_transform_scl_set(transform, new_scl);
 }
 
 void rcge_transform_up(rcge_transform transform, vec3 out)

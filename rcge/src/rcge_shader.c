@@ -37,16 +37,11 @@ struct rcge_shader_CDT
 
 GLenum gl_shader_type(rcge_shader_comp_type type) {return (type == SHADER_VERT? GL_VERTEX_SHADER: (type == SHADER_GEOM? GL_GEOMETRY_SHADER: GL_FRAGMENT_SHADER));}
 
-rcge_shader_comp rcge_shader_comp_create(char* path, rcge_shader_comp_type type)
+rcge_shader_comp rcge_shader_comp_create(const char* code, rcge_shader_comp_type type)
 {
-    char* source = rcge_io_read_file_all(path, BUFFERSIZE);
-    if (!source) {printf("[RCGE Shader] Shader component failed to be created: file reading failure at \"%s\".\n", path); return NULL;}
-    
-    const char* source_const = source;
     GLuint gl_shader = glCreateShader(gl_shader_type(type));
-    glShaderSource(gl_shader, 1, &source_const, NULL);
+    glShaderSource(gl_shader, 1, &code, NULL);
     glCompileShader(gl_shader);
-    free(source);
 
     GLint compile_status;
     glGetShaderiv(gl_shader, GL_COMPILE_STATUS, &compile_status);
@@ -60,8 +55,17 @@ rcge_shader_comp rcge_shader_comp_create(char* path, rcge_shader_comp_type type)
     rcge_shader_comp shader_comp = malloc(sizeof(*shader_comp));
     shader_comp->gl_shader = gl_shader;
 
-    printf("[RCGE Shader] Shader component %d created. (%s)\n", gl_shader, path);
+    printf("[RCGE Shader] Shader component %d created.\n", gl_shader);
     return shader_comp;
+}
+
+rcge_shader_comp rcge_shader_comp_create_file(char* path, rcge_shader_comp_type type)
+{
+    char* source = rcge_io_read_file_all(path, BUFFERSIZE);
+    if (!source) {printf("[RCGE Shader] Shader component failed to be created: file reading failure at \"%s\".\n", path); return NULL;}
+    
+    const char* source_const = source;
+    return rcge_shader_comp_create(source_const, type);
 }
 
 void rcge_shader_comp_delete(rcge_shader_comp shader_comp)

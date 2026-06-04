@@ -6,12 +6,11 @@
  * @brief I/O management.
  * 
  * @defgroup io I/O 
- * @brief I/O management.
  * 
  * This modules allows read and write of files, as well as reading keyboard and mouse inputs.
 **/
 
-#include <rcge/rcge_window.h>
+#include <rcge/rcge_master.h>
 #include <stdbool.h>
 
 /**
@@ -32,7 +31,8 @@ char* rcge_io_read_file_all(char *path, int buffer_size);
  * @param[out] channel_no Number of channels of image read originally. (3=RGB, 4=RGBA)
  * @param[in] desired_channel_no Force the image to have this amount of number of channels. (0=original, 3=RGB, 4=RGBA)
  * @return The pixel data of image, NULL if failed.
- * @note Do not call free(), but call @ref rcge_io_free_image to free the pixel data.
+ * @note - Do not call free(), but call @ref rcge_io_free_image to free the pixel data.
+ * @note - Image file is read from the bottom **RIGHT** pixel to the upper **LEFT** pixel.
 **/
 unsigned char* rcge_io_read_image(char *path, unsigned int* width, unsigned int* height, unsigned int* channel_no, unsigned int desired_channel_no);
 
@@ -208,19 +208,25 @@ rcge_io_input_type rcge_io_input_type_get(rcge_io_input input);
 /**
  * @ingroup io
  * @brief See if a specific input is pressed.
- * @param[in] window The application window.
  * @param[in] input The input to check.
  * @return Whether the specified input is pressed or not.
 **/
-bool rcge_io_input_pressed(rcge_window window, rcge_io_input input);
+bool rcge_io_input_pressed(rcge_io_input input);
+
+/**
+ * @ingroup io
+ * @brief Set to use raw (physical mouse movement) or OS accelerated mouse location.
+ * @param[in] raw true if want raw, false if use OS accelerated.
+ * Default settings uses OS accelerated movement.
+**/
+void rcge_io_mouse_use_raw(bool raw);
 
 /**
  * @ingroup io
  * @brief The location of mouse (cursor) on screen.
- * @param[in] window The application window.
  * @param[out] x The horizontal location of the cursor.
  * @param[out] y The vertical location of the cursor.
 **/
-void rcge_io_mouse_loc(rcge_window window, double* x, double* y);
+void rcge_io_mouse_loc(double* x, double* y);
 
 #endif

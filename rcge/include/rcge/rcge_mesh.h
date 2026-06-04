@@ -6,7 +6,6 @@
  * @brief Mesh management.
  * 
  * @defgroup meshes Meshes
- * @brief Mesh management.
  * 
  * This module allows the drawing of meshes. It manages how the mesh data is sent to the GPU, and allows the mesh to be drawn.
  * 
@@ -106,7 +105,6 @@ typedef struct rcge_mesh_CDT* rcge_mesh;
 
 /**
  * @ingroup meshes
- * @enum rcge_mesh_draw_type
  * @brief Draw frequency type of a mesh.
 **/
 typedef enum

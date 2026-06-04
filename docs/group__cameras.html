@@ -104,8 +104,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('group__cameras
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Camera management. </p>
-<p>This module manages the camera. Sets the perspective of render.</p>
+<div class="textblock"><p>This module manages the camera. Sets the perspective of render.</p>
 <p>A Camera is required for a thing to actually be rendered on the screen. Christopher Nolan wont be able to make peak batman movies without a camera, right?</p>
 <p>One camera per shader.</p>
 <p>A camera can be in perspective mode (for 3D rendering) or orthogonal mode (for 2D rendering). In perspective mode, you set the field of view (fov). In orthogonal mode, you set the size.</p>
@@ -117,7 +116,7 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga0033f2b18b37f18100ab48bc83dbdd0c" id="r_ga0033f2b18b37f18100ab48bc83dbdd0c"><td class="memItemLeft"><a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga0033f2b18b37f18100ab48bc83dbdd0c">rcge_camera_create</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, unsigned int view_uniform_index, unsigned int proj_uniform_index, bool is_perspective, double size_or_fov, double near, double far, double ratio)</td></tr>
+<tr class="memitem:ga2105ccfc0c371410d6ad1738689f438c" id="r_ga2105ccfc0c371410d6ad1738689f438c"><td class="memItemLeft"><a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga2105ccfc0c371410d6ad1738689f438c">rcge_camera_create</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, unsigned int view_uniform_index, unsigned int proj_uniform_index, bool is_perspective, double size_or_fov, double near, double far)</td></tr>
 <tr class="memitem:gaf82f1f57e98fe18ac33e4e91130387b9" id="r_gaf82f1f57e98fe18ac33e4e91130387b9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaf82f1f57e98fe18ac33e4e91130387b9">rcge_camera_param_set</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, bool is_perspective, double size_or_fov, double near, double far)</td></tr>
 <tr class="memitem:gac4df1f04cccb62ef900a242d82da01f5" id="r_gac4df1f04cccb62ef900a242d82da01f5"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#gac4df1f04cccb62ef900a242d82da01f5">rcge_camera_fov_size_get</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera)</td></tr>
 <tr class="memitem:ga36942f0966974f3d6da9adeb26668b38" id="r_ga36942f0966974f3d6da9adeb26668b38"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga36942f0966974f3d6da9adeb26668b38">rcge_camera_fov_size_set</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, double size_or_fov)</td></tr>
@@ -126,6 +125,7 @@ Functions</h2></td></tr>
 <tr class="memitem:gaca9327086b99348523cb299dc37b6177" id="r_gaca9327086b99348523cb299dc37b6177"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaca9327086b99348523cb299dc37b6177">rcge_camera_rot_get</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, versor out)</td></tr>
 <tr class="memitem:ga0aec0fc0b146d9a10163f674e13cbfc7" id="r_ga0aec0fc0b146d9a10163f674e13cbfc7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga0aec0fc0b146d9a10163f674e13cbfc7">rcge_camera_pos_set</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 new_pos)</td></tr>
 <tr class="memitem:gaacd34bfab40ff13ed76232a48d5b1d1c" id="r_gaacd34bfab40ff13ed76232a48d5b1d1c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaacd34bfab40ff13ed76232a48d5b1d1c">rcge_camera_rot_set</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, versor new_rot)</td></tr>
+<tr class="memitem:ga002ba9acfd9d0175735361fe7d8db1ae" id="r_ga002ba9acfd9d0175735361fe7d8db1ae"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga002ba9acfd9d0175735361fe7d8db1ae">rcge_camera_add_pos</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 apply_pos)</td></tr>
 <tr class="memitem:ga2c8ecf86c1f37cde4e05e8cb5b9b5d27" id="r_ga2c8ecf86c1f37cde4e05e8cb5b9b5d27"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga2c8ecf86c1f37cde4e05e8cb5b9b5d27">rcge_camera_add_rot_euler</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 apply_rot)</td></tr>
 <tr class="memitem:gad2a174e6b988128716b7c059c61456d3" id="r_gad2a174e6b988128716b7c059c61456d3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gad2a174e6b988128716b7c059c61456d3">rcge_camera_up</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out)</td></tr>
 <tr class="memitem:gae9cbc8bebbf88a3757ccbcf41810e18c" id="r_gae9cbc8bebbf88a3757ccbcf41810e18c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gae9cbc8bebbf88a3757ccbcf41810e18c">rcge_camera_right</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out)</td></tr>
@@ -152,8 +152,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ga0033f2b18b37f18100ab48bc83dbdd0c" name="ga0033f2b18b37f18100ab48bc83dbdd0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0033f2b18b37f18100ab48bc83dbdd0c">&#9670;&#160;</a></span>rcge_camera_create()</h2>
+<a id="ga2105ccfc0c371410d6ad1738689f438c" name="ga2105ccfc0c371410d6ad1738689f438c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2105ccfc0c371410d6ad1738689f438c">&#9670;&#160;</a></span>rcge_camera_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,12 +191,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>far</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>ratio</em></span>&#160;)</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>far</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -211,7 +206,6 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">size_or_fov</td><td>The fov (in radians, if perspective) or the size (if orthogonal) you want the camera to have. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">near</td><td>The near plane of the camera. Things with less distance of <span class="tt">near</span> units from the camera would not be rendered. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">far</td><td>The far plane of the camera. Things with further distance of <span class="tt">near</span> units from the camera would not be rendered. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">ratio</td><td>The window aspect ratio at the time of creation. </td></tr>
   </table>
   </dd>
 </dl>
@@ -262,7 +256,6 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">size_or_fov</td><td>The fov (in radians, if perspective) or the size (if orthogonal) you want the camera to change to. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">near</td><td>The near plane of the camera to change to. Things with less distance of <span class="tt">near</span> units from the camera would not be rendered. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">far</td><td>The far plane of the camera to change to. Things with further distance of <span class="tt">near</span> units from the camera would not be rendered. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">ratio</td><td>The window aspect ratio at the time of creation. </td></tr>
   </table>
   </dd>
 </dl>
@@ -350,7 +343,6 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">camera</td><td>The camera to change. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">ratio</td><td>The window's aspect ratio. </td></tr>
   </table>
   </dd>
 </dl>
@@ -411,7 +403,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">camera</td><td>The camera you want to access. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>The rotation (in quaternion) of the s pecified camera. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>The rotation (in quaternion) of the specified camera. </td></tr>
   </table>
   </dd>
 </dl>
@@ -473,6 +465,37 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">camera</td><td>The camera you want to change. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">new_rot</td><td>The rotation (in quaternion) you want to set to the camera. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Make sure the shader the camera uses is currently active before calling this by using <a class="el" href="group__shaders.html#ga0303317abc7fcb74551d4777b665d987" title="rcge_shader_use">rcge_shader_use</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ga002ba9acfd9d0175735361fe7d8db1ae" name="ga002ba9acfd9d0175735361fe7d8db1ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga002ba9acfd9d0175735361fe7d8db1ae">&#9670;&#160;</a></span>rcge_camera_add_pos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rcge_camera_add_pos </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a></td>          <td class="paramname"><span class="paramname"><em>camera</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vec3</td>          <td class="paramname"><span class="paramname"><em>apply_pos</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add a vector to current position of a specified camera. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">camera</td><td>The camera you want to change. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">apply_pos</td><td>The translation vector you want to add to the camera. </td></tr>
   </table>
   </dd>
 </dl>

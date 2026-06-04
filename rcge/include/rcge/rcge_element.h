@@ -6,7 +6,6 @@
  * @brief Elements (RCGE object) management.
  * 
  * @defgroup elements Elements and Element Managers
- * @brief Elements (RCGE object) management.
  * 
  * @subsection elements_obj Elements
  * An element groups multiple components (like meshes or sound sources) together, allowing a more organised way to manage objects that work together.
@@ -37,7 +36,6 @@ typedef struct rcge_element_CDT* rcge_element;
 
 /**
  * @ingroup elements
- * @typedef rcge_element_start_callback
  * @brief Function pointer representing callbacks executed when an element is first enabled.
  * @param element The element that just first got enabled.
 **/
@@ -45,7 +43,6 @@ typedef void (*rcge_element_start_callback)(rcge_element);
 
 /**
  * @ingroup elements
- * @typedef rcge_element_status_callback
  * @brief Function pointer representing callbacks executed when an element is enabled or disabled.
  * @param element The element that just got enabled/disabled.
 **/
@@ -53,7 +50,6 @@ typedef void (*rcge_element_status_callback)(rcge_element, bool);
 
 /**
  * @ingroup elements
- * @typedef rcge_element_update_callback
  * @brief Function pointer representing callbacks executed when an element is updated per frame.
  * @param element The element that is updating.
 **/
@@ -61,7 +57,6 @@ typedef void (*rcge_element_update_callback)(rcge_element, double);
 
 /**
  * @ingroup elements
- * @typedef rcge_element_delete_callback
  * @brief Function pointer representing callbacks executed when an element is deleted.
  * @param element The element that is deleted.
 **/

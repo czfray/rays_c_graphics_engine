@@ -47,6 +47,7 @@ void rcge_element_start(rcge_element element)
 
 void rcge_element_enable(rcge_element element, bool enable)
 {
+    if (enable == element->enabled) return;
     if (element == NULL) {printf("[RCGE Element] Element status set failed: element does not exist.\n"); return;}
     element->enabled = enable;
     rcge_element_status_callback status_cb = element->enable_cb;

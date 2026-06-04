@@ -1,5 +1,6 @@
 #include <cglm/cglm.h>
 
+#include <rcge/rcge_master.h>
 #include <rcge/rcge_transform.h>
 #include <rcge/rcge_camera.h>
 
@@ -36,8 +37,10 @@ void update_proj_uniform(rcge_shader shader, unsigned int proj_index, bool is_pe
     rcge_shader_uniform_mat4(shader, proj_index, proj);
 }
 
-rcge_camera rcge_camera_create(rcge_shader shader, unsigned int view_uniform_index, unsigned int proj_uniform_index, bool is_perspective, double size_or_fov, double near, double far, double ratio)
+rcge_camera rcge_camera_create(rcge_shader shader, unsigned int view_uniform_index, unsigned int proj_uniform_index, bool is_perspective, double size_or_fov, double near, double far)
 {
+    double ratio = rcge_display_ratio();
+    
     update_proj_uniform(shader, proj_uniform_index, is_perspective, size_or_fov, near, far, ratio);
     //TODO: malloc validation and shader
     rcge_transform transform = rcge_transform_create_zero(true);
@@ -82,6 +85,13 @@ void rcge_camera_rot_set(rcge_camera camera, versor new_rot)
     if (camera == NULL) {printf("[RCGE Camera] Camera transform rot set failed: camera does not exist.\n"); return;}
     rcge_transform transform = camera->transform;
     rcge_transform_rot_set(transform, new_rot);
+    update_view_uniform(camera->shader, camera->view_uniform_index, transform);
+}
+void rcge_camera_add_pos(rcge_camera camera, vec3 apply_pos)
+{
+    if (camera == NULL) {printf("[RCGE Camera] Camera transform pos add failed: camera does not exist.\n"); return;}
+    rcge_transform transform = camera->transform;
+    rcge_transform_add_pos(transform, apply_pos);
     update_view_uniform(camera->shader, camera->view_uniform_index, transform);
 }
 

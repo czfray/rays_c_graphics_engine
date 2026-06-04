@@ -5,7 +5,6 @@
  * @brief Camera management
  * 
  * @defgroup cameras Cameras
- * @brief Camera management.
  * 
  * This module manages the camera. Sets the perspective of render.
  * 
@@ -38,12 +37,10 @@ typedef struct rcge_camera_CDT* rcge_camera;
  * @param[in] size_or_fov The fov (in radians, if perspective) or the size (if orthogonal) you want the camera to have.
  * @param[in] near The near plane of the camera. Things with less distance of `near` units from the camera would not be rendered.
  * @param[in] far The far plane of the camera. Things with further distance of `near` units from the camera would not be rendered.
- * @param[in] ratio The window aspect ratio at the time of creation.
  * @return The camera created, NULL if failed.
  * @note Make sure `shader` is currently active before calling this by using @ref rcge_shader_use.
 **/
-rcge_camera rcge_camera_create(rcge_shader shader, unsigned int view_uniform_index, unsigned int proj_uniform_index, bool is_perspective, double size_or_fov, double near, double far, double ratio);
-//TODO: Ratio is fucking stupid?
+rcge_camera rcge_camera_create(rcge_shader shader, unsigned int view_uniform_index, unsigned int proj_uniform_index, bool is_perspective, double size_or_fov, double near, double far);
 
 /**
  * @ingroup cameras
@@ -53,7 +50,6 @@ rcge_camera rcge_camera_create(rcge_shader shader, unsigned int view_uniform_ind
  * @param[in] size_or_fov The fov (in radians, if perspective) or the size (if orthogonal) you want the camera to change to.
  * @param[in] near The near plane of the camera to change to. Things with less distance of `near` units from the camera would not be rendered.
  * @param[in] far The far plane of the camera to change to. Things with further distance of `near` units from the camera would not be rendered.
- * @param[in] ratio The window aspect ratio at the time of creation.
  * @note Make sure the shader camera uses is currently active before calling this by using @ref rcge_shader_use.
 **/
 void rcge_camera_param_set(rcge_camera camera, bool is_perspective, double size_or_fov, double near, double far);
@@ -79,7 +75,6 @@ void rcge_camera_fov_size_set(rcge_camera camera, double size_or_fov);
  * @ingroup cameras
  * @brief Set the window aspect ratio of the screen to the camera. Called everytime the window is resized.
  * @param[in] camera The camera to change.
- * @param[in] ratio The window's aspect ratio.
  * @note Make sure the shader the camera uses is currently active before calling this by using @ref rcge_shader_use.
 **/
 void rcge_camera_ratio_set(rcge_camera camera, double ratio);
@@ -119,6 +114,14 @@ void rcge_camera_pos_set(rcge_camera camera, vec3 new_pos);
 **/
 void rcge_camera_rot_set(rcge_camera camera, versor new_rot);
 
+/**
+ * @ingroup cameras
+ * @brief Add a vector to current position of a specified camera.
+ * @param[in] camera The camera you want to change.
+ * @param[in] apply_pos The translation vector you want to add to the camera.
+ * @note Make sure the shader the camera uses is currently active before calling this by using @ref rcge_shader_use. 
+**/
+void rcge_camera_add_pos(rcge_camera camera, vec3 apply_pos);
 
 /**
  * @ingroup cameras
@@ -127,7 +130,6 @@ void rcge_camera_rot_set(rcge_camera camera, versor new_rot);
  * @param[in] apply_rot The rotation (in euler) you want to add to the camera.
  * @note Make sure the shader the camera uses is currently active before calling this by using @ref rcge_shader_use. 
 **/
-
 void rcge_camera_add_rot_euler(rcge_camera camera, vec3 apply_rot);
 
 /**

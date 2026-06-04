@@ -6,7 +6,6 @@
  * @brief Shader management.
  * 
  * @defgroup shaders Shader Components and Shaders
- * @brief Shader management.
  * 
  * This module allows the creating and using of shaders.
  * Shaders are programs run in the GPU that determines how graphics are rendered on screen.
@@ -179,7 +178,6 @@ typedef struct rcge_shader_comp_CDT* rcge_shader_comp;
 
 /**
  * @ingroup shaders
- * @enum rcge_shader_comp_type
  * @brief Shader component types.
 **/
 typedef enum 
@@ -191,12 +189,21 @@ typedef enum
 
 /**
  * @ingroup shaders
+ * @brief Creates a shader component from source code string (written in GLSL).
+ * @param[in] code The shader component source code string to be used for the new component. 
+ * @param[in] type The type of the new shader component. See @ref rcge_shader_comp_type.
+ * @return The shader component created, NULL if failed.
+**/
+rcge_shader_comp rcge_shader_comp_create(const char* code, rcge_shader_comp_type type);
+
+/**
+ * @ingroup shaders
  * @brief Creates a shader component from source code file (written in GLSL).
  * @param[in] path Relative path of the shader component source code file to be used for the new component. 
  * @param[in] type The type of the new shader component. See @ref rcge_shader_comp_type.
  * @return The shader component created, NULL if failed.
 **/
-rcge_shader_comp rcge_shader_comp_create(char* path, rcge_shader_comp_type type);
+rcge_shader_comp rcge_shader_comp_create_file(char* path, rcge_shader_comp_type type);
 
 /**
  * @ingroup shaders
@@ -420,6 +427,11 @@ void rcge_shader_uniform_mat4(rcge_shader shader, unsigned int uniform_loc_index
 
 //TODO: More uniform types to be added here!
 
+/**
+ * @internal
+ * @warning This is an RCGE Internal Function.
+ * @endinternal
+ */
+void rcge_shader_attrib_activate_mesh(rcge_shader shader);
 
-void rcge_shader_attrib_activate_mesh(rcge_shader shader); //Assumes VAO of mesh is active. //TODO: MOVE THIS TO INTERNAL
 #endif

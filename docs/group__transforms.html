@@ -104,8 +104,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('group__transfo
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Transformation management. </p>
-<p>This module allows the transformations of graphical 2D/3D objects. A transform is a transformation management object that allows the translation, rotation and scaling of objects.</p>
+<div class="textblock"><p>This module allows the transformations of graphical 2D/3D objects. A transform is a transformation management object that allows the translation, rotation and scaling of objects.</p>
 <dl class="section note"><dt>Note</dt><dd>In RCGE, it is defined that +X is <b>LEFTWARDS</b>, +Y is UPWARDS, and +Z is FORWARD. </dd></dl>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
@@ -123,7 +122,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaee540e87615e97aeacc53ada8e7ffd58" id="r_gaee540e87615e97aeacc53ada8e7ffd58"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaee540e87615e97aeacc53ada8e7ffd58">rcge_transform_pos_set</a> (<a class="el" href="#ga52775277a5189c7eed4487581facb58c">rcge_transform</a> transform, vec3 new_pos)</td></tr>
 <tr class="memitem:ga16ca5e5b08da108982cda864eb5a2185" id="r_ga16ca5e5b08da108982cda864eb5a2185"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga16ca5e5b08da108982cda864eb5a2185">rcge_transform_rot_set</a> (<a class="el" href="#ga52775277a5189c7eed4487581facb58c">rcge_transform</a> transform, versor new_rot)</td></tr>
 <tr class="memitem:ga31704a5b62977b16b165bd87dc6ca654" id="r_ga31704a5b62977b16b165bd87dc6ca654"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga31704a5b62977b16b165bd87dc6ca654">rcge_transform_scl_set</a> (<a class="el" href="#ga52775277a5189c7eed4487581facb58c">rcge_transform</a> transform, vec3 new_scl)</td></tr>
+<tr class="memitem:ga337372ea214064d1c8a6692e7e88738f" id="r_ga337372ea214064d1c8a6692e7e88738f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga337372ea214064d1c8a6692e7e88738f">rcge_transform_add_pos</a> (<a class="el" href="#ga52775277a5189c7eed4487581facb58c">rcge_transform</a> transform, vec3 apply_pos)</td></tr>
 <tr class="memitem:gae80a0c8f563ff0ecd6dc6661881f2537" id="r_gae80a0c8f563ff0ecd6dc6661881f2537"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gae80a0c8f563ff0ecd6dc6661881f2537">rcge_transform_add_rot_euler</a> (<a class="el" href="#ga52775277a5189c7eed4487581facb58c">rcge_transform</a> transform, vec3 apply_rot)</td></tr>
+<tr class="memitem:ga2e36e023a97e89da92bfbdbd93efe031" id="r_ga2e36e023a97e89da92bfbdbd93efe031"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga2e36e023a97e89da92bfbdbd93efe031">rcge_transform_add_scl</a> (<a class="el" href="#ga52775277a5189c7eed4487581facb58c">rcge_transform</a> transform, vec3 apply_scl)</td></tr>
 <tr class="memitem:ga2132995d82515a4e95d76a6f5bf1b134" id="r_ga2132995d82515a4e95d76a6f5bf1b134"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga2132995d82515a4e95d76a6f5bf1b134">rcge_transform_up</a> (<a class="el" href="#ga52775277a5189c7eed4487581facb58c">rcge_transform</a> transform, vec3 out)</td></tr>
 <tr class="memitem:gae04cd0077ac86c35e840e5a5adeb8ee5" id="r_gae04cd0077ac86c35e840e5a5adeb8ee5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gae04cd0077ac86c35e840e5a5adeb8ee5">rcge_transform_right</a> (<a class="el" href="#ga52775277a5189c7eed4487581facb58c">rcge_transform</a> transform, vec3 out)</td></tr>
 <tr class="memitem:gaa7a81b0e73b924d2744175ed7af0a9fe" id="r_gaa7a81b0e73b924d2744175ed7af0a9fe"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaa7a81b0e73b924d2744175ed7af0a9fe">rcge_transform_forward</a> (<a class="el" href="#ga52775277a5189c7eed4487581facb58c">rcge_transform</a> transform, vec3 out)</td></tr>
@@ -428,6 +429,36 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga337372ea214064d1c8a6692e7e88738f" name="ga337372ea214064d1c8a6692e7e88738f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga337372ea214064d1c8a6692e7e88738f">&#9670;&#160;</a></span>rcge_transform_add_pos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rcge_transform_add_pos </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ga52775277a5189c7eed4487581facb58c">rcge_transform</a></td>          <td class="paramname"><span class="paramname"><em>transform</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vec3</td>          <td class="paramname"><span class="paramname"><em>apply_pos</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add vector to current position of a specified transform. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">transform</td><td>The transform you want to change. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">apply_pos</td><td>The translation vector you want to add to the transform. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="gae80a0c8f563ff0ecd6dc6661881f2537" name="gae80a0c8f563ff0ecd6dc6661881f2537"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gae80a0c8f563ff0ecd6dc6661881f2537">&#9670;&#160;</a></span>rcge_transform_add_rot_euler()</h2>
 
@@ -452,6 +483,36 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">transform</td><td>The transform you want to change. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">apply_rot</td><td>The rotation (in euler) you want to add to the transform. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga2e36e023a97e89da92bfbdbd93efe031" name="ga2e36e023a97e89da92bfbdbd93efe031"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2e36e023a97e89da92bfbdbd93efe031">&#9670;&#160;</a></span>rcge_transform_add_scl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rcge_transform_add_scl </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ga52775277a5189c7eed4487581facb58c">rcge_transform</a></td>          <td class="paramname"><span class="paramname"><em>transform</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vec3</td>          <td class="paramname"><span class="paramname"><em>apply_scl</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add vector to current scale of a specified transform. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">transform</td><td>The transform you want to change. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">apply_scl</td><td>The scale vector you want to add to the transform. </td></tr>
   </table>
   </dd>
 </dl>

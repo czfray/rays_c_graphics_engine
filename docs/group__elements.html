@@ -104,8 +104,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('group__element
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Elements (RCGE object) management. </p>
-<h2 class="doxsection"><a class="anchor" id="elements_obj"></a>
+<div class="textblock"><h2 class="doxsection"><a class="anchor" id="elements_obj"></a>
 Elements</h2>
 <p>An element groups multiple components (like meshes or sound sources) together, allowing a more organised way to manage objects that work together.</p>
 <p>e.g. If 6 meshes makes up a player model, you can make a "player" element, attach 6 meshes to the element, and manage them together. Originally, you have to call <a class="el" href="group__meshes.html#gade5d248ba4125f12dfa6b3b8ad5c0616" title="rcge_mesh_draw">rcge_mesh_draw</a> for every element per frame. It makes the code very messy.</p>
@@ -119,11 +118,11 @@ Element Manager</h2>
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:ga714d98cafb18ba007d50622bbe9d84cd" id="r_ga714d98cafb18ba007d50622bbe9d84cd"><td class="memItemLeft">typedef struct rcge_element_CDT *&#160;</td><td class="memItemRight"><a class="el" href="#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element</a></td></tr>
-<tr class="memitem:ga628cb3986875939189522ec0748db5d2" id="r_ga628cb3986875939189522ec0748db5d2"><td class="memItemLeft">typedef struct rcge_element_manager_CDT *&#160;</td><td class="memItemRight"><a class="el" href="#ga628cb3986875939189522ec0748db5d2">rcge_element_manager</a></td></tr>
 <tr class="memitem:ga7677f5a490502ba8b72ceef49e0f2f89" id="r_ga7677f5a490502ba8b72ceef49e0f2f89"><td class="memItemLeft">typedef void(*&#160;</td><td class="memItemRight"><a class="el" href="#ga7677f5a490502ba8b72ceef49e0f2f89">rcge_element_start_callback</a>) (<a class="el" href="#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element</a>)</td></tr>
 <tr class="memitem:gaa24402abf82f998956d2d0d3647dc109" id="r_gaa24402abf82f998956d2d0d3647dc109"><td class="memItemLeft">typedef void(*&#160;</td><td class="memItemRight"><a class="el" href="#gaa24402abf82f998956d2d0d3647dc109">rcge_element_status_callback</a>) (<a class="el" href="#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element</a>, bool)</td></tr>
 <tr class="memitem:ga7a84726421db16230053c9a4160056d7" id="r_ga7a84726421db16230053c9a4160056d7"><td class="memItemLeft">typedef void(*&#160;</td><td class="memItemRight"><a class="el" href="#ga7a84726421db16230053c9a4160056d7">rcge_element_update_callback</a>) (<a class="el" href="#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element</a>, double)</td></tr>
 <tr class="memitem:gae42f7bc4c5befd99711fa992b92e6ab5" id="r_gae42f7bc4c5befd99711fa992b92e6ab5"><td class="memItemLeft">typedef void(*&#160;</td><td class="memItemRight"><a class="el" href="#gae42f7bc4c5befd99711fa992b92e6ab5">rcge_element_delete_callback</a>) (<a class="el" href="#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element</a>)</td></tr>
+<tr class="memitem:ga628cb3986875939189522ec0748db5d2" id="r_ga628cb3986875939189522ec0748db5d2"><td class="memItemLeft">typedef struct rcge_element_manager_CDT *&#160;</td><td class="memItemRight"><a class="el" href="#ga628cb3986875939189522ec0748db5d2">rcge_element_manager</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -154,21 +153,6 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Datatype representing an element </p>
-
-</div>
-</div>
-<a id="ga628cb3986875939189522ec0748db5d2" name="ga628cb3986875939189522ec0748db5d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga628cb3986875939189522ec0748db5d2">&#9670;&#160;</a></span>rcge_element_manager</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct rcge_element_manager_CDT* <a class="el" href="#ga628cb3986875939189522ec0748db5d2">rcge_element_manager</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Datatype representing an element manager. </p>
 
 </div>
 </div>
@@ -257,6 +241,21 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ga628cb3986875939189522ec0748db5d2" name="ga628cb3986875939189522ec0748db5d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga628cb3986875939189522ec0748db5d2">&#9670;&#160;</a></span>rcge_element_manager</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct rcge_element_manager_CDT* <a class="el" href="#ga628cb3986875939189522ec0748db5d2">rcge_element_manager</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Datatype representing an element manager. </p>
 
 </div>
 </div>

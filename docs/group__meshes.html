@@ -104,8 +104,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('group__meshes.
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Mesh management. </p>
-<p>This module allows the drawing of meshes. It manages how the mesh data is sent to the GPU, and allows the mesh to be drawn.</p>
+<div class="textblock"><p>This module allows the drawing of meshes. It manages how the mesh data is sent to the GPU, and allows the mesh to be drawn.</p>
 <p>A mesh is a 2D/3D graphical objects, and is represented by a vertex data array and an Index Data Array. This module can be considered an element component. See <a class="el" href="group__elements.html" title="Elements and Element Managers">Elements and Element Managers</a> to know what it means.</p>
 <h2 class="doxsection"><a class="anchor" id="meshes_vertex"></a>
 Vertex Data Array</h2>
@@ -122,10 +121,10 @@ Vertex Data Array</h2>
 <div class="line">    0, 0.5f, 0.0, 0.5f, 1.0f,</div>
 <div class="line">    0.5f, 0.0, 0.0, 1.0f, 0.0f,</div>
 <div class="line">}</div>
-</div><!-- fragment --><p> and shader attributes are set like this: </p><div class="fragment"><div class="line"><a class="code hl_function" href="group__shaders.html#ga34e533ec09a36523abf99d805f76157f">rcge_shader_attrib_set</a>(shader, 0, <span class="stringliteral">&quot;position&quot;</span>, 3, <a class="code hl_enumvalue" href="rcge__datatype_8h.html#ga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a">DATATYPE_FLOAT</a>, <span class="keyword">false</span>);</div>
-<div class="line"><a class="code hl_function" href="group__shaders.html#ga34e533ec09a36523abf99d805f76157f">rcge_shader_attrib_set</a>(shader, 1, <span class="stringliteral">&quot;texcoord&quot;</span>, 2, <a class="code hl_enumvalue" href="rcge__datatype_8h.html#ga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a">DATATYPE_FLOAT</a>, <span class="keyword">false</span>);</div>
+</div><!-- fragment --><p> and shader attributes are set like this: </p><div class="fragment"><div class="line"><a class="code hl_function" href="group__shaders.html#ga34e533ec09a36523abf99d805f76157f">rcge_shader_attrib_set</a>(shader, 0, <span class="stringliteral">&quot;position&quot;</span>, 3, <a class="code hl_enumvalue" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a">DATATYPE_FLOAT</a>, <span class="keyword">false</span>);</div>
+<div class="line"><a class="code hl_function" href="group__shaders.html#ga34e533ec09a36523abf99d805f76157f">rcge_shader_attrib_set</a>(shader, 1, <span class="stringliteral">&quot;texcoord&quot;</span>, 2, <a class="code hl_enumvalue" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a">DATATYPE_FLOAT</a>, <span class="keyword">false</span>);</div>
+<div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a">DATATYPE_FLOAT</a></div><div class="ttdeci">@ DATATYPE_FLOAT</div><div class="ttdoc">Float.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:24</div></div>
 <div class="ttc" id="agroup__shaders_html_ga34e533ec09a36523abf99d805f76157f"><div class="ttname"><a href="group__shaders.html#ga34e533ec09a36523abf99d805f76157f">rcge_shader_attrib_set</a></div><div class="ttdeci">void rcge_shader_attrib_set(rcge_shader shader, unsigned int index, char *name, unsigned int size, rcge_datatype type, bool normalised)</div><div class="ttdoc">Initialises a shader attribute, and assigning an index for it. During shader initialisation,...</div></div>
-<div class="ttc" id="arcge__datatype_8h_html_ga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a"><div class="ttname"><a href="rcge__datatype_8h.html#ga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a">DATATYPE_FLOAT</a></div><div class="ttdeci">@ DATATYPE_FLOAT</div><div class="ttdoc">Float.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:26</div></div>
 </div><!-- fragment --><p> Then each vertex will be represented by 3+2=5 floating point number. For my example, the array <span class="tt">vertices</span> represents 3 vertices:</p><ol type="1">
 <li>A vertex with "position" (-0.5, 0, 0) with "texcoord" (0, 0)</li>
 <li>A vertex with "position" (0, 0.5, 0) with "texcoord" (0.5, 1)</li>
@@ -171,9 +170,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:gac33ea186711f95db334be4e429b018ad" id="r_gac33ea186711f95db334be4e429b018ad"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a> { <a class="el" href="#gac33ea186711f95db334be4e429b018adad24010eb4728b3acea84ced19f354158">MESH_STATIC</a>
-, <a class="el" href="#gac33ea186711f95db334be4e429b018ada602f6902a7e36829c2d449829dcdb6c2">MESH_DYNAMIC</a>
-, <a class="el" href="#gac33ea186711f95db334be4e429b018ada4c2d6ac0bfa14a48e07843afd79891fb">MESH_STREAM</a>
+<tr class="memitem:gac33ea186711f95db334be4e429b018ad" id="r_gac33ea186711f95db334be4e429b018ad"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a> { <a class="el" href="#ggac33ea186711f95db334be4e429b018adad24010eb4728b3acea84ced19f354158">MESH_STATIC</a>
+, <a class="el" href="#ggac33ea186711f95db334be4e429b018ada602f6902a7e36829c2d449829dcdb6c2">MESH_DYNAMIC</a>
+, <a class="el" href="#ggac33ea186711f95db334be4e429b018ada4c2d6ac0bfa14a48e07843afd79891fb">MESH_STREAM</a>
  }</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
@@ -214,11 +213,11 @@ Functions</h2></td></tr>
 
 <p>Draw frequency type of a mesh. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gac33ea186711f95db334be4e429b018adad24010eb4728b3acea84ced19f354158" name="gac33ea186711f95db334be4e429b018adad24010eb4728b3acea84ced19f354158"></a>MESH_STATIC&#160;</td><td class="fielddoc"><p>Static, mesh data is set only once, used many times. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggac33ea186711f95db334be4e429b018adad24010eb4728b3acea84ced19f354158" name="ggac33ea186711f95db334be4e429b018adad24010eb4728b3acea84ced19f354158"></a>MESH_STATIC&#160;</td><td class="fielddoc"><p>Static, mesh data is set only once, used many times. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gac33ea186711f95db334be4e429b018ada602f6902a7e36829c2d449829dcdb6c2" name="gac33ea186711f95db334be4e429b018ada602f6902a7e36829c2d449829dcdb6c2"></a>MESH_DYNAMIC&#160;</td><td class="fielddoc"><p>Dynamic, mesh data is set only once, used at most few times. </p>
+<tr><td class="fieldname"><a id="ggac33ea186711f95db334be4e429b018ada602f6902a7e36829c2d449829dcdb6c2" name="ggac33ea186711f95db334be4e429b018ada602f6902a7e36829c2d449829dcdb6c2"></a>MESH_DYNAMIC&#160;</td><td class="fielddoc"><p>Dynamic, mesh data is set only once, used at most few times. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gac33ea186711f95db334be4e429b018ada4c2d6ac0bfa14a48e07843afd79891fb" name="gac33ea186711f95db334be4e429b018ada4c2d6ac0bfa14a48e07843afd79891fb"></a>MESH_STREAM&#160;</td><td class="fielddoc"><p>Stream, mesh data is changed a lot, used many times. </p>
+<tr><td class="fieldname"><a id="ggac33ea186711f95db334be4e429b018ada4c2d6ac0bfa14a48e07843afd79891fb" name="ggac33ea186711f95db334be4e429b018ada4c2d6ac0bfa14a48e07843afd79891fb"></a>MESH_STREAM&#160;</td><td class="fielddoc"><p>Stream, mesh data is changed a lot, used many times. </p>
 </td></tr>
 </table>
 

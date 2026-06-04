@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['shader_20components_20and_20shaders_0',['Shader Components and Shaders',['../group__shaders.html',1,'']]],
-  ['shaders_1',['Shader Components and Shaders',['../group__shaders.html',1,'']]]
+  ['rcge_20manager_0',['Master (RCGE Manager)',['../group__master.html',1,'']]]
 ];

@@ -2,9 +2,9 @@ var group__meshes =
 [
     [ "rcge_mesh", "group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec", null ],
     [ "rcge_mesh_draw_type", "group__meshes.html#gac33ea186711f95db334be4e429b018ad", [
-      [ "MESH_STATIC", "rcge__mesh_8h.html#gac33ea186711f95db334be4e429b018adad24010eb4728b3acea84ced19f354158", null ],
-      [ "MESH_DYNAMIC", "rcge__mesh_8h.html#gac33ea186711f95db334be4e429b018ada602f6902a7e36829c2d449829dcdb6c2", null ],
-      [ "MESH_STREAM", "rcge__mesh_8h.html#gac33ea186711f95db334be4e429b018ada4c2d6ac0bfa14a48e07843afd79891fb", null ]
+      [ "MESH_STATIC", "group__meshes.html#ggac33ea186711f95db334be4e429b018adad24010eb4728b3acea84ced19f354158", null ],
+      [ "MESH_DYNAMIC", "group__meshes.html#ggac33ea186711f95db334be4e429b018ada602f6902a7e36829c2d449829dcdb6c2", null ],
+      [ "MESH_STREAM", "group__meshes.html#ggac33ea186711f95db334be4e429b018ada4c2d6ac0bfa14a48e07843afd79891fb", null ]
     ] ],
     [ "rcge_mesh_create", "group__meshes.html#ga1d4aaf3f0b209d0f1286248515dad054", null ],
     [ "rcge_mesh_transform_get", "group__meshes.html#ga81c97961bf82159c64164592f2260e57", null ],

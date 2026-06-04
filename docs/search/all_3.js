@@ -8,6 +8,5 @@ var searchData=
   ['component_20code_20glsl_5',['Shader Component Code (GLSL)',['../group__shaders.html#shaders_comp_source',1,'']]],
   ['components_20and_20pipeline_6',['Shader Components and Pipeline',['../group__shaders.html#shaders_comp',1,'']]],
   ['components_20and_20shaders_7',['Shader Components and Shaders',['../group__shaders.html',1,'']]],
-  ['creation_20info_8',['Creation Info&lt;br  /&gt;
-',['../index.html#info',1,'']]]
+  ['creation_20info_8',['Creation Info',['../index.html#info',1,'']]]
 ];

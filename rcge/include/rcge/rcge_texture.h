@@ -6,7 +6,6 @@
  * @brief Image texture management.
  * 
  * @defgroup textures Textures
- * @brief Image texture management.
  * 
  * This module allows the creation and usage of image textures.
  * Image textures can be rendered on meshes.
@@ -20,7 +19,6 @@ typedef struct rcge_texture_CDT* rcge_texture;
 
 /**
  * @ingroup textures
- * @enum rcge_texture_wrap_type
  * @brief Type of texture wrapping methods.
 **/
 typedef enum 
@@ -33,7 +31,6 @@ typedef enum
 
 /**
  * @ingroup textures
- * @enum rcge_texture_filter_type
  * @brief Type of texture filter methods.
 **/
 typedef enum 

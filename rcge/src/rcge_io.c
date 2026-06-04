@@ -3,7 +3,7 @@
 #include <stbi/stb_image.h>
 
 #include <rcge/rcge_io.h>
-#include <rcge/rcge_window.h>
+#include <rcge/rcge_master.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -344,10 +344,10 @@ rcge_io_input_type rcge_io_input_type_get(rcge_io_input input)
     else return IO_TYPE_KEYBOARD;
 }
 
-bool rcge_io_input_pressed(rcge_window window, rcge_io_input input)
+bool rcge_io_input_pressed(rcge_io_input input)
 {
     int gl_input = gl_input_id(input);
-    GLFWwindow* gl_window = (GLFWwindow*) rcge_window_raw_pointer(window);
+    GLFWwindow* gl_window = (GLFWwindow*) rcge_window_raw_pointer();
     switch(rcge_io_input_type_get(input))
     {
         case IO_TYPE_KEYBOARD:
@@ -358,8 +358,14 @@ bool rcge_io_input_pressed(rcge_window window, rcge_io_input input)
     return false;
 }
 
-void rcge_io_mouse_loc(rcge_window window, double* x, double* y)
+void rcge_io_mouse_use_raw(bool raw)
 {
-    GLFWwindow* gl_window = (GLFWwindow*) rcge_window_raw_pointer(window);
+    GLFWwindow* gl_window = (GLFWwindow*) rcge_window_raw_pointer();
+    if (glfwRawMouseMotionSupported()) glfwSetInputMode(gl_window, GLFW_RAW_MOUSE_MOTION, raw? GLFW_TRUE: GLFW_FALSE);
+}
+
+void rcge_io_mouse_loc(double* x, double* y)
+{
+    GLFWwindow* gl_window = (GLFWwindow*) rcge_window_raw_pointer();
     glfwGetCursorPos(gl_window, x, y);
 }

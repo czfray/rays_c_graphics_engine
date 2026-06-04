@@ -104,8 +104,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('group__io.html
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>I/O management. </p>
-<p>This modules allows read and write of files, as well as reading keyboard and mouse inputs. </p>
+<div class="textblock"><p>This modules allows read and write of files, as well as reading keyboard and mouse inputs. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -288,8 +287,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga3edef4d3e4150d11f1c62e12b58f6566" id="r_ga3edef4d3e4150d11f1c62e12b58f6566"><td class="memItemLeft">unsigned char *&#160;</td><td class="memItemRight"><a class="el" href="#ga3edef4d3e4150d11f1c62e12b58f6566">rcge_io_read_image</a> (char *path, unsigned int *width, unsigned int *height, unsigned int *channel_no, unsigned int desired_channel_no)</td></tr>
 <tr class="memitem:ga99b3eb8833c74c2eee23f8900f15d5ed" id="r_ga99b3eb8833c74c2eee23f8900f15d5ed"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga99b3eb8833c74c2eee23f8900f15d5ed">rcge_io_free_image</a> (unsigned char *image)</td></tr>
 <tr class="memitem:gae929926149a4c21917cbd450b93e9864" id="r_gae929926149a4c21917cbd450b93e9864"><td class="memItemLeft"><a class="el" href="#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a>&#160;</td><td class="memItemRight"><a class="el" href="#gae929926149a4c21917cbd450b93e9864">rcge_io_input_type_get</a> (<a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input)</td></tr>
-<tr class="memitem:gadfa99c34cb73f54272f0e95259193316" id="r_gadfa99c34cb73f54272f0e95259193316"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#gadfa99c34cb73f54272f0e95259193316">rcge_io_input_pressed</a> (<a class="el" href="group__windows.html#ga33a8e2942eb9d5011336d637dc53468e">rcge_window</a> window, <a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input)</td></tr>
-<tr class="memitem:ga0c5c4a42a4e780679b12722fd0de06aa" id="r_ga0c5c4a42a4e780679b12722fd0de06aa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga0c5c4a42a4e780679b12722fd0de06aa">rcge_io_mouse_loc</a> (<a class="el" href="group__windows.html#ga33a8e2942eb9d5011336d637dc53468e">rcge_window</a> window, double *x, double *y)</td></tr>
+<tr class="memitem:ga7c737ec447fd73e71456b4ffa1eb4d6f" id="r_ga7c737ec447fd73e71456b4ffa1eb4d6f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ga7c737ec447fd73e71456b4ffa1eb4d6f">rcge_io_input_pressed</a> (<a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input)</td></tr>
+<tr class="memitem:gab0c365b346d477247dc90f8ad6537449" id="r_gab0c365b346d477247dc90f8ad6537449"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gab0c365b346d477247dc90f8ad6537449">rcge_io_mouse_use_raw</a> (bool raw)</td></tr>
+<tr class="memitem:ga0ba8858c8f893c41e55be2bafe63cb7b" id="r_ga0ba8858c8f893c41e55be2bafe63cb7b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga0ba8858c8f893c41e55be2bafe63cb7b">rcge_io_mouse_loc</a> (double *x, double *y)</td></tr>
 </table>
 <a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="gafca963cd0ee56aad497eee0a01c6f75e" name="gafca963cd0ee56aad497eee0a01c6f75e"></a>
@@ -392,7 +392,9 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The pixel data of image, NULL if failed. </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Do not call free(), but call <a class="el" href="#ga99b3eb8833c74c2eee23f8900f15d5ed" title="rcge_io_free_image">rcge_io_free_image</a> to free the pixel data. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>- Do not call free(), but call <a class="el" href="#ga99b3eb8833c74c2eee23f8900f15d5ed" title="rcge_io_free_image">rcge_io_free_image</a> to free the pixel data. </dd>
+<dd>
+- Image file is read from the bottom <b>RIGHT</b> pixel to the upper <b>LEFT</b> pixel. </dd></dl>
 
 </div>
 </div>
@@ -447,8 +449,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gadfa99c34cb73f54272f0e95259193316" name="gadfa99c34cb73f54272f0e95259193316"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadfa99c34cb73f54272f0e95259193316">&#9670;&#160;</a></span>rcge_io_input_pressed()</h2>
+<a id="ga7c737ec447fd73e71456b4ffa1eb4d6f" name="ga7c737ec447fd73e71456b4ffa1eb4d6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7c737ec447fd73e71456b4ffa1eb4d6f">&#9670;&#160;</a></span>rcge_io_input_pressed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -456,12 +458,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool rcge_io_input_pressed </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__windows.html#ga33a8e2942eb9d5011336d637dc53468e">rcge_window</a></td>          <td class="paramname"><span class="paramname"><em>window</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a></td>          <td class="paramname"><span class="paramname"><em>input</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a></td>          <td class="paramname"><span class="paramname"><em>input</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -469,7 +467,6 @@ Functions</h2></td></tr>
 <p>See if a specific input is pressed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">window</td><td>The application window. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>The input to check. </td></tr>
   </table>
   </dd>
@@ -478,8 +475,33 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga0c5c4a42a4e780679b12722fd0de06aa" name="ga0c5c4a42a4e780679b12722fd0de06aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0c5c4a42a4e780679b12722fd0de06aa">&#9670;&#160;</a></span>rcge_io_mouse_loc()</h2>
+<a id="gab0c365b346d477247dc90f8ad6537449" name="gab0c365b346d477247dc90f8ad6537449"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab0c365b346d477247dc90f8ad6537449">&#9670;&#160;</a></span>rcge_io_mouse_use_raw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rcge_io_mouse_use_raw </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>raw</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set to use raw (physical mouse movement) or OS accelerated mouse location. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">raw</td><td>true if want raw, false if use OS accelerated. Default settings uses OS accelerated movement. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga0ba8858c8f893c41e55be2bafe63cb7b" name="ga0ba8858c8f893c41e55be2bafe63cb7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0ba8858c8f893c41e55be2bafe63cb7b">&#9670;&#160;</a></span>rcge_io_mouse_loc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -487,11 +509,6 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void rcge_io_mouse_loc </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__windows.html#ga33a8e2942eb9d5011336d637dc53468e">rcge_window</a></td>          <td class="paramname"><span class="paramname"><em>window</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
         </tr>
         <tr>
@@ -505,7 +522,6 @@ Functions</h2></td></tr>
 <p>The location of mouse (cursor) on screen. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">window</td><td>The application window. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">x</td><td>The horizontal location of the cursor. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">y</td><td>The vertical location of the cursor. </td></tr>
   </table>

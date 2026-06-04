@@ -6,6 +6,5 @@ var searchData=
   ['color_20buffer_3',['Shaders Output and Color Buffer',['../group__shaders.html#shaders_colorout',1,'']]],
   ['component_20code_20glsl_4',['Shader Component Code (GLSL)',['../group__shaders.html#shaders_comp_source',1,'']]],
   ['components_20and_20pipeline_5',['Shader Components and Pipeline',['../group__shaders.html#shaders_comp',1,'']]],
-  ['creation_20info_6',['Creation Info&lt;br  /&gt;
-',['../index.html#info',1,'']]]
+  ['creation_20info_6',['Creation Info',['../index.html#info',1,'']]]
 ];

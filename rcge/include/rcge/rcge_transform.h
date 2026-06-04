@@ -6,7 +6,6 @@
  * @brief Transformation management.
  * 
  * @defgroup transforms Transforms
- * @brief Transformation management.
  * 
  * This module allows the transformations of graphical 2D/3D objects.
  * A transform is a transformation management object that allows the translation, rotation and scaling of objects.
@@ -98,11 +97,27 @@ void rcge_transform_scl_set(rcge_transform transform, vec3 new_scl);
 
 /**
  * @ingroup transforms
+ * @brief Add vector to current position of a specified transform.
+ * @param[in] transform The transform you want to change.
+ * @param[in] apply_pos The translation vector you want to add to the transform.
+**/
+void rcge_transform_add_pos(rcge_transform transform, vec3 apply_pos);
+
+/**
+ * @ingroup transforms
  * @brief Add an euler rotation to current rotation of a specified transform.
  * @param[in] transform The transform you want to change.
  * @param[in] apply_rot The rotation (in euler) you want to add to the transform.
 **/
 void rcge_transform_add_rot_euler(rcge_transform transform, vec3 apply_rot);
+
+/**
+ * @ingroup transforms
+ * @brief Add vector to current scale of a specified transform.
+ * @param[in] transform The transform you want to change.
+ * @param[in] apply_scl The scale vector you want to add to the transform.
+**/
+void rcge_transform_add_scl(rcge_transform transform, vec3 apply_scl);
 
 /**
  * @ingroup transforms
