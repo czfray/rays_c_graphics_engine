@@ -215,6 +215,22 @@ bool rcge_io_input_pressed(rcge_io_input input);
 
 /**
  * @ingroup io
+ * @brief See if a specific input is previously released, and just pressed.
+ * @param[in] input The input to check.
+ * @return Whether the specified input is just pressed or not.
+**/
+bool rcge_io_input_just_pressed(rcge_io_input input);
+
+/**
+ * @ingroup io
+ * @brief See if a specific input is previously pressed, and just released.
+ * @param[in] input The input to check.
+ * @return Whether the specified input is just released or not.
+**/
+bool rcge_io_input_just_released(rcge_io_input input);
+
+/**
+ * @ingroup io
  * @brief Set to use raw (physical mouse movement) or OS accelerated mouse location.
  * @param[in] raw true if want raw, false if use OS accelerated.
  * Default settings uses OS accelerated movement.
@@ -228,5 +244,12 @@ void rcge_io_mouse_use_raw(bool raw);
  * @param[out] y The vertical location of the cursor.
 **/
 void rcge_io_mouse_loc(double* x, double* y);
+
+/**
+ * @internal
+ * @warning This is an RCGE Internal Function.
+ * @endinternal
+ */
+void rcge_io_update(void);
 
 #endif

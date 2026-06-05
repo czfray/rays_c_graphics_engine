@@ -1,6 +1,5 @@
-//RCGE Internal
 #include <glfw/glfw3.h>
-#include <rcge/internal/rcge_datatype_internal.h>
+#include <rcge/rcge_datatype.h>
 
 unsigned int rcge_datatype_to_gl(rcge_datatype datatype)
 {
@@ -49,3 +48,4 @@ unsigned int rcge_datatype_size(rcge_datatype datatype)
     }
     return sizeof(float);
 }
+

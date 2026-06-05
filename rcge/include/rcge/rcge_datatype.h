@@ -29,4 +29,18 @@ typedef enum {
     DATATYPE_BOOL ///< Boolean
 } rcge_datatype;
 
+/**
+ * @internal
+ * @warning This is an RCGE Internal Function.
+ * @endinternal
+ */
+unsigned int rcge_datatype_to_gl(rcge_datatype datatype);
+
+/**
+ * @internal
+ * @warning This is an RCGE Internal Function.
+ * @endinternal
+ */
+unsigned int rcge_datatype_size(rcge_datatype datatype);
+
 #endif

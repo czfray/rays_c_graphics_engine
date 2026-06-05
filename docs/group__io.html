@@ -288,6 +288,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ga99b3eb8833c74c2eee23f8900f15d5ed" id="r_ga99b3eb8833c74c2eee23f8900f15d5ed"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga99b3eb8833c74c2eee23f8900f15d5ed">rcge_io_free_image</a> (unsigned char *image)</td></tr>
 <tr class="memitem:gae929926149a4c21917cbd450b93e9864" id="r_gae929926149a4c21917cbd450b93e9864"><td class="memItemLeft"><a class="el" href="#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a>&#160;</td><td class="memItemRight"><a class="el" href="#gae929926149a4c21917cbd450b93e9864">rcge_io_input_type_get</a> (<a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input)</td></tr>
 <tr class="memitem:ga7c737ec447fd73e71456b4ffa1eb4d6f" id="r_ga7c737ec447fd73e71456b4ffa1eb4d6f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ga7c737ec447fd73e71456b4ffa1eb4d6f">rcge_io_input_pressed</a> (<a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input)</td></tr>
+<tr class="memitem:ga673acc8113afbd76eb5cef8dbf6fe10e" id="r_ga673acc8113afbd76eb5cef8dbf6fe10e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ga673acc8113afbd76eb5cef8dbf6fe10e">rcge_io_input_just_pressed</a> (<a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input)</td></tr>
+<tr class="memitem:ga47970ffd18c8369a7988d70e03027ee0" id="r_ga47970ffd18c8369a7988d70e03027ee0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ga47970ffd18c8369a7988d70e03027ee0">rcge_io_input_just_released</a> (<a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input)</td></tr>
 <tr class="memitem:gab0c365b346d477247dc90f8ad6537449" id="r_gab0c365b346d477247dc90f8ad6537449"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gab0c365b346d477247dc90f8ad6537449">rcge_io_mouse_use_raw</a> (bool raw)</td></tr>
 <tr class="memitem:ga0ba8858c8f893c41e55be2bafe63cb7b" id="r_ga0ba8858c8f893c41e55be2bafe63cb7b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga0ba8858c8f893c41e55be2bafe63cb7b">rcge_io_mouse_loc</a> (double *x, double *y)</td></tr>
 </table>
@@ -472,6 +474,58 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Whether the specified input is pressed or not. </dd></dl>
+
+</div>
+</div>
+<a id="ga673acc8113afbd76eb5cef8dbf6fe10e" name="ga673acc8113afbd76eb5cef8dbf6fe10e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga673acc8113afbd76eb5cef8dbf6fe10e">&#9670;&#160;</a></span>rcge_io_input_just_pressed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rcge_io_input_just_pressed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a></td>          <td class="paramname"><span class="paramname"><em>input</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>See if a specific input is previously released, and just pressed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>The input to check. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether the specified input is just pressed or not. </dd></dl>
+
+</div>
+</div>
+<a id="ga47970ffd18c8369a7988d70e03027ee0" name="ga47970ffd18c8369a7988d70e03027ee0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga47970ffd18c8369a7988d70e03027ee0">&#9670;&#160;</a></span>rcge_io_input_just_released()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool rcge_io_input_just_released </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a></td>          <td class="paramname"><span class="paramname"><em>input</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>See if a specific input is previously pressed, and just released. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">input</td><td>The input to check. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether the specified input is just released or not. </dd></dl>
 
 </div>
 </div>

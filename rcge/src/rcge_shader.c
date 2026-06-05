@@ -2,7 +2,6 @@
 #include <glfw/glfw3.h>
 
 #include <rcge/rcge_datatype.h>
-#include <rcge/internal/rcge_datatype_internal.h>
 #include <rcge/rcge_shader.h>
 #include <rcge/rcge_io.h>
 

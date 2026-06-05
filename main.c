@@ -212,16 +212,16 @@ void update(double delta_time)
     glm_vec3_scale(apply_player_rot, 0.004, apply_player_rot);
     rcge_camera_add_rot_euler(camera, apply_player_rot);
 
-    if (rcge_io_input_pressed(IO_KEY_BACKSPACE))
+    if (rcge_io_input_just_pressed(IO_KEY_BACKSPACE))
     {
         rcge_camera_rot_set(camera, GLM_QUAT_IDENTITY);
         vec3 def = {0, 0, -2};
         rcge_camera_pos_set(camera, def);
     }
 
-    fstest = !fstest;
-    if (rcge_io_input_pressed(IO_KEY_F11))
+    if (rcge_io_input_just_pressed(IO_KEY_F1))
     {
+        fstest = !fstest;
         rcge_display_mode_set(fstest? DISPLAY_BORDERLESS_FULLSCREEN: DISPLAY_WINDOW);
     }
 

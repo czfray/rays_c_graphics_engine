@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stbi/stb_image.h>
+#include <rcge/rcge_io.h>
 #include <cglm/cglm.h>
 
 typedef struct
@@ -108,7 +109,7 @@ void rcge_run(void)
 
     while (!glfwWindowShouldClose(gl_window))
     {
-        glfwPollEvents();
+        rcge_io_update();
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

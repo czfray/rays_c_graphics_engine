@@ -8,9 +8,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #define RCGE_IO_KEY_THRESHOLD 0
 #define RCGE_IO_MOUSE_THRESHOLD 121
+#define RCGE_IO_INPUT_TOTAL_NO 133
+
+bool current_input_pressed[RCGE_IO_INPUT_TOTAL_NO] = {false};
+bool current_input_just_pressed[RCGE_IO_INPUT_TOTAL_NO] = {false};
+bool current_input_just_released[RCGE_IO_INPUT_TOTAL_NO] = {false};
 
 char *rcge_io_read_file_all(char *path, int buffer_size)
 {
@@ -346,16 +352,17 @@ rcge_io_input_type rcge_io_input_type_get(rcge_io_input input)
 
 bool rcge_io_input_pressed(rcge_io_input input)
 {
-    int gl_input = gl_input_id(input);
-    GLFWwindow* gl_window = (GLFWwindow*) rcge_window_raw_pointer();
-    switch(rcge_io_input_type_get(input))
-    {
-        case IO_TYPE_KEYBOARD:
-            return glfwGetKey(gl_window, gl_input) == GLFW_PRESS;
-        case IO_TYPE_MOUSE:
-            return glfwGetMouseButton(gl_window, gl_input) == GLFW_PRESS;
-    }
-    return false;
+    return current_input_pressed[(int) input];
+}
+
+bool rcge_io_input_just_pressed(rcge_io_input input)
+{
+    return current_input_just_pressed[(int)input];
+}
+
+bool rcge_io_input_just_released(rcge_io_input input)
+{
+    return current_input_just_released[(int)input];
 }
 
 void rcge_io_mouse_use_raw(bool raw)
@@ -368,4 +375,34 @@ void rcge_io_mouse_loc(double* x, double* y)
 {
     GLFWwindow* gl_window = (GLFWwindow*) rcge_window_raw_pointer();
     glfwGetCursorPos(gl_window, x, y);
+}
+
+void rcge_io_update(void)
+{
+    glfwPollEvents();
+    for (int i = 0; i < RCGE_IO_INPUT_TOTAL_NO; i++)
+    {
+        rcge_io_input input = (rcge_io_input) i;
+        int gl_input = gl_input_id(input);
+        GLFWwindow *gl_window = (GLFWwindow *)rcge_window_raw_pointer();
+        bool pressed = false;
+        switch (rcge_io_input_type_get(input))
+        {
+            case IO_TYPE_KEYBOARD:
+                pressed = glfwGetKey(gl_window, gl_input) == GLFW_PRESS;
+                break;
+            case IO_TYPE_MOUSE:
+                pressed = glfwGetMouseButton(gl_window, gl_input) == GLFW_PRESS;
+                break;
+        }
+
+        bool prev_pressed = current_input_pressed[i];
+        if (pressed && !prev_pressed) current_input_just_pressed[i] = true;
+        else current_input_just_pressed[i] = false;
+        
+        if (!pressed && prev_pressed) current_input_just_released[i] = true;
+        else current_input_just_released[i] = false;
+
+        current_input_pressed[i] = pressed;
+    }
 }

@@ -10,6 +10,8 @@ var rcge__io_8h =
     [ "rcge_io_free_image", "group__io.html#ga99b3eb8833c74c2eee23f8900f15d5ed", null ],
     [ "rcge_io_input_type_get", "group__io.html#gae929926149a4c21917cbd450b93e9864", null ],
     [ "rcge_io_input_pressed", "group__io.html#ga7c737ec447fd73e71456b4ffa1eb4d6f", null ],
+    [ "rcge_io_input_just_pressed", "group__io.html#ga673acc8113afbd76eb5cef8dbf6fe10e", null ],
+    [ "rcge_io_input_just_released", "group__io.html#ga47970ffd18c8369a7988d70e03027ee0", null ],
     [ "rcge_io_mouse_use_raw", "group__io.html#gab0c365b346d477247dc90f8ad6537449", null ],
     [ "rcge_io_mouse_loc", "group__io.html#ga0ba8858c8f893c41e55be2bafe63cb7b", null ]
 ];
