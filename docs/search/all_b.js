@@ -72,7 +72,7 @@ var searchData=
   ['rcge_5fio_5finput_5ftype_5fget_69',['rcge_io_input_type_get',['../group__io.html#gae929926149a4c21917cbd450b93e9864',1,'rcge_io.h']]],
   ['rcge_5fio_5fmouse_5floc_70',['rcge_io_mouse_loc',['../group__io.html#ga0ba8858c8f893c41e55be2bafe63cb7b',1,'rcge_io.h']]],
   ['rcge_5fio_5fmouse_5fuse_5fraw_71',['rcge_io_mouse_use_raw',['../group__io.html#gab0c365b346d477247dc90f8ad6537449',1,'rcge_io.h']]],
-  ['rcge_5fio_5fread_5ffile_5fall_72',['rcge_io_read_file_all',['../group__io.html#gad97a22843a7a3511bc94f2893d489c13',1,'rcge_io.h']]],
+  ['rcge_5fio_5fread_5ffile_5fall_72',['rcge_io_read_file_all',['../group__io.html#gac30b4b5de2be3fdcb4d53ef592e16fee',1,'rcge_io.h']]],
   ['rcge_5fio_5fread_5fimage_73',['rcge_io_read_image',['../group__io.html#ga3edef4d3e4150d11f1c62e12b58f6566',1,'rcge_io.h']]],
   ['rcge_5fmaster_2eh_74',['rcge_master.h',['../rcge__master_8h.html',1,'']]],
   ['rcge_5fmesh_75',['rcge_mesh',['../group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec',1,'rcge_mesh.h']]],

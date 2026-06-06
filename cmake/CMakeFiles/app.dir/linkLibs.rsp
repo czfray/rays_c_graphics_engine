@@ -1,0 +1,1 @@
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/lib/librcge.a C:/Users/user/Main/Projects/C/rays_c_graphics_engine/glfw3.dll -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

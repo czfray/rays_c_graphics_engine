@@ -3,27 +3,27 @@
   "configurations": [
     {
       "name": "Debug Run App",
-      "type": "cppdbg",
+      "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/appdb",
+      "program": "${workspaceFolder}/app_debug",
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "buildappdb",
-      "externalConsole": false
+      "externalConsole": true
     },
 
     {
       "name": "Build RGCE and Debug Run App",
-      "type": "cppdbg",
+      "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/appdb",
+      "program": "${workspaceFolder}/app_debug",
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "buildappdb+rgce",
-      "externalConsole": false
+      "externalConsole": true
     },
 
     {
       "name": "Build App",
-      "type": "cppdbg",
+      "type": "cppvsdbg",
       "request": "launch",
       "program": "${env:ComSpec}",
       "args": ["/c", "exit"],
@@ -34,18 +34,18 @@
 
     {
       "name": "Build RCGE",
-      "type": "cppdbg",
+      "type": "cppvsdbg",
       "request": "launch",
       "program": "${env:ComSpec}",
       "args": ["/c", "exit"],
       "cwd": "${workspaceFolder}",
-      "preLaunchTask": "cleanbuildrcge",
+      "preLaunchTask": "buildrcge",
       "externalConsole": false
     },
 
     {
       "name": "Build Docs",
-      "type": "cppdbg",
+      "type": "cppvsdbg",
       "request": "launch",
       "program": "${env:ComSpec}",
       "args": ["/c", "exit"],

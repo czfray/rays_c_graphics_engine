@@ -283,7 +283,7 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:gad97a22843a7a3511bc94f2893d489c13" id="r_gad97a22843a7a3511bc94f2893d489c13"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#gad97a22843a7a3511bc94f2893d489c13">rcge_io_read_file_all</a> (char *path, int buffer_size)</td></tr>
+<tr class="memitem:gac30b4b5de2be3fdcb4d53ef592e16fee" id="r_gac30b4b5de2be3fdcb4d53ef592e16fee"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#gac30b4b5de2be3fdcb4d53ef592e16fee">rcge_io_read_file_all</a> (char *path)</td></tr>
 <tr class="memitem:ga3edef4d3e4150d11f1c62e12b58f6566" id="r_ga3edef4d3e4150d11f1c62e12b58f6566"><td class="memItemLeft">unsigned char *&#160;</td><td class="memItemRight"><a class="el" href="#ga3edef4d3e4150d11f1c62e12b58f6566">rcge_io_read_image</a> (char *path, unsigned int *width, unsigned int *height, unsigned int *channel_no, unsigned int desired_channel_no)</td></tr>
 <tr class="memitem:ga99b3eb8833c74c2eee23f8900f15d5ed" id="r_ga99b3eb8833c74c2eee23f8900f15d5ed"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga99b3eb8833c74c2eee23f8900f15d5ed">rcge_io_free_image</a> (unsigned char *image)</td></tr>
 <tr class="memitem:gae929926149a4c21917cbd450b93e9864" id="r_gae929926149a4c21917cbd450b93e9864"><td class="memItemLeft"><a class="el" href="#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a>&#160;</td><td class="memItemRight"><a class="el" href="#gae929926149a4c21917cbd450b93e9864">rcge_io_input_type_get</a> (<a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input)</td></tr>
@@ -317,8 +317,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="gad97a22843a7a3511bc94f2893d489c13" name="gad97a22843a7a3511bc94f2893d489c13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad97a22843a7a3511bc94f2893d489c13">&#9670;&#160;</a></span>rcge_io_read_file_all()</h2>
+<a id="gac30b4b5de2be3fdcb4d53ef592e16fee" name="gac30b4b5de2be3fdcb4d53ef592e16fee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac30b4b5de2be3fdcb4d53ef592e16fee">&#9670;&#160;</a></span>rcge_io_read_file_all()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -326,12 +326,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">char * rcge_io_read_file_all </td>
           <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>buffer_size</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -340,7 +336,6 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>Relative path of the file to be read. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">buffer_size</td><td>Read buffer size. </td></tr>
   </table>
   </dd>
 </dl>

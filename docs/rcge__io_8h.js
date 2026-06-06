@@ -5,7 +5,7 @@ var rcge__io_8h =
       [ "IO_TYPE_KEYBOARD", "rcge__io_8h.html#gafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63", null ],
       [ "IO_TYPE_MOUSE", "rcge__io_8h.html#gafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f", null ]
     ] ],
-    [ "rcge_io_read_file_all", "group__io.html#gad97a22843a7a3511bc94f2893d489c13", null ],
+    [ "rcge_io_read_file_all", "group__io.html#gac30b4b5de2be3fdcb4d53ef592e16fee", null ],
     [ "rcge_io_read_image", "group__io.html#ga3edef4d3e4150d11f1c62e12b58f6566", null ],
     [ "rcge_io_free_image", "group__io.html#ga99b3eb8833c74c2eee23f8900f15d5ed", null ],
     [ "rcge_io_input_type_get", "group__io.html#gae929926149a4c21917cbd450b93e9864", null ],

@@ -4,7 +4,10 @@
     {
       "label": "buildappdb",
       "type": "shell",
-      "command": "gcc main.c -Ircge/include -Ilibs/cglm/include -Lrcge/lib -Llibs/glfw/lib -lrcge -lglfw3 -lopengl32 -lgdi32 -o appdb",
+      "command": "make app_debug",
+      "options": {
+        "cwd": "${workspaceFolder}/cmake"
+      },
       "group": {
         "kind": "build",
         "isDefault": false
@@ -19,14 +22,20 @@
         "kind": "build",
         "isDefault": false
       },
-      "dependsOn": ["cleanbuildrcge", "buildappdb"],
+      "dependsOn": [
+        "buildrcge",
+        "buildappdb"
+      ],
       "dependsOrder": "sequence"
     },
 
     {
       "label": "buildapp",
       "type": "shell",
-      "command": "gcc main.c -Ircge/include -Ilibs/cglm/include -Lrcge/lib -Llibs/glfw/lib -lrcge -lglfw3 -lopengl32 -lgdi32 -mwindows -O2 -o app",
+      "command": "make app",
+      "options": {
+        "cwd": "${workspaceFolder}/cmake"
+      },
       "group": {
         "kind": "build",
         "isDefault": true
@@ -34,42 +43,29 @@
     },
 
     {
-      "label": "compilercge",
-      "type": "shell",
-      "command": "gcc -c rcge/src/*.c libs/glad/src/glad.c -Ircge/include -Ilibs/glfw/include -Ilibs/glad/include -Ilibs/cglm/include -Ilibs/stbi/include -O2",
-      "group": {
-        "kind": "build",
-        "isDefault": false
-      }
-    },
-
-    {
       "label": "buildrcge",
       "type": "shell",
-      "command": "ar rcs rcge/lib/librcge.a *.o",
+      "command": "make",
+      "options": {
+        "cwd": "${workspaceFolder}/libs/rcge/cmake"
+      },
       "group": {
         "kind": "build",
         "isDefault": false
       },
-      "dependsOn": ["builddocs", "compilercge"],
+      "dependsOn": [
+        "builddocs",
+      ],
       "dependsOrder": "sequence"
     },
 
     {
-      "label": "cleanbuildrcge",
-      "type": "shell",
-      "command": "rm *.o",
-      "group": {
-        "kind": "build",
-        "isDefault": false
-      },
-      "dependsOn": "buildrcge"
-    },
-
-    {
       "label": "builddocs",
-      "type": "shell",
-      "command": "doxygen docs/Doxyfile",
+      "type": "shell",  
+      "command": "doxygen docs/settings/Doxyfile",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "group": {
         "kind": "build",
         "isDefault": false
