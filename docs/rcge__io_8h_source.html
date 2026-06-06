@@ -6,6 +6,7 @@
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Ray&#39;s C Graphics Engine: rcge_io.h Source File</title>
+<link rel="icon" href="icon.png" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="codefolding.js"></script>
@@ -116,182 +117,205 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('rcge__io_8h_so
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="group__io.html#ga99b3eb8833c74c2eee23f8900f15d5ed">   43</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__io.html#ga99b3eb8833c74c2eee23f8900f15d5ed">rcge_io_free_image</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* image);</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
-<div class="foldopen" id="foldopen00050" data-start="{" data-end="};">
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">   50</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>{</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    IO_KEY_SPACE = 0,</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    IO_KEY_APOSTROPHE,</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    IO_KEY_COMMA,</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    IO_KEY_MINUS,</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    IO_KEY_PERIOD,</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    IO_KEY_SLASH,</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    IO_KEY_0,</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    IO_KEY_1,</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    IO_KEY_2,</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    IO_KEY_3,</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    IO_KEY_4,</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    IO_KEY_5,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    IO_KEY_6,</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    IO_KEY_7,</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    IO_KEY_8,</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    IO_KEY_9,</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    IO_KEY_SEMICOLON,</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    IO_KEY_EQUAL,</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    IO_KEY_A,</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    IO_KEY_B,</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    IO_KEY_C,</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    IO_KEY_D,</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    IO_KEY_E,</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    IO_KEY_F,</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    IO_KEY_G,</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    IO_KEY_H,</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    IO_KEY_I,</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    IO_KEY_J,</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    IO_KEY_K,</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    IO_KEY_L,</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    IO_KEY_M,</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    IO_KEY_N,</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    IO_KEY_O,</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    IO_KEY_P,</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    IO_KEY_Q,</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    IO_KEY_R,</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    IO_KEY_S,</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    IO_KEY_T,</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    IO_KEY_U,</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    IO_KEY_V,</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    IO_KEY_W,</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    IO_KEY_X,</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    IO_KEY_Y,</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    IO_KEY_Z,</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    IO_KEY_LEFT_BRACKET,</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    IO_KEY_BACKSLASH,</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    IO_KEY_RIGHT_BRACKET,</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    IO_KEY_GRAVE_ACCENT,</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    IO_KEY_WORLD_1,</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    IO_KEY_WORLD_2,</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    IO_KEY_ESCAPE,</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    IO_KEY_ENTER,</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    IO_KEY_TAB,</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    IO_KEY_BACKSPACE,</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    IO_KEY_INSERT,</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    IO_KEY_DELETE,</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    IO_KEY_RIGHT,</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    IO_KEY_LEFT,</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    IO_KEY_DOWN,</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    IO_KEY_UP,</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    IO_KEY_PAGE_UP,</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    IO_KEY_PAGE_DOWN,</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    IO_KEY_HOME,</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    IO_KEY_END,</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    IO_KEY_CAPS_LOCK,</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    IO_KEY_SCROLL_LOCK,</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    IO_KEY_NUM_LOCK,</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    IO_KEY_PRINT_SCREEN,</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    IO_KEY_PAUSE,</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    IO_KEY_F1,</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    IO_KEY_F2,</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    IO_KEY_F3,</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    IO_KEY_F4,</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    IO_KEY_F5,</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    IO_KEY_F6,</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    IO_KEY_F7,</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    IO_KEY_F8,</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    IO_KEY_F9,</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    IO_KEY_F10,</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    IO_KEY_F11,</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    IO_KEY_F12,</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    IO_KEY_F13,</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    IO_KEY_F14,</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    IO_KEY_F15,</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    IO_KEY_F16,</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    IO_KEY_F17,</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    IO_KEY_F18,</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    IO_KEY_F19,</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    IO_KEY_F20,</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    IO_KEY_F21,</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    IO_KEY_F22,</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    IO_KEY_F23,</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    IO_KEY_F24,</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    IO_KEY_F25,</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    IO_KEY_KP_0,</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    IO_KEY_KP_1,</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    IO_KEY_KP_2,</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    IO_KEY_KP_3,</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    IO_KEY_KP_4,</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    IO_KEY_KP_5,</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    IO_KEY_KP_6,</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    IO_KEY_KP_7,</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    IO_KEY_KP_8,</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    IO_KEY_KP_9,</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    IO_KEY_KP_DECIMAL,</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    IO_KEY_KP_DIVIDE,</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    IO_KEY_KP_MULTIPLY,</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    IO_KEY_KP_SUBTRACT,</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    IO_KEY_KP_ADD,</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    IO_KEY_KP_ENTER,</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    IO_KEY_KP_EQUAL,</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    IO_KEY_LEFT_SHIFT,</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    IO_KEY_LEFT_CONTROL,</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    IO_KEY_LEFT_ALT,</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    IO_KEY_LEFT_SUPER,</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    IO_KEY_RIGHT_SHIFT,</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    IO_KEY_RIGHT_CONTROL,</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    IO_KEY_RIGHT_ALT,</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    IO_KEY_RIGHT_SUPER,</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    IO_KEY_MENU,</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    IO_KEY_LAST,</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    IO_MOUSE_1, <span class="comment">//121</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    IO_MOUSE_2,</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    IO_MOUSE_3,</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    IO_MOUSE_4,</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    IO_MOUSE_5,</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    IO_MOUSE_6,</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    IO_MOUSE_7,</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    IO_MOUSE_8,</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    IO_MOUSE_LAST,</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    IO_MOUSE_LEFT,</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    IO_MOUSE_RIGHT,</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    IO_MOUSE_MIDDLE</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>} <a class="code hl_enumeration" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a>;</div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="};">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">   49</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>{</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    IO_KEY_SPACE = 0,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    IO_KEY_APOSTROPHE,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    IO_KEY_COMMA,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    IO_KEY_MINUS,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    IO_KEY_PERIOD,</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    IO_KEY_SLASH,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    IO_KEY_0,</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    IO_KEY_1,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    IO_KEY_2,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    IO_KEY_3,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    IO_KEY_4,</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    IO_KEY_5,</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    IO_KEY_6,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    IO_KEY_7,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    IO_KEY_8,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    IO_KEY_9,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    IO_KEY_SEMICOLON,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    IO_KEY_EQUAL,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    IO_KEY_A,</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    IO_KEY_B,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    IO_KEY_C,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    IO_KEY_D,</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    IO_KEY_E,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    IO_KEY_F,</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    IO_KEY_G,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    IO_KEY_H,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    IO_KEY_I,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    IO_KEY_J,</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    IO_KEY_K,</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    IO_KEY_L,</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    IO_KEY_M,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    IO_KEY_N,</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    IO_KEY_O,</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    IO_KEY_P,</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    IO_KEY_Q,</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    IO_KEY_R,</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    IO_KEY_S,</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    IO_KEY_T,</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    IO_KEY_U,</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    IO_KEY_V,</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    IO_KEY_W,</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    IO_KEY_X,</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    IO_KEY_Y,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    IO_KEY_Z,</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    IO_KEY_LEFT_BRACKET,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    IO_KEY_BACKSLASH,</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    IO_KEY_RIGHT_BRACKET,</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    IO_KEY_GRAVE_ACCENT,</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    IO_KEY_WORLD_1,</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    IO_KEY_WORLD_2,</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    IO_KEY_ESCAPE,</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    IO_KEY_ENTER,</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    IO_KEY_TAB,</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    IO_KEY_BACKSPACE,</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    IO_KEY_INSERT,</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    IO_KEY_DELETE,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    IO_KEY_RIGHT,</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    IO_KEY_LEFT,</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    IO_KEY_DOWN,</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    IO_KEY_UP,</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    IO_KEY_PAGE_UP,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    IO_KEY_PAGE_DOWN,</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    IO_KEY_HOME,</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    IO_KEY_END,</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    IO_KEY_CAPS_LOCK,</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    IO_KEY_SCROLL_LOCK,</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    IO_KEY_NUM_LOCK,</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    IO_KEY_PRINT_SCREEN,</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    IO_KEY_PAUSE,</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    IO_KEY_F1,</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    IO_KEY_F2,</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    IO_KEY_F3,</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    IO_KEY_F4,</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    IO_KEY_F5,</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    IO_KEY_F6,</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    IO_KEY_F7,</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    IO_KEY_F8,</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    IO_KEY_F9,</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    IO_KEY_F10,</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    IO_KEY_F11,</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    IO_KEY_F12,</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    IO_KEY_F13,</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    IO_KEY_F14,</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    IO_KEY_F15,</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    IO_KEY_F16,</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    IO_KEY_F17,</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    IO_KEY_F18,</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    IO_KEY_F19,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    IO_KEY_F20,</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    IO_KEY_F21,</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    IO_KEY_F22,</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    IO_KEY_F23,</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    IO_KEY_F24,</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    IO_KEY_F25,</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    IO_KEY_KP_0,</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    IO_KEY_KP_1,</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    IO_KEY_KP_2,</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    IO_KEY_KP_3,</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    IO_KEY_KP_4,</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    IO_KEY_KP_5,</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    IO_KEY_KP_6,</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    IO_KEY_KP_7,</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    IO_KEY_KP_8,</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    IO_KEY_KP_9,</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    IO_KEY_KP_DECIMAL,</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    IO_KEY_KP_DIVIDE,</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    IO_KEY_KP_MULTIPLY,</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    IO_KEY_KP_SUBTRACT,</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    IO_KEY_KP_ADD,</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    IO_KEY_KP_ENTER,</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    IO_KEY_KP_EQUAL,</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    IO_KEY_LEFT_SHIFT,</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    IO_KEY_LEFT_CONTROL,</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    IO_KEY_LEFT_ALT,</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    IO_KEY_LEFT_SUPER,</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    IO_KEY_RIGHT_SHIFT,</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    IO_KEY_RIGHT_CONTROL,</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    IO_KEY_RIGHT_ALT,</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    IO_KEY_RIGHT_SUPER,</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    IO_KEY_MENU,</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    IO_KEY_LAST,</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    IO_MOUSE_1, <span class="comment">//121</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    IO_MOUSE_2,</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    IO_MOUSE_3,</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    IO_MOUSE_4,</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    IO_MOUSE_5,</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    IO_MOUSE_6,</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    IO_MOUSE_7,</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    IO_MOUSE_8,</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    IO_MOUSE_LAST,</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    IO_MOUSE_LEFT,</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    IO_MOUSE_RIGHT,</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    IO_MOUSE_MIDDLE</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>} <a class="code hl_enumeration" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a>;</div>
 </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span></div>
-<div class="foldopen" id="foldopen00193" data-start="{" data-end="};">
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75e">  193</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>{</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="rcge__io_8h.html#gafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63">  195</a></span>    <a class="code hl_enumvalue" href="rcge__io_8h.html#gafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63">IO_TYPE_KEYBOARD</a>, </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="rcge__io_8h.html#gafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f">  196</a></span>    <a class="code hl_enumvalue" href="rcge__io_8h.html#gafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f">IO_TYPE_MOUSE</a> </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>} <a class="code hl_enumeration" href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span></div>
+<div class="foldopen" id="foldopen00191" data-start="{" data-end="};">
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75e">  191</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>{</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="group__io.html#ggafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63">  193</a></span>    <a class="code hl_enumvalue" href="group__io.html#ggafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63">IO_TYPE_KEYBOARD</a>, </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="group__io.html#ggafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f">  194</a></span>    <a class="code hl_enumvalue" href="group__io.html#ggafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f">IO_TYPE_MOUSE</a> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>} <a class="code hl_enumeration" href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a>;</div>
 </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span></div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno"><a class="line" href="group__io.html#gae929926149a4c21917cbd450b93e9864">  205</a></span><a class="code hl_enumeration" href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a> <a class="code hl_function" href="group__io.html#gae929926149a4c21917cbd450b93e9864">rcge_io_input_type_get</a>(<a class="code hl_enumeration" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input);</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span></div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="group__io.html#ga7c737ec447fd73e71456b4ffa1eb4d6f">  213</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="group__io.html#ga7c737ec447fd73e71456b4ffa1eb4d6f">rcge_io_input_pressed</a>(<a class="code hl_enumeration" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input);</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span></div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="group__io.html#ga673acc8113afbd76eb5cef8dbf6fe10e">  221</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="group__io.html#ga673acc8113afbd76eb5cef8dbf6fe10e">rcge_io_input_just_pressed</a>(<a class="code hl_enumeration" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input);</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span></div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno"><a class="line" href="group__io.html#ga47970ffd18c8369a7988d70e03027ee0">  229</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="group__io.html#ga47970ffd18c8369a7988d70e03027ee0">rcge_io_input_just_released</a>(<a class="code hl_enumeration" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input);</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span></div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno"><a class="line" href="group__io.html#gab0c365b346d477247dc90f8ad6537449">  237</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__io.html#gab0c365b346d477247dc90f8ad6537449">rcge_io_mouse_use_raw</a>(<span class="keywordtype">bool</span> raw);</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span></div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno"><a class="line" href="group__io.html#ga0ba8858c8f893c41e55be2bafe63cb7b">  245</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__io.html#ga0ba8858c8f893c41e55be2bafe63cb7b">rcge_io_mouse_loc</a>(<span class="keywordtype">double</span>* x, <span class="keywordtype">double</span>* y);</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span></div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="keywordtype">void</span> rcge_io_update(<span class="keywordtype">void</span>);</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="agroup__io_html_ga0ba8858c8f893c41e55be2bafe63cb7b"><div class="ttname"><a href="group__io.html#ga0ba8858c8f893c41e55be2bafe63cb7b">rcge_io_mouse_loc</a></div><div class="ttdeci">void rcge_io_mouse_loc(double *x, double *y)</div><div class="ttdoc">The location of mouse (cursor) on screen.</div></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span></div>
+<div class="foldopen" id="foldopen00201" data-start="{" data-end="};">
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="group__io.html#gad7a7edfeebdba03092514b4ba6323b31">  201</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>{</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a57232585ab9fd788431e37b208e7132a">  203</a></span>    <a class="code hl_enumvalue" href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a57232585ab9fd788431e37b208e7132a">IO_CURSOR_SHOW</a>, </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a92f59b4c7b1cbbf0d08d1f85b37a70e8">  204</a></span>    <a class="code hl_enumvalue" href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a92f59b4c7b1cbbf0d08d1f85b37a70e8">IO_CURSOR_LOCK</a>, </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno"><a class="line" href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a5e48ef1171e90aaa2f95a1f2aec72022">  205</a></span>    <a class="code hl_enumvalue" href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a5e48ef1171e90aaa2f95a1f2aec72022">IO_CURSOR_HIDE</a>, </div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a4610c15c9cf0768950266ce4ef95a3c3">  206</a></span>    <a class="code hl_enumvalue" href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a4610c15c9cf0768950266ce4ef95a3c3">IO_CURSOR_DISABLE</a> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>} <a class="code hl_enumeration" href="group__io.html#gad7a7edfeebdba03092514b4ba6323b31">rcge_io_cursor_mode</a>;</div>
+</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span></div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno"><a class="line" href="group__io.html#gae929926149a4c21917cbd450b93e9864">  215</a></span><a class="code hl_enumeration" href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a> <a class="code hl_function" href="group__io.html#gae929926149a4c21917cbd450b93e9864">rcge_io_input_type_get</a>(<a class="code hl_enumeration" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input);</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="group__io.html#ga7c737ec447fd73e71456b4ffa1eb4d6f">  223</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="group__io.html#ga7c737ec447fd73e71456b4ffa1eb4d6f">rcge_io_input_pressed</a>(<a class="code hl_enumeration" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input);</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno"><a class="line" href="group__io.html#ga673acc8113afbd76eb5cef8dbf6fe10e">  231</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="group__io.html#ga673acc8113afbd76eb5cef8dbf6fe10e">rcge_io_input_just_pressed</a>(<a class="code hl_enumeration" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input);</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="group__io.html#ga47970ffd18c8369a7988d70e03027ee0">  239</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="group__io.html#ga47970ffd18c8369a7988d70e03027ee0">rcge_io_input_just_released</a>(<a class="code hl_enumeration" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input);</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="group__io.html#gab0c365b346d477247dc90f8ad6537449">  247</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__io.html#gab0c365b346d477247dc90f8ad6537449">rcge_io_mouse_use_raw</a>(<span class="keywordtype">bool</span> raw);</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno"><a class="line" href="group__io.html#ga0ba8858c8f893c41e55be2bafe63cb7b">  255</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__io.html#ga0ba8858c8f893c41e55be2bafe63cb7b">rcge_io_mouse_loc</a>(<span class="keywordtype">double</span>* x, <span class="keywordtype">double</span>* y);</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno"><a class="line" href="group__io.html#ga481799c5b034325a8f17615e2e93731e">  263</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__io.html#ga481799c5b034325a8f17615e2e93731e">rcge_io_mouse_scroll</a>(<span class="keywordtype">double</span>* scroll_x, <span class="keywordtype">double</span>* scroll_y);</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno"><a class="line" href="group__io.html#gade55ed1c2c3ad3fbb517a0aafa134273">  270</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__io.html#gade55ed1c2c3ad3fbb517a0aafa134273">rcge_io_cursor_mode_set</a>(<a class="code hl_enumeration" href="group__io.html#gad7a7edfeebdba03092514b4ba6323b31">rcge_io_cursor_mode</a> cursor_mode);</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="keywordtype">void</span> rcge_io_init(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span><span class="keywordtype">void</span> rcge_io_update(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="agroup__io_html_ga0ba8858c8f893c41e55be2bafe63cb7b"><div class="ttname"><a href="group__io.html#ga0ba8858c8f893c41e55be2bafe63cb7b">rcge_io_mouse_loc</a></div><div class="ttdeci">void rcge_io_mouse_loc(double *x, double *y)</div><div class="ttdoc">Gets the location of mouse (cursor) on screen.</div></div>
 <div class="ttc" id="agroup__io_html_ga3edef4d3e4150d11f1c62e12b58f6566"><div class="ttname"><a href="group__io.html#ga3edef4d3e4150d11f1c62e12b58f6566">rcge_io_read_image</a></div><div class="ttdeci">unsigned char * rcge_io_read_image(char *path, unsigned int *width, unsigned int *height, unsigned int *channel_no, unsigned int desired_channel_no)</div><div class="ttdoc">Get pixel data from an image file.</div></div>
 <div class="ttc" id="agroup__io_html_ga47970ffd18c8369a7988d70e03027ee0"><div class="ttname"><a href="group__io.html#ga47970ffd18c8369a7988d70e03027ee0">rcge_io_input_just_released</a></div><div class="ttdeci">bool rcge_io_input_just_released(rcge_io_input input)</div><div class="ttdoc">See if a specific input is previously pressed, and just released.</div></div>
+<div class="ttc" id="agroup__io_html_ga481799c5b034325a8f17615e2e93731e"><div class="ttname"><a href="group__io.html#ga481799c5b034325a8f17615e2e93731e">rcge_io_mouse_scroll</a></div><div class="ttdeci">void rcge_io_mouse_scroll(double *scroll_x, double *scroll_y)</div><div class="ttdoc">Gets the mouse scroll wheel input of the frame.</div></div>
 <div class="ttc" id="agroup__io_html_ga673acc8113afbd76eb5cef8dbf6fe10e"><div class="ttname"><a href="group__io.html#ga673acc8113afbd76eb5cef8dbf6fe10e">rcge_io_input_just_pressed</a></div><div class="ttdeci">bool rcge_io_input_just_pressed(rcge_io_input input)</div><div class="ttdoc">See if a specific input is previously released, and just pressed.</div></div>
 <div class="ttc" id="agroup__io_html_ga7c737ec447fd73e71456b4ffa1eb4d6f"><div class="ttname"><a href="group__io.html#ga7c737ec447fd73e71456b4ffa1eb4d6f">rcge_io_input_pressed</a></div><div class="ttdeci">bool rcge_io_input_pressed(rcge_io_input input)</div><div class="ttdoc">See if a specific input is pressed.</div></div>
 <div class="ttc" id="agroup__io_html_ga99b3eb8833c74c2eee23f8900f15d5ed"><div class="ttname"><a href="group__io.html#ga99b3eb8833c74c2eee23f8900f15d5ed">rcge_io_free_image</a></div><div class="ttdeci">void rcge_io_free_image(unsigned char *image)</div><div class="ttdoc">Free image pixel data. Prevents memory leaks.</div></div>
 <div class="ttc" id="agroup__io_html_gab0c365b346d477247dc90f8ad6537449"><div class="ttname"><a href="group__io.html#gab0c365b346d477247dc90f8ad6537449">rcge_io_mouse_use_raw</a></div><div class="ttdeci">void rcge_io_mouse_use_raw(bool raw)</div><div class="ttdoc">Set to use raw (physical mouse movement) or OS accelerated mouse location.</div></div>
 <div class="ttc" id="agroup__io_html_gac30b4b5de2be3fdcb4d53ef592e16fee"><div class="ttname"><a href="group__io.html#gac30b4b5de2be3fdcb4d53ef592e16fee">rcge_io_read_file_all</a></div><div class="ttdeci">char * rcge_io_read_file_all(char *path)</div><div class="ttdoc">Get all lines of text from a file.</div></div>
+<div class="ttc" id="agroup__io_html_gad7a7edfeebdba03092514b4ba6323b31"><div class="ttname"><a href="group__io.html#gad7a7edfeebdba03092514b4ba6323b31">rcge_io_cursor_mode</a></div><div class="ttdeci">rcge_io_cursor_mode</div><div class="ttdoc">Types of cursor appearance modes.</div><div class="ttdef"><b>Definition</b> rcge_io.h:202</div></div>
+<div class="ttc" id="agroup__io_html_gade55ed1c2c3ad3fbb517a0aafa134273"><div class="ttname"><a href="group__io.html#gade55ed1c2c3ad3fbb517a0aafa134273">rcge_io_cursor_mode_set</a></div><div class="ttdeci">void rcge_io_cursor_mode_set(rcge_io_cursor_mode cursor_mode)</div><div class="ttdoc">Set cursor&#39;s appearance mode (hidden, shown, disabled or locked).</div></div>
 <div class="ttc" id="agroup__io_html_gae929926149a4c21917cbd450b93e9864"><div class="ttname"><a href="group__io.html#gae929926149a4c21917cbd450b93e9864">rcge_io_input_type_get</a></div><div class="ttdeci">rcge_io_input_type rcge_io_input_type_get(rcge_io_input input)</div><div class="ttdoc">See which input type is an input.</div></div>
-<div class="ttc" id="agroup__io_html_gafa66d7fc503ca099b4624e4ca7ebc471"><div class="ttname"><a href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a></div><div class="ttdeci">rcge_io_input</div><div class="ttdoc">All keyboard and mouse inputs.</div><div class="ttdef"><b>Definition</b> rcge_io.h:51</div></div>
-<div class="ttc" id="agroup__io_html_gafca963cd0ee56aad497eee0a01c6f75e"><div class="ttname"><a href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a></div><div class="ttdeci">rcge_io_input_type</div><div class="ttdoc">Types of inputs.</div><div class="ttdef"><b>Definition</b> rcge_io.h:194</div></div>
-<div class="ttc" id="arcge__io_8h_html_gafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63"><div class="ttname"><a href="rcge__io_8h.html#gafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63">IO_TYPE_KEYBOARD</a></div><div class="ttdeci">@ IO_TYPE_KEYBOARD</div><div class="ttdoc">Keyboard.</div><div class="ttdef"><b>Definition</b> rcge_io.h:195</div></div>
-<div class="ttc" id="arcge__io_8h_html_gafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f"><div class="ttname"><a href="rcge__io_8h.html#gafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f">IO_TYPE_MOUSE</a></div><div class="ttdeci">@ IO_TYPE_MOUSE</div><div class="ttdoc">Mouse.</div><div class="ttdef"><b>Definition</b> rcge_io.h:196</div></div>
+<div class="ttc" id="agroup__io_html_gafa66d7fc503ca099b4624e4ca7ebc471"><div class="ttname"><a href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a></div><div class="ttdeci">rcge_io_input</div><div class="ttdoc">All keyboard and mouse inputs.</div><div class="ttdef"><b>Definition</b> rcge_io.h:50</div></div>
+<div class="ttc" id="agroup__io_html_gafca963cd0ee56aad497eee0a01c6f75e"><div class="ttname"><a href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a></div><div class="ttdeci">rcge_io_input_type</div><div class="ttdoc">Types of inputs.</div><div class="ttdef"><b>Definition</b> rcge_io.h:192</div></div>
+<div class="ttc" id="agroup__io_html_ggad7a7edfeebdba03092514b4ba6323b31a4610c15c9cf0768950266ce4ef95a3c3"><div class="ttname"><a href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a4610c15c9cf0768950266ce4ef95a3c3">IO_CURSOR_DISABLE</a></div><div class="ttdeci">@ IO_CURSOR_DISABLE</div><div class="ttdoc">Cursor is not shown in the window, and cannot move anywhere. It is fixed back to the center of the sc...</div><div class="ttdef"><b>Definition</b> rcge_io.h:206</div></div>
+<div class="ttc" id="agroup__io_html_ggad7a7edfeebdba03092514b4ba6323b31a57232585ab9fd788431e37b208e7132a"><div class="ttname"><a href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a57232585ab9fd788431e37b208e7132a">IO_CURSOR_SHOW</a></div><div class="ttdeci">@ IO_CURSOR_SHOW</div><div class="ttdoc">Cursor is shown on screen, and can move outside the window.</div><div class="ttdef"><b>Definition</b> rcge_io.h:203</div></div>
+<div class="ttc" id="agroup__io_html_ggad7a7edfeebdba03092514b4ba6323b31a5e48ef1171e90aaa2f95a1f2aec72022"><div class="ttname"><a href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a5e48ef1171e90aaa2f95a1f2aec72022">IO_CURSOR_HIDE</a></div><div class="ttdeci">@ IO_CURSOR_HIDE</div><div class="ttdoc">Cursor is not shown in the window, but it is still moving across the screen (just not rendered) and c...</div><div class="ttdef"><b>Definition</b> rcge_io.h:205</div></div>
+<div class="ttc" id="agroup__io_html_ggad7a7edfeebdba03092514b4ba6323b31a92f59b4c7b1cbbf0d08d1f85b37a70e8"><div class="ttname"><a href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a92f59b4c7b1cbbf0d08d1f85b37a70e8">IO_CURSOR_LOCK</a></div><div class="ttdeci">@ IO_CURSOR_LOCK</div><div class="ttdoc">Cursor is shown on screen, but cannot move outside the window.</div><div class="ttdef"><b>Definition</b> rcge_io.h:204</div></div>
+<div class="ttc" id="agroup__io_html_ggafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63"><div class="ttname"><a href="group__io.html#ggafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63">IO_TYPE_KEYBOARD</a></div><div class="ttdeci">@ IO_TYPE_KEYBOARD</div><div class="ttdoc">Keyboard.</div><div class="ttdef"><b>Definition</b> rcge_io.h:193</div></div>
+<div class="ttc" id="agroup__io_html_ggafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f"><div class="ttname"><a href="group__io.html#ggafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f">IO_TYPE_MOUSE</a></div><div class="ttdeci">@ IO_TYPE_MOUSE</div><div class="ttdoc">Mouse.</div><div class="ttdef"><b>Definition</b> rcge_io.h:194</div></div>
 <div class="ttc" id="arcge__master_8h_html"><div class="ttname"><a href="rcge__master_8h.html">rcge_master.h</a></div><div class="ttdoc">Master of RCGE.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

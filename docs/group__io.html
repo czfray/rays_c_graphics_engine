@@ -6,6 +6,7 @@
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Ray&#39;s C Graphics Engine: I/O</title>
+<link rel="icon" href="icon.png" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="codefolding.js"></script>
@@ -277,8 +278,13 @@ Enumerations</h2></td></tr>
 &#160;&#160;<b>IO_MOUSE_MIDDLE</b>
 <br />
  }</td></tr>
-<tr class="memitem:gafca963cd0ee56aad497eee0a01c6f75e" id="r_gafca963cd0ee56aad497eee0a01c6f75e"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a> { <a class="el" href="#gafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63">IO_TYPE_KEYBOARD</a>
-, <a class="el" href="#gafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f">IO_TYPE_MOUSE</a>
+<tr class="memitem:gafca963cd0ee56aad497eee0a01c6f75e" id="r_gafca963cd0ee56aad497eee0a01c6f75e"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a> { <a class="el" href="#ggafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63">IO_TYPE_KEYBOARD</a>
+, <a class="el" href="#ggafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f">IO_TYPE_MOUSE</a>
+ }</td></tr>
+<tr class="memitem:gad7a7edfeebdba03092514b4ba6323b31" id="r_gad7a7edfeebdba03092514b4ba6323b31"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#gad7a7edfeebdba03092514b4ba6323b31">rcge_io_cursor_mode</a> { <a class="el" href="#ggad7a7edfeebdba03092514b4ba6323b31a57232585ab9fd788431e37b208e7132a">IO_CURSOR_SHOW</a>
+, <a class="el" href="#ggad7a7edfeebdba03092514b4ba6323b31a92f59b4c7b1cbbf0d08d1f85b37a70e8">IO_CURSOR_LOCK</a>
+, <a class="el" href="#ggad7a7edfeebdba03092514b4ba6323b31a5e48ef1171e90aaa2f95a1f2aec72022">IO_CURSOR_HIDE</a>
+, <a class="el" href="#ggad7a7edfeebdba03092514b4ba6323b31a4610c15c9cf0768950266ce4ef95a3c3">IO_CURSOR_DISABLE</a>
  }</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
@@ -292,6 +298,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ga47970ffd18c8369a7988d70e03027ee0" id="r_ga47970ffd18c8369a7988d70e03027ee0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ga47970ffd18c8369a7988d70e03027ee0">rcge_io_input_just_released</a> (<a class="el" href="#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input)</td></tr>
 <tr class="memitem:gab0c365b346d477247dc90f8ad6537449" id="r_gab0c365b346d477247dc90f8ad6537449"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gab0c365b346d477247dc90f8ad6537449">rcge_io_mouse_use_raw</a> (bool raw)</td></tr>
 <tr class="memitem:ga0ba8858c8f893c41e55be2bafe63cb7b" id="r_ga0ba8858c8f893c41e55be2bafe63cb7b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga0ba8858c8f893c41e55be2bafe63cb7b">rcge_io_mouse_loc</a> (double *x, double *y)</td></tr>
+<tr class="memitem:ga481799c5b034325a8f17615e2e93731e" id="r_ga481799c5b034325a8f17615e2e93731e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga481799c5b034325a8f17615e2e93731e">rcge_io_mouse_scroll</a> (double *scroll_x, double *scroll_y)</td></tr>
+<tr class="memitem:gade55ed1c2c3ad3fbb517a0aafa134273" id="r_gade55ed1c2c3ad3fbb517a0aafa134273"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gade55ed1c2c3ad3fbb517a0aafa134273">rcge_io_cursor_mode_set</a> (<a class="el" href="#gad7a7edfeebdba03092514b4ba6323b31">rcge_io_cursor_mode</a> cursor_mode)</td></tr>
 </table>
 <a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="gafca963cd0ee56aad497eee0a01c6f75e" name="gafca963cd0ee56aad497eee0a01c6f75e"></a>
@@ -308,9 +316,35 @@ Functions</h2></td></tr>
 
 <p>Types of inputs. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63" name="gafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63"></a>IO_TYPE_KEYBOARD&#160;</td><td class="fielddoc"><p>Keyboard. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63" name="ggafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63"></a>IO_TYPE_KEYBOARD&#160;</td><td class="fielddoc"><p>Keyboard. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f" name="gafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f"></a>IO_TYPE_MOUSE&#160;</td><td class="fielddoc"><p>Mouse. </p>
+<tr><td class="fieldname"><a id="ggafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f" name="ggafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f"></a>IO_TYPE_MOUSE&#160;</td><td class="fielddoc"><p>Mouse. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="gad7a7edfeebdba03092514b4ba6323b31" name="gad7a7edfeebdba03092514b4ba6323b31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad7a7edfeebdba03092514b4ba6323b31">&#9670;&#160;</a></span>rcge_io_cursor_mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#gad7a7edfeebdba03092514b4ba6323b31">rcge_io_cursor_mode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Types of cursor appearance modes. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggad7a7edfeebdba03092514b4ba6323b31a57232585ab9fd788431e37b208e7132a" name="ggad7a7edfeebdba03092514b4ba6323b31a57232585ab9fd788431e37b208e7132a"></a>IO_CURSOR_SHOW&#160;</td><td class="fielddoc"><p>Cursor is shown on screen, and can move outside the window. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggad7a7edfeebdba03092514b4ba6323b31a92f59b4c7b1cbbf0d08d1f85b37a70e8" name="ggad7a7edfeebdba03092514b4ba6323b31a92f59b4c7b1cbbf0d08d1f85b37a70e8"></a>IO_CURSOR_LOCK&#160;</td><td class="fielddoc"><p>Cursor is shown on screen, but cannot move outside the window. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggad7a7edfeebdba03092514b4ba6323b31a5e48ef1171e90aaa2f95a1f2aec72022" name="ggad7a7edfeebdba03092514b4ba6323b31a5e48ef1171e90aaa2f95a1f2aec72022"></a>IO_CURSOR_HIDE&#160;</td><td class="fielddoc"><p>Cursor is not shown in the window, but it is still moving across the screen (just not rendered) and can go outside the window. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggad7a7edfeebdba03092514b4ba6323b31a4610c15c9cf0768950266ce4ef95a3c3" name="ggad7a7edfeebdba03092514b4ba6323b31a4610c15c9cf0768950266ce4ef95a3c3"></a>IO_CURSOR_DISABLE&#160;</td><td class="fielddoc"><p>Cursor is not shown in the window, and cannot move anywhere. It is fixed back to the center of the screen after input is read. </p>
 </td></tr>
 </table>
 
@@ -383,7 +417,7 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>Relative path of the file to be read. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">width</td><td>Width of the image read. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">height</td><td>Height of the image read. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">channel_no</td><td>Number of channels of image read originally. (3=RGB, 4=RGBA) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">channel_no</td><td>Number of channels of image read originally (3=RGB, 4=RGBA). NULL if not needed. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">desired_channel_no</td><td>Force the image to have this amount of number of channels. (0=original, 3=RGB, 4=RGBA) </td></tr>
   </table>
   </dd>
@@ -568,11 +602,66 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>The location of mouse (cursor) on screen. </p>
+<p>Gets the location of mouse (cursor) on screen. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">x</td><td>The horizontal location of the cursor. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">y</td><td>The vertical location of the cursor. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga481799c5b034325a8f17615e2e93731e" name="ga481799c5b034325a8f17615e2e93731e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga481799c5b034325a8f17615e2e93731e">&#9670;&#160;</a></span>rcge_io_mouse_scroll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rcge_io_mouse_scroll </td>
+          <td>(</td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>scroll_x</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>scroll_y</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the mouse scroll wheel input of the frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">scroll_x</td><td>The horizontal mouse scroll wheel input (usually for trackpads). NULL if you do not need this. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">scroll_y</td><td>The vertical mouse scroll wheel input. NULL if you do not need this. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gade55ed1c2c3ad3fbb517a0aafa134273" name="gade55ed1c2c3ad3fbb517a0aafa134273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gade55ed1c2c3ad3fbb517a0aafa134273">&#9670;&#160;</a></span>rcge_io_cursor_mode_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rcge_io_cursor_mode_set </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#gad7a7edfeebdba03092514b4ba6323b31">rcge_io_cursor_mode</a></td>          <td class="paramname"><span class="paramname"><em>cursor_mode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set cursor's appearance mode (hidden, shown, disabled or locked). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cursor_mode</td><td>The cursor mode you want to set to. See <a class="el" href="#gad7a7edfeebdba03092514b4ba6323b31" title="rcge_io_cursor_mode">rcge_io_cursor_mode</a>. </td></tr>
   </table>
   </dd>
 </dl>

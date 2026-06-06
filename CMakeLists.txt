@@ -31,7 +31,11 @@ add_custom_target(copy_build_files ALL
     COMMAND ${CMAKE_COMMAND} -E copy
         $<TARGET_FILE:${EXE_NAME}>
         ${CMAKE_CURRENT_SOURCE_DIR}/build
-        
+
+    COMMAND ${CMAKE_COMMAND} -E copy
+        ${CMAKE_CURRENT_SOURCE_DIR}/icon.png
+        ${CMAKE_CURRENT_SOURCE_DIR}/build/icon.png
+
     COMMAND ${CMAKE_COMMAND} -E copy
         ${CMAKE_CURRENT_SOURCE_DIR}/glfw3.dll
         ${CMAKE_CURRENT_SOURCE_DIR}/build

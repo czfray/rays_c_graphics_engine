@@ -6,6 +6,7 @@
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Ray&#39;s C Graphics Engine: rcge_io.h File Reference</title>
+<link rel="icon" href="icon.png" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="codefolding.js"></script>
@@ -277,8 +278,13 @@ Enumerations</h2></td></tr>
 &#160;&#160;<b>IO_MOUSE_MIDDLE</b>
 <br />
  }</td></tr>
-<tr class="memitem:gafca963cd0ee56aad497eee0a01c6f75e" id="r_gafca963cd0ee56aad497eee0a01c6f75e"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a> { <a class="el" href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63">IO_TYPE_KEYBOARD</a>
-, <a class="el" href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f">IO_TYPE_MOUSE</a>
+<tr class="memitem:gafca963cd0ee56aad497eee0a01c6f75e" id="r_gafca963cd0ee56aad497eee0a01c6f75e"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io_input_type</a> { <a class="el" href="group__io.html#ggafca963cd0ee56aad497eee0a01c6f75ea6bf4040c98b83ede8696c44eece5df63">IO_TYPE_KEYBOARD</a>
+, <a class="el" href="group__io.html#ggafca963cd0ee56aad497eee0a01c6f75ea877b0a65ac1677ed23fb7b3d819f505f">IO_TYPE_MOUSE</a>
+ }</td></tr>
+<tr class="memitem:gad7a7edfeebdba03092514b4ba6323b31" id="r_gad7a7edfeebdba03092514b4ba6323b31"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="group__io.html#gad7a7edfeebdba03092514b4ba6323b31">rcge_io_cursor_mode</a> { <a class="el" href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a57232585ab9fd788431e37b208e7132a">IO_CURSOR_SHOW</a>
+, <a class="el" href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a92f59b4c7b1cbbf0d08d1f85b37a70e8">IO_CURSOR_LOCK</a>
+, <a class="el" href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a5e48ef1171e90aaa2f95a1f2aec72022">IO_CURSOR_HIDE</a>
+, <a class="el" href="group__io.html#ggad7a7edfeebdba03092514b4ba6323b31a4610c15c9cf0768950266ce4ef95a3c3">IO_CURSOR_DISABLE</a>
  }</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
@@ -292,6 +298,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ga47970ffd18c8369a7988d70e03027ee0" id="r_ga47970ffd18c8369a7988d70e03027ee0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="group__io.html#ga47970ffd18c8369a7988d70e03027ee0">rcge_io_input_just_released</a> (<a class="el" href="group__io.html#gafa66d7fc503ca099b4624e4ca7ebc471">rcge_io_input</a> input)</td></tr>
 <tr class="memitem:gab0c365b346d477247dc90f8ad6537449" id="r_gab0c365b346d477247dc90f8ad6537449"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__io.html#gab0c365b346d477247dc90f8ad6537449">rcge_io_mouse_use_raw</a> (bool raw)</td></tr>
 <tr class="memitem:ga0ba8858c8f893c41e55be2bafe63cb7b" id="r_ga0ba8858c8f893c41e55be2bafe63cb7b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__io.html#ga0ba8858c8f893c41e55be2bafe63cb7b">rcge_io_mouse_loc</a> (double *x, double *y)</td></tr>
+<tr class="memitem:ga481799c5b034325a8f17615e2e93731e" id="r_ga481799c5b034325a8f17615e2e93731e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__io.html#ga481799c5b034325a8f17615e2e93731e">rcge_io_mouse_scroll</a> (double *scroll_x, double *scroll_y)</td></tr>
+<tr class="memitem:gade55ed1c2c3ad3fbb517a0aafa134273" id="r_gade55ed1c2c3ad3fbb517a0aafa134273"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__io.html#gade55ed1c2c3ad3fbb517a0aafa134273">rcge_io_cursor_mode_set</a> (<a class="el" href="group__io.html#gad7a7edfeebdba03092514b4ba6323b31">rcge_io_cursor_mode</a> cursor_mode)</td></tr>
+<tr class="memitem:a7eec0f0106bbfc42bb8d917b9c6359a3" id="r_a7eec0f0106bbfc42bb8d917b9c6359a3"><td class="memItemLeft"><a id="a7eec0f0106bbfc42bb8d917b9c6359a3" name="a7eec0f0106bbfc42bb8d917b9c6359a3"></a>
+void&#160;</td><td class="memItemRight"><b>rcge_io_init</b> (void)</td></tr>
 <tr class="memitem:ad97522e9953964bf4fb7376cf3fd4d9a" id="r_ad97522e9953964bf4fb7376cf3fd4d9a"><td class="memItemLeft"><a id="ad97522e9953964bf4fb7376cf3fd4d9a" name="ad97522e9953964bf4fb7376cf3fd4d9a"></a>
 void&#160;</td><td class="memItemRight"><b>rcge_io_update</b> (void)</td></tr>
 </table>

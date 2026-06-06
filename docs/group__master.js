@@ -13,7 +13,10 @@ var group__master =
     [ "rcge_stop", "group__master.html#ga50f8a21af93a6ec3653c66e5b3198424", null ],
     [ "rcge_terminate", "group__master.html#gaf8d79f717dfb819e6da151c374056e01", null ],
     [ "rcge_status", "group__master.html#gabf1772aec7e7deb6f7edf45322fcae3d", null ],
-    [ "rcge_display_dimensions", "group__master.html#ga3478aee6a21927cb4f9ed825bda369a6", null ],
+    [ "rcge_display_dimensions_get", "group__master.html#ga2c8e5ca42e814400122cc2926bca690a", null ],
+    [ "rcge_display_dimensions_set", "group__master.html#ga593fab4ee34ae24760bcb7e2f2e2382e", null ],
     [ "rcge_display_ratio", "group__master.html#ga28c7d5babe1c2a5b0cc211d3e3fbee1c", null ],
-    [ "rcge_display_mode_set", "group__master.html#ga557615aaff965a32deaa67aa07634094", null ]
+    [ "rcge_display_mode_set", "group__master.html#ga557615aaff965a32deaa67aa07634094", null ],
+    [ "rcge_display_vsync", "group__master.html#gaea8d0f44305849873cc682885cac8932", null ],
+    [ "rcge_backface_cull", "group__master.html#ga769da77577af230fc40be3f6ac03e787", null ]
 ];

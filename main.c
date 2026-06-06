@@ -130,9 +130,10 @@ void update(double delta_time)
     vec3 ny_axis = {0, -1, 0};
     vec3 nz_axis = {0, 0, -1};
 
-    float currentfov = rcge_camera_fov_size_get(camera);
-    if (rcge_io_input_pressed(IO_MOUSE_LEFT)) rcge_camera_fov_size_set(camera, currentfov + 100 * delta_time);
-    if (rcge_io_input_pressed(IO_MOUSE_RIGHT)) rcge_camera_fov_size_set(camera, currentfov - 100 * delta_time);
+    double currentfov = rcge_camera_fov_size_get(camera);
+    double scroll;
+    rcge_io_mouse_scroll(NULL, &scroll);
+    rcge_camera_fov_size_set(camera, currentfov - scroll * 3);
 
     //cube scale
     vec3 apply_scl = GLM_VEC3_ZERO_INIT;
@@ -221,7 +222,12 @@ void update(double delta_time)
     if (rcge_io_input_just_pressed(IO_KEY_F1))
     {
         fstest = !fstest;
-        rcge_display_mode_set(fstest? DISPLAY_BORDERLESS_FULLSCREEN: DISPLAY_WINDOW);
+        rcge_display_mode_set(fstest? DISPLAY_EXCLUSIVE_FULLSCREEN: DISPLAY_WINDOW);
+    }
+
+    if (rcge_io_input_just_pressed(IO_KEY_F2))
+    {
+        rcge_display_dimensions_set(800, 450);
     }
 
     rcge_element_manager_update(element_manager, delta_time);
@@ -238,15 +244,21 @@ int main(void)
 {
     if (!rcge_init(1000, 800, "RCGE Test", true, start, update, resize)) return 1;
 
+    rcge_icon("icon.png");
+
+    rcge_display_vsync(false);
+    rcge_backface_cull(true);
+    rcge_io_cursor_mode_set(IO_CURSOR_DISABLE);
+
     shader = rcge_default_unlit_shader_create();
     rcge_shader_use(shader);
     
-    camera = rcge_camera_create(shader, RCGE_DEF_UNLIT_SHADER_VIEW_UNF, RCGE_DEF_UNLIT_SHADER_PROJ_UNF, true, 45.0f, 0.001f, 100.0f);
+    camera = rcge_camera_create(shader, RCGE_DEF_UNLIT_SHADER_VIEW_UNF, RCGE_DEF_UNLIT_SHADER_PROJ_UNF, true, 45.0, 0.001, 100.0);
     //camera = rcge_camera_create(shader, 1, 2, false, 2.0f, 1.0f, 100.0f, rcge_display_ratio(window));
-    vec3 cam_pos = {0.0f, 0.0f, -2.0f};
+    vec3 cam_pos = {0.0f, 0.0f, -2.0};
     rcge_camera_pos_set(camera, cam_pos);
 
-    keven_texture = rcge_texture_create("textures/keven.png", TEX_CLAMP_TO_EDGE, TEX_LINEAR);
+    keven_texture = rcge_texture_create_file("textures/test.png", TEX_CLAMP_TO_EDGE, TEX_NEAREST);
     rcge_texture_use(keven_texture);
     rcge_shader_uniform_int(shader, 4, 0); //OPTIONAL, default is 0 already, only need if multiple texture layer. //TODO THIS IS UGLY AF
 

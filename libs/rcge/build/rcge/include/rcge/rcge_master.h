@@ -14,7 +14,7 @@
 
 #include <stdbool.h>
 
-#define RCGE_UINT_ERROR (unsigned int) -1
+#define RCGE_UINT_ERROR (unsigned int) -1   
 
 /**
  * @ingroup master
@@ -89,13 +89,24 @@ void rcge_terminate(void);
 **/
 bool rcge_status(void);
 
+void rcge_icon(char* path);
+
 /**
  * @ingroup master
  * @brief Get the current dimensions of the RCGE display.
  * @param[out] width The width of the RCGE display.
  * @param[out] height The height of the RCGE display.
 **/
-void rcge_display_dimensions(unsigned int* width, unsigned int* height);
+void rcge_display_dimensions_get(unsigned int* width, unsigned int* height);
+
+/**
+ * @ingroup master
+ * @brief Set the current dimensions of the RCGE display.
+ * @param[in] width The width to set for the RCGE display.
+ * @param[in] height The height to set for the RCGE display.
+ * @note If display is not in fullscreen, it will change to window mode if this function is called. Dimensions of fullscreen cannot be forced to changed (at least yet).
+**/
+void rcge_display_dimensions_set(unsigned int width, unsigned int height);
 
 /**
  * @ingroup master
@@ -110,6 +121,27 @@ double rcge_display_ratio(void);
  * @param[in] display_mode The display mode you want to set.
 **/
 void rcge_display_mode_set(rcge_display_mode display_mode);
+
+/**
+ * @ingroup master
+ * @brief Set whether you want VSync for your display or not.
+ * 
+ * If VSync is on, the frame rate will be synchronised with the monitor's refresh rate.
+ * 
+ * @param[in] vsync Whether you want VSync for your display or not.
+**/
+void rcge_display_vsync(bool vsync);
+
+/**
+ * @ingroup master
+ * @brief Enable or disable backface culling.
+ * 
+ * When backface culling is enabled, only front faces are rendered. Outside of a mesh should be drawn in clockwise to be considered a front face. 
+ * @note In RCGE, +X is to the LEFT, +Y upwards and +Z forwards. Vertices might seem clockwise but is actually flipped and is actually anti-clockwise.
+ * 
+ * @param[in] status Whether you want to enable backface culling or not.
+**/
+void rcge_backface_cull(bool status);
 
 /**
  * @internal

@@ -28,7 +28,18 @@ GLenum gl_filter_type(rcge_texture_filter_type type)
     return (type == TEX_LINEAR? GL_LINEAR: GL_NEAREST);
 }
 
-rcge_texture rcge_texture_create(char* path, rcge_texture_wrap_type wrap, rcge_texture_filter_type filter)
+rcge_texture rcge_texture_create_file(char* path, rcge_texture_wrap_type wrap, rcge_texture_filter_type filter)
+{
+    int width, height, channel_no;
+    unsigned char* image = rcge_io_read_image(path, &width, &height, &channel_no, 4);
+    if (image == NULL) {printf("[RCGE Texture] Texture failed to load (%s): image load failed.\n", path); return NULL;}
+    rcge_texture tex = rcge_texture_create(image, width, height, wrap, filter);
+    rcge_io_free_image(image);
+    return tex;
+    
+}
+
+rcge_texture rcge_texture_create(unsigned char* image, int width, int height, rcge_texture_wrap_type wrap, rcge_texture_filter_type filter)
 {
     GLuint gl_texture;
     glGenTextures(1, &gl_texture);
@@ -43,17 +54,13 @@ rcge_texture rcge_texture_create(char* path, rcge_texture_wrap_type wrap, rcge_t
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, gl_filter);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, gl_filter);
 
-    int width, height, channel_no;
-    unsigned char* image = rcge_io_read_image(path, &width, &height, &channel_no, 4);
-    if (image == NULL) {printf("[RCGE Texture] Texture %d failed to load (%s): image load failed.\n", gl_texture, path); return NULL;}
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-    rcge_io_free_image(image);
     glGenerateMipmap(GL_TEXTURE_2D);
     //TODO: More checks could be done here?
 
     rcge_texture texture = malloc(sizeof(*texture)); //TODO: MALLOC CHECK?
     texture->gl_texture = gl_texture;
-    printf("[RCGE Texture] Texture %d loaded. (%s)\n", gl_texture, path);
+    printf("[RCGE Texture] Texture %d loaded. \n", gl_texture);
     return texture;
 }
 

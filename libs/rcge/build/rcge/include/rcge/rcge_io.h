@@ -27,7 +27,7 @@ char* rcge_io_read_file_all(char *path);
  * @param[in] path Relative path of the file to be read.
  * @param[out] width Width of the image read.
  * @param[out] height Height of the image read.
- * @param[out] channel_no Number of channels of image read originally. (3=RGB, 4=RGBA)
+ * @param[out] channel_no Number of channels of image read originally (3=RGB, 4=RGBA). NULL if not needed.
  * @param[in] desired_channel_no Force the image to have this amount of number of channels. (0=original, 3=RGB, 4=RGBA)
  * @return The pixel data of image, NULL if failed.
  * @note - Do not call free(), but call @ref rcge_io_free_image to free the pixel data.
@@ -44,7 +44,6 @@ void rcge_io_free_image(unsigned char* image);
 
 /**
  * @ingroup io
- * @enum rcge_io_input
  * @brief All keyboard and mouse inputs.
 **/
 typedef enum
@@ -187,7 +186,6 @@ typedef enum
 
 /**
  * @ingroup io
- * @enum rcge_io_input_type
  * @brief Types of inputs.
 **/
 typedef enum
@@ -195,6 +193,18 @@ typedef enum
     IO_TYPE_KEYBOARD, ///< Keyboard
     IO_TYPE_MOUSE ///< Mouse
 } rcge_io_input_type;
+
+/**
+ * @ingroup io
+ * @brief Types of cursor appearance modes.
+**/
+typedef enum
+{
+    IO_CURSOR_SHOW, ///< Cursor is shown on screen, and can move outside the window.
+    IO_CURSOR_LOCK, ///< Cursor is shown on screen, but cannot move outside the window.
+    IO_CURSOR_HIDE, ///< Cursor is not shown in the window, but it is still moving across the screen (just not rendered) and can go outside the window. 
+    IO_CURSOR_DISABLE ///< Cursor is not shown in the window, and cannot move anywhere. It is fixed back to the center of the screen after input is read.
+} rcge_io_cursor_mode;
 
 /**
  * @ingroup io
@@ -238,11 +248,33 @@ void rcge_io_mouse_use_raw(bool raw);
 
 /**
  * @ingroup io
- * @brief The location of mouse (cursor) on screen.
+ * @brief Gets the location of mouse (cursor) on screen.
  * @param[out] x The horizontal location of the cursor.
  * @param[out] y The vertical location of the cursor.
 **/
 void rcge_io_mouse_loc(double* x, double* y);
+
+/**
+ * @ingroup io
+ * @brief Gets the mouse scroll wheel input of the frame.
+ * @param[out] scroll_x The horizontal mouse scroll wheel input (usually for trackpads). NULL if you do not need this.
+ * @param[out] scroll_y The vertical mouse scroll wheel input. NULL if you do not need this.
+**/
+void rcge_io_mouse_scroll(double* scroll_x, double* scroll_y);
+
+/**
+ * @ingroup io
+ * @brief Set cursor's appearance mode (hidden, shown, disabled or locked).
+ * @param[in] cursor_mode The cursor mode you want to set to. See @ref rcge_io_cursor_mode.
+**/
+void rcge_io_cursor_mode_set(rcge_io_cursor_mode cursor_mode);
+
+/**
+ * @internal
+ * @warning This is an RCGE Internal Function.
+ * @endinternal
+ */
+void rcge_io_init(void);
 
 /**
  * @internal

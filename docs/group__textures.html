@@ -6,6 +6,7 @@
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Ray&#39;s C Graphics Engine: Textures</title>
+<link rel="icon" href="icon.png" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="codefolding.js"></script>
@@ -123,7 +124,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga280e7f887d44659563aa0e87b5c64b30" id="r_ga280e7f887d44659563aa0e87b5c64b30"><td class="memItemLeft"><a class="el" href="#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga280e7f887d44659563aa0e87b5c64b30">rcge_texture_create</a> (char *path, <a class="el" href="#ga4d9ab0ca8007ed3cd31389dab146f7de">rcge_texture_wrap_type</a> wrap, <a class="el" href="#ga9674787010c192c7be9a11cdc6b6c2db">rcge_texture_filter_type</a> filter)</td></tr>
+<tr class="memitem:ga542fde8e2f603355829f024d5147740f" id="r_ga542fde8e2f603355829f024d5147740f"><td class="memItemLeft"><a class="el" href="#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga542fde8e2f603355829f024d5147740f">rcge_texture_create</a> (unsigned char *image, int width, int height, <a class="el" href="#ga4d9ab0ca8007ed3cd31389dab146f7de">rcge_texture_wrap_type</a> wrap, <a class="el" href="#ga9674787010c192c7be9a11cdc6b6c2db">rcge_texture_filter_type</a> filter)</td></tr>
+<tr class="memitem:gab5c3950656b2496b41934b20bde0a915" id="r_gab5c3950656b2496b41934b20bde0a915"><td class="memItemLeft"><a class="el" href="#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a>&#160;</td><td class="memItemRight"><a class="el" href="#gab5c3950656b2496b41934b20bde0a915">rcge_texture_create_file</a> (char *path, <a class="el" href="#ga4d9ab0ca8007ed3cd31389dab146f7de">rcge_texture_wrap_type</a> wrap, <a class="el" href="#ga9674787010c192c7be9a11cdc6b6c2db">rcge_texture_filter_type</a> filter)</td></tr>
 <tr class="memitem:ga641fabb0eb989aa58d3aabd73d34775b" id="r_ga641fabb0eb989aa58d3aabd73d34775b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga641fabb0eb989aa58d3aabd73d34775b">rcge_texture_use</a> (<a class="el" href="#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a> texture)</td></tr>
 <tr class="memitem:gabe24972a8350da7577b66b6f9514248e" id="r_gabe24972a8350da7577b66b6f9514248e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gabe24972a8350da7577b66b6f9514248e">rcge_texture_delete</a> (<a class="el" href="#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a> texture)</td></tr>
 </table>
@@ -193,14 +195,63 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ga280e7f887d44659563aa0e87b5c64b30" name="ga280e7f887d44659563aa0e87b5c64b30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga280e7f887d44659563aa0e87b5c64b30">&#9670;&#160;</a></span>rcge_texture_create()</h2>
+<a id="ga542fde8e2f603355829f024d5147740f" name="ga542fde8e2f603355829f024d5147740f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga542fde8e2f603355829f024d5147740f">&#9670;&#160;</a></span>rcge_texture_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a> rcge_texture_create </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>image</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#ga4d9ab0ca8007ed3cd31389dab146f7de">rcge_texture_wrap_type</a></td>          <td class="paramname"><span class="paramname"><em>wrap</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#ga9674787010c192c7be9a11cdc6b6c2db">rcge_texture_filter_type</a></td>          <td class="paramname"><span class="paramname"><em>filter</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an image texture from image pixel data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">image</td><td>The pixel data of the source image. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">width</td><td>The width of the source image. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">height</td><td>The height of the source image. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wrap</td><td>The wrapping method to use for the texture. See <a class="el" href="#ga4d9ab0ca8007ed3cd31389dab146f7de" title="rcge_texture_wrap_type">rcge_texture_wrap_type</a> for what can be put here. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter</td><td>The filter method to use for the texture. See <a class="el" href="#ga9674787010c192c7be9a11cdc6b6c2db" title="rcge_texture_filter_type">rcge_texture_filter_type</a> for what can be put here. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The texture created, NULL if failed. </dd></dl>
+
+</div>
+</div>
+<a id="gab5c3950656b2496b41934b20bde0a915" name="gab5c3950656b2496b41934b20bde0a915"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab5c3950656b2496b41934b20bde0a915">&#9670;&#160;</a></span>rcge_texture_create_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a> rcge_texture_create_file </td>
           <td>(</td>
           <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>path</em></span>, </td>
         </tr>

@@ -41,6 +41,18 @@ typedef enum
 
 /**
  * @ingroup textures
+ * @brief Creates an image texture from image pixel data.
+ * @param[in] image The pixel data of the source image.
+ * @param[in] width The width of the source image.
+ * @param[in] height The height of the source image.
+ * @param[in] wrap The wrapping method to use for the texture. See @ref rcge_texture_wrap_type for what can be put here.
+ * @param[in] filter The filter method to use for the texture. See @ref rcge_texture_filter_type for what can be put here.
+ * @return The texture created, NULL if failed.
+**/
+rcge_texture rcge_texture_create(unsigned char* image, int width, int height, rcge_texture_wrap_type wrap, rcge_texture_filter_type filter);
+
+/**
+ * @ingroup textures
  * @brief Creates an image texture from an image file.
  * @param[in] path Relative path of the image file to be used for creating the texture.
  * @param[in] wrap The wrapping method to use for the texture. See @ref rcge_texture_wrap_type for what can be put here.
@@ -48,7 +60,7 @@ typedef enum
  * @return The texture created, NULL if failed.
  * @note Image file is read from the bottom **RIGHT** pixel to the upper **LEFT** pixel.
 **/
-rcge_texture rcge_texture_create(char* path, rcge_texture_wrap_type wrap, rcge_texture_filter_type filter);
+rcge_texture rcge_texture_create_file(char* path, rcge_texture_wrap_type wrap, rcge_texture_filter_type filter);
 
 /**
  * @ingroup textures

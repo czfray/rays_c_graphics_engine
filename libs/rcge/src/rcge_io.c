@@ -16,10 +16,6 @@
 
 #define RCGE_IO_READ_FILE_BUFFERSIZE 512
 
-bool current_input_pressed[RCGE_IO_INPUT_TOTAL_NO] = {false};
-bool current_input_just_pressed[RCGE_IO_INPUT_TOTAL_NO] = {false};
-bool current_input_just_released[RCGE_IO_INPUT_TOTAL_NO] = {false};
-
 char *rcge_io_read_file_all(char *path)
 {
     FILE *file = fopen(path, "r");
@@ -71,6 +67,16 @@ void rcge_io_free_image(unsigned char* image)
 {
     stbi_image_free(image);
 }
+
+typedef struct
+{
+    bool pressed[RCGE_IO_INPUT_TOTAL_NO];
+    bool just_pressed[RCGE_IO_INPUT_TOTAL_NO];
+    bool just_released[RCGE_IO_INPUT_TOTAL_NO];
+    double scroll_x, scroll_y;
+} rcge_input_state;
+
+rcge_input_state current_io_state = {{false}, {false}, {false}, 0.0f, 0.0f};
 
 int gl_input_id(rcge_io_input input)
 {
@@ -354,17 +360,17 @@ rcge_io_input_type rcge_io_input_type_get(rcge_io_input input)
 
 bool rcge_io_input_pressed(rcge_io_input input)
 {
-    return current_input_pressed[(int) input];
+    return current_io_state.pressed[(int) input];
 }
 
 bool rcge_io_input_just_pressed(rcge_io_input input)
 {
-    return current_input_just_pressed[(int)input];
+    return current_io_state.just_pressed[(int)input];
 }
 
 bool rcge_io_input_just_released(rcge_io_input input)
 {
-    return current_input_just_released[(int)input];
+    return current_io_state.just_released[(int)input];
 }
 
 void rcge_io_mouse_use_raw(bool raw)
@@ -379,14 +385,55 @@ void rcge_io_mouse_loc(double* x, double* y)
     glfwGetCursorPos(gl_window, x, y);
 }
 
+void rcge_io_cursor_mode_set(rcge_io_cursor_mode cursor_mode)
+{
+    GLFWwindow *gl_window = (GLFWwindow*) rcge_window_raw_pointer();
+    switch (cursor_mode)
+    {
+        case IO_CURSOR_SHOW:
+            glfwSetInputMode(gl_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            break;
+        case IO_CURSOR_HIDE:
+            glfwSetInputMode(gl_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+            break;
+        case IO_CURSOR_LOCK:
+            glfwSetInputMode(gl_window, GLFW_CURSOR, GLFW_CURSOR_CAPTURED);
+            break;
+        case IO_CURSOR_DISABLE:
+            glfwSetInputMode(gl_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            break;
+    }
+}
+
+void rcge_io_mouse_scroll(double* scroll_x, double* scroll_y)
+{
+    if (scroll_x != NULL) *scroll_x = current_io_state.scroll_x;
+    if (scroll_y != NULL) *scroll_y = current_io_state.scroll_y;
+}
+
+void scroll_callback(GLFWwindow* window, double x, double y)
+{
+    current_io_state.scroll_x = x;
+    current_io_state.scroll_y = y;
+}
+
+void rcge_io_init(void)
+{
+    GLFWwindow *gl_window = (GLFWwindow*) rcge_window_raw_pointer();
+    glfwSetScrollCallback(gl_window, scroll_callback);
+}
+
 void rcge_io_update(void)
 {
+    current_io_state.scroll_x = 0.0;
+    current_io_state.scroll_y = 0.0;
+
     glfwPollEvents();
     for (int i = 0; i < RCGE_IO_INPUT_TOTAL_NO; i++)
     {
         rcge_io_input input = (rcge_io_input) i;
         int gl_input = gl_input_id(input);
-        GLFWwindow *gl_window = (GLFWwindow *)rcge_window_raw_pointer();
+        GLFWwindow *gl_window = (GLFWwindow*) rcge_window_raw_pointer();
         bool pressed = false;
         switch (rcge_io_input_type_get(input))
         {
@@ -398,13 +445,13 @@ void rcge_io_update(void)
                 break;
         }
 
-        bool prev_pressed = current_input_pressed[i];
-        if (pressed && !prev_pressed) current_input_just_pressed[i] = true;
-        else current_input_just_pressed[i] = false;
+        bool prev_pressed = current_io_state.pressed[i];
+        if (pressed && !prev_pressed) current_io_state.just_pressed[i] = true;
+        else current_io_state.just_pressed[i] = false;
         
-        if (!pressed && prev_pressed) current_input_just_released[i] = true;
-        else current_input_just_released[i] = false;
+        if (!pressed && prev_pressed) current_io_state.just_released[i] = true;
+        else current_io_state.just_released[i] = false;
 
-        current_input_pressed[i] = pressed;
+        current_io_state.pressed[i] = pressed;
     }
 }

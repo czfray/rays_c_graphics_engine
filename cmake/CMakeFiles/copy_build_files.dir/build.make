@@ -69,6 +69,7 @@ CMakeFiles/copy_build_files:
 	"C:\Program Files\CMake\bin\cmake.exe" -E remove_directory C:/Users/user/Main/Projects/C/rays_c_graphics_engine/build
 	"C:\Program Files\CMake\bin\cmake.exe" -E make_directory C:/Users/user/Main/Projects/C/rays_c_graphics_engine/build
 	"C:\Program Files\CMake\bin\cmake.exe" -E copy C:/Users/user/Main/Projects/C/rays_c_graphics_engine/bin/app.exe C:/Users/user/Main/Projects/C/rays_c_graphics_engine/build
+	"C:\Program Files\CMake\bin\cmake.exe" -E copy C:/Users/user/Main/Projects/C/rays_c_graphics_engine/icon.png C:/Users/user/Main/Projects/C/rays_c_graphics_engine/build/icon.png
 	"C:\Program Files\CMake\bin\cmake.exe" -E copy C:/Users/user/Main/Projects/C/rays_c_graphics_engine/glfw3.dll C:/Users/user/Main/Projects/C/rays_c_graphics_engine/build
 	"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/user/Main/Projects/C/rays_c_graphics_engine/textures C:/Users/user/Main/Projects/C/rays_c_graphics_engine/build/textures
 	"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/user/Main/Projects/C/rays_c_graphics_engine/shaders C:/Users/user/Main/Projects/C/rays_c_graphics_engine/build/shaders

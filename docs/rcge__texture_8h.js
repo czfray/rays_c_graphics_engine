@@ -11,7 +11,8 @@ var rcge__texture_8h =
       [ "TEX_LINEAR", "group__textures.html#gga9674787010c192c7be9a11cdc6b6c2dba5a320f382520f0ba216e23f5aab65985", null ],
       [ "TEX_NEAREST", "group__textures.html#gga9674787010c192c7be9a11cdc6b6c2dbad312ac53577059764f0aa5447b7d8709", null ]
     ] ],
-    [ "rcge_texture_create", "group__textures.html#ga280e7f887d44659563aa0e87b5c64b30", null ],
+    [ "rcge_texture_create", "group__textures.html#ga542fde8e2f603355829f024d5147740f", null ],
+    [ "rcge_texture_create_file", "group__textures.html#gab5c3950656b2496b41934b20bde0a915", null ],
     [ "rcge_texture_use", "group__textures.html#ga641fabb0eb989aa58d3aabd73d34775b", null ],
     [ "rcge_texture_delete", "group__textures.html#gabe24972a8350da7577b66b6f9514248e", null ]
 ];
