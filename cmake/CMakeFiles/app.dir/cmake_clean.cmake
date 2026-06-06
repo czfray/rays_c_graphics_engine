@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "C:/Users/user/Main/Projects/C/rays_c_graphics_engine/build/app.exe"
-  "C:/Users/user/Main/Projects/C/rays_c_graphics_engine/build/app.exe.manifest"
-  "C:/Users/user/Main/Projects/C/rays_c_graphics_engine/build/app.pdb"
+  "C:/Users/user/Main/Projects/C/rays_c_graphics_engine/bin/app.exe"
+  "C:/Users/user/Main/Projects/C/rays_c_graphics_engine/bin/app.exe.manifest"
+  "C:/Users/user/Main/Projects/C/rays_c_graphics_engine/bin/app.pdb"
   "CMakeFiles/app.dir/main.c.obj"
   "CMakeFiles/app.dir/main.c.obj.d"
   "libapp.dll.a"

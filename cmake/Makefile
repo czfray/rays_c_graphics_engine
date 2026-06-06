@@ -129,6 +129,19 @@ app/fast:
 .PHONY : app/fast
 
 #=============================================================================
+# Target rules for targets named copy_build_files
+
+# Build rule for target.
+copy_build_files: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 copy_build_files
+.PHONY : copy_build_files
+
+# fast build rule for target.
+copy_build_files/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\copy_build_files.dir\build.make CMakeFiles/copy_build_files.dir/build
+.PHONY : copy_build_files/fast
+
+#=============================================================================
 # Target rules for targets named app_debug
 
 # Build rule for target.
@@ -176,6 +189,7 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... copy_build_files
 	@echo ... app
 	@echo ... app_debug
 	@echo ... main.obj

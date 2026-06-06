@@ -63,10 +63,12 @@ CMAKE_BINARY_DIR = C:\Users\user\Main\Projects\C\rays_c_graphics_engine\libs\rcg
 
 # The main recursive "all" target.
 all: CMakeFiles/rcge.dir/all
+all: CMakeFiles/copy_build_files.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/rcge.dir/codegen
+codegen: CMakeFiles/copy_build_files.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -75,6 +77,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/rcge.dir/clean
+clean: CMakeFiles/copy_build_files.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -108,6 +111,38 @@ CMakeFiles/rcge.dir/codegen:
 CMakeFiles/rcge.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\rcge.dir\build.make CMakeFiles/rcge.dir/clean
 .PHONY : CMakeFiles/rcge.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/copy_build_files.dir
+
+# All Build rule for target.
+CMakeFiles/copy_build_files.dir/all: CMakeFiles/rcge.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\copy_build_files.dir\build.make CMakeFiles/copy_build_files.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\copy_build_files.dir\build.make CMakeFiles/copy_build_files.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\user\Main\Projects\C\rays_c_graphics_engine\libs\rcge\cmake\CMakeFiles --progress-num= "Built target copy_build_files"
+.PHONY : CMakeFiles/copy_build_files.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/copy_build_files.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\user\Main\Projects\C\rays_c_graphics_engine\libs\rcge\cmake\CMakeFiles 13
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/copy_build_files.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\user\Main\Projects\C\rays_c_graphics_engine\libs\rcge\cmake\CMakeFiles 0
+.PHONY : CMakeFiles/copy_build_files.dir/rule
+
+# Convenience name for target.
+copy_build_files: CMakeFiles/copy_build_files.dir/rule
+.PHONY : copy_build_files
+
+# codegen rule for target.
+CMakeFiles/copy_build_files.dir/codegen: CMakeFiles/rcge.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\copy_build_files.dir\build.make CMakeFiles/copy_build_files.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\user\Main\Projects\C\rays_c_graphics_engine\libs\rcge\cmake\CMakeFiles --progress-num= "Finished codegen for target copy_build_files"
+.PHONY : CMakeFiles/copy_build_files.dir/codegen
+
+# clean rule for target.
+CMakeFiles/copy_build_files.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\copy_build_files.dir\build.make CMakeFiles/copy_build_files.dir/clean
+.PHONY : CMakeFiles/copy_build_files.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -6,8 +6,8 @@ CMakeFiles/app_debug.dir/main.c.obj: \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_io.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_datatype.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_shader.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/cglm.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/common.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/cglm.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/common.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/stdint.h \
  C:/msys64/mingw64/include/stdint.h C:/msys64/mingw64/include/crtdefs.h \
  C:/msys64/mingw64/include/corecrt.h C:/msys64/mingw64/include/_mingw.h \
@@ -26,83 +26,83 @@ CMakeFiles/app_debug.dir/main.c.obj: \
  C:/msys64/mingw64/include/errno.h C:/msys64/mingw64/include/math.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/float.h \
  C:/msys64/mingw64/include/float.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/types.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/types.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/stdalign.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/simd/intrin.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/intrin.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/xmmintrin.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/mmintrin.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/emmintrin.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/pmmintrin.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/mwaitintrin.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/simd/x86.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/simd/intrin.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/vec2.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/util.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/vec2-ext.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/vec3.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/vec4.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/vec4-ext.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/vec3-ext.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/ivec2.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/ivec3.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/ivec4.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/mat4.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/simd/sse2/mat4.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/common.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/simd/intrin.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/x86.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/intrin.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec2.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/util.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec2-ext.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec3.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec4.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec4-ext.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec3-ext.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/ivec2.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/ivec3.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/ivec4.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/mat4.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/sse2/mat4.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/common.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/intrin.h \
  C:/msys64/mingw64/include/assert.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/mat4x2.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/mat4x3.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/mat3.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/simd/sse2/mat3.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/mat3x2.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/mat3x4.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/mat2.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/simd/sse2/mat2.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/mat2x3.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/mat2x4.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/affine.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/affine-mat.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/simd/sse2/affine.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/affine-pre.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/affine-post.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/cam.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/plane.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/clipspace/persp.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/common.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/plane.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/mat4.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/clipspace/ortho_rh_no.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/clipspace/persp_rh_no.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/clipspace/persp.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/clipspace/view_rh_no.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/clipspace/view_rh.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/frustum.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/quat.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/simd/sse2/quat.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/euler.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/handed/euler_to_quat_rh.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/common.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/noise.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/aabb2d.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/box.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/color.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/io.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/mat4x2.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/mat4x3.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/mat3.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/sse2/mat3.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/mat3x2.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/mat3x4.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/mat2.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/sse2/mat2.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/mat2x3.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/mat2x4.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/affine.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/affine-mat.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/sse2/affine.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/affine-pre.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/affine-post.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/cam.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/plane.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/clipspace/persp.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/common.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/plane.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/mat4.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/clipspace/ortho_rh_no.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/clipspace/persp_rh_no.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/clipspace/persp.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/clipspace/view_rh_no.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/clipspace/view_rh.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/frustum.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/quat.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/sse2/quat.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/euler.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/handed/euler_to_quat_rh.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/common.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/noise.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/aabb2d.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/box.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/color.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/io.h \
  C:/msys64/mingw64/include/stdio.h \
  C:/msys64/mingw64/include/corecrt_stdio_config.h \
  C:/msys64/mingw64/include/_mingw_off_t.h \
  C:/msys64/mingw64/include/swprintf.inl \
  C:/msys64/mingw64/include/sec_api/stdio_s.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/project.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/clipspace/project_no.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/vec3.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/vec4.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/sphere.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/ease.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/curve.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/bezier.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/ray.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/cglm/include/cglm/affine2d.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/project.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/clipspace/project_no.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec3.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec4.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/sphere.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/ease.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/curve.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/bezier.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/ray.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/affine2d.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_texture.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_transform.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_mesh.h \

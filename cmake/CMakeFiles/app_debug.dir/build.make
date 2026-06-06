@@ -95,7 +95,7 @@ app_debug_EXTERNAL_OBJECTS =
 
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/app_debug.exe: CMakeFiles/app_debug.dir/main.c.obj
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/app_debug.exe: CMakeFiles/app_debug.dir/build.make
-C:/Users/user/Main/Projects/C/rays_c_graphics_engine/app_debug.exe: C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/lib/librcge.a
+C:/Users/user/Main/Projects/C/rays_c_graphics_engine/app_debug.exe: C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/bin/librcge.a
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/app_debug.exe: C:/Users/user/Main/Projects/C/rays_c_graphics_engine/glfw3.dll
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/app_debug.exe: CMakeFiles/app_debug.dir/linkLibs.rsp
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/app_debug.exe: CMakeFiles/app_debug.dir/objects1.rsp

@@ -99,7 +99,6 @@ void start()
             }
         }
     }
-
 }
 
 void update_fps(double delta_time)

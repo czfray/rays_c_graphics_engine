@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/lib/librcge.a"
-  "C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/lib/librcge.pdb"
+  "C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/bin/librcge.a"
+  "C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/bin/librcge.pdb"
   "CMakeFiles/rcge.dir/libs/glad/src/glad.c.obj"
   "CMakeFiles/rcge.dir/libs/glad/src/glad.c.obj.d"
   "CMakeFiles/rcge.dir/src/rcge_camera.c.obj"

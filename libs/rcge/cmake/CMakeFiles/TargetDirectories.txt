@@ -1,3 +1,4 @@
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/cmake/CMakeFiles/rcge.dir
+C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/cmake/CMakeFiles/copy_build_files.dir
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/cmake/CMakeFiles/edit_cache.dir
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/cmake/CMakeFiles/rebuild_cache.dir
