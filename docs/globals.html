@@ -21,10 +21,51 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', init_search);
 </script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <script type="module">
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+const theme = DarkModeToggle.darkModeEnabled ? 'dark' : 'default'
 mermaid.initialize({ startOnLoad: true, theme: theme });
+(function() {
+  const elementCode = '.mermaid';
+  const loadMermaid = function(theme) {
+    mermaid.initialize({theme})
+    mermaid.init({theme}, document.querySelectorAll(elementCode))
+  }
+  const saveOriginalData = function() {
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          element.setAttribute('data-original-code', element.innerHTML)
+          count--
+          if (count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  const resetProcessed = function(){
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          if (element.getAttribute('data-original-code') != null) {
+              element.removeAttribute('data-processed')
+              element.innerHTML = element.getAttribute('data-original-code')
+          }
+          count--
+          if(count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  saveOriginalData()
+  const original = DarkModeToggle.enableDarkMode.bind(DarkModeToggle);
+  DarkModeToggle.enableDarkMode = function(enable) {
+      original(enable);
+      resetProcessed().then(loadMermaid(enable ? 'dark' : 'default')).catch(console.error)
+  };
+})();
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -35,6 +76,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td id="projectalign">
    <div id="projectname">Ray&#39;s C Graphics Engine
    </div>
@@ -106,17 +148,13 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals.html',
 
 
 <h3 class="doxsection"><a id="index_d" name="index_d"></a>- d -</h3><ul>
-<li>DATATYPE_BOOL&#160;:&#160;<a class="el" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fada3458fe5cbef7c8f04955047e0a153e">rcge_datatype.h</a></li>
 <li>DATATYPE_BYTE&#160;:&#160;<a class="el" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fad56c45c10cb55de333267a5f6090b56b">rcge_datatype.h</a></li>
 <li>DATATYPE_DOUBLE&#160;:&#160;<a class="el" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fae87ceaa9dfe018d92eacb3db5acf3c48">rcge_datatype.h</a></li>
 <li>DATATYPE_FLOAT&#160;:&#160;<a class="el" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a">rcge_datatype.h</a></li>
-<li>DATATYPE_HALF_FLOAT&#160;:&#160;<a class="el" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab379e64a599cf43fa0cf3e80474915db">rcge_datatype.h</a></li>
 <li>DATATYPE_INT&#160;:&#160;<a class="el" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa098e6f33d7c585447084db3559a2dbb2">rcge_datatype.h</a></li>
-<li>DATATYPE_INT_2_10_10_10_REV&#160;:&#160;<a class="el" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa1d94df82dc3fc3e56976eb5741c727d0">rcge_datatype.h</a></li>
 <li>DATATYPE_SHORT&#160;:&#160;<a class="el" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832faead1d621716e7e6fdb649955abb34713">rcge_datatype.h</a></li>
 <li>DATATYPE_UNSIGNED_BYTE&#160;:&#160;<a class="el" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fad82d4dfd5b46b8e9953c575e59d1177e">rcge_datatype.h</a></li>
 <li>DATATYPE_UNSIGNED_INT&#160;:&#160;<a class="el" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa9c19d7dbd95c4890af4ea87d34f9a7d9">rcge_datatype.h</a></li>
-<li>DATATYPE_UNSIGNED_INT_2_10_10_10_REV&#160;:&#160;<a class="el" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832faca362402894ab9bcd024bc6d7f45c93d">rcge_datatype.h</a></li>
 <li>DATATYPE_UNSIGNED_SHORT&#160;:&#160;<a class="el" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa617612665213d6cd21b8503b303b24b2">rcge_datatype.h</a></li>
 <li>DISPLAY_BORDERLESS_FULLSCREEN&#160;:&#160;<a class="el" href="group__master.html#gga8f44cb352cb05dd792f474f4c8584b13ae99a15b243fc4ca2fdd81c8751ed5fe1">rcge_master.h</a></li>
 <li>DISPLAY_EXCLUSIVE_FULLSCREEN&#160;:&#160;<a class="el" href="group__master.html#gga8f44cb352cb05dd792f474f4c8584b13a594e92fc92045dafc55150ad347787b8">rcge_master.h</a></li>
@@ -147,7 +185,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals.html',
 <li>rcge_camera_add_pos()&#160;:&#160;<a class="el" href="group__cameras.html#ga002ba9acfd9d0175735361fe7d8db1ae">rcge_camera.h</a></li>
 <li>rcge_camera_add_rot_euler()&#160;:&#160;<a class="el" href="group__cameras.html#ga2c8ecf86c1f37cde4e05e8cb5b9b5d27">rcge_camera.h</a></li>
 <li>rcge_camera_backward()&#160;:&#160;<a class="el" href="group__cameras.html#gab09070a4ea2b767d4c82b3dbbbd4d87c">rcge_camera.h</a></li>
-<li>rcge_camera_create()&#160;:&#160;<a class="el" href="group__cameras.html#ga2105ccfc0c371410d6ad1738689f438c">rcge_camera.h</a></li>
+<li>rcge_camera_create()&#160;:&#160;<a class="el" href="group__cameras.html#gaf92c2a1ef4c145ec9ba62064a96e0a19">rcge_camera.h</a></li>
 <li>rcge_camera_delete()&#160;:&#160;<a class="el" href="group__cameras.html#ga0ee733bb57266d2b6dfd4fc5de872681">rcge_camera.h</a></li>
 <li>rcge_camera_down()&#160;:&#160;<a class="el" href="group__cameras.html#ga9250626dddf286603dbe7a7a6087e8ce">rcge_camera.h</a></li>
 <li>rcge_camera_forward()&#160;:&#160;<a class="el" href="group__cameras.html#ga574f79def0fe48e6ce05d5028098e71e">rcge_camera.h</a></li>
@@ -175,9 +213,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals.html',
 <li>rcge_display_dimensions_get()&#160;:&#160;<a class="el" href="group__master.html#ga2c8e5ca42e814400122cc2926bca690a">rcge_master.h</a></li>
 <li>rcge_display_dimensions_set()&#160;:&#160;<a class="el" href="group__master.html#ga593fab4ee34ae24760bcb7e2f2e2382e">rcge_master.h</a></li>
 <li>rcge_display_mode&#160;:&#160;<a class="el" href="group__master.html#ga8f44cb352cb05dd792f474f4c8584b13">rcge_master.h</a></li>
+<li>rcge_display_mode_get()&#160;:&#160;<a class="el" href="group__master.html#ga999a35a2446ec13210110cbab97485af">rcge_master.h</a></li>
 <li>rcge_display_mode_set()&#160;:&#160;<a class="el" href="group__master.html#ga557615aaff965a32deaa67aa07634094">rcge_master.h</a></li>
 <li>rcge_display_ratio()&#160;:&#160;<a class="el" href="group__master.html#ga28c7d5babe1c2a5b0cc211d3e3fbee1c">rcge_master.h</a></li>
 <li>rcge_display_vsync()&#160;:&#160;<a class="el" href="group__master.html#gaea8d0f44305849873cc682885cac8932">rcge_master.h</a></li>
+<li>RCGE_DOUBLE_ERROR&#160;:&#160;<a class="el" href="group__codes.html#gad6126f91a1464d125499e2316ae21b2f">rcge_codes.h</a></li>
 <li>rcge_element&#160;:&#160;<a class="el" href="group__elements.html#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element.h</a></li>
 <li>rcge_element_attach()&#160;:&#160;<a class="el" href="group__elements.html#ga9fb6e506caa38424e88b71aa146f32c6">rcge_element.h</a></li>
 <li>rcge_element_comp_get()&#160;:&#160;<a class="el" href="group__elements.html#ga63769ced15c7abf72166b57d11263a70">rcge_element.h</a></li>
@@ -197,7 +237,10 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals.html',
 <li>rcge_element_status_callback&#160;:&#160;<a class="el" href="group__elements.html#gaa24402abf82f998956d2d0d3647dc109">rcge_element.h</a></li>
 <li>rcge_element_update()&#160;:&#160;<a class="el" href="group__elements.html#ga66287a114895b04cfdac050e59910aad">rcge_element.h</a></li>
 <li>rcge_element_update_callback&#160;:&#160;<a class="el" href="group__elements.html#ga7a84726421db16230053c9a4160056d7">rcge_element.h</a></li>
+<li>RCGE_FLOAT_ERROR&#160;:&#160;<a class="el" href="group__codes.html#ga1a5be240e121ca166e91d55f00c32517">rcge_codes.h</a></li>
+<li>rcge_icon()&#160;:&#160;<a class="el" href="group__master.html#ga0f8126ed31aaf93d857991e8453fc42e">rcge_master.h</a></li>
 <li>rcge_init()&#160;:&#160;<a class="el" href="group__master.html#ga46787ebd409c66de0c6080b88b594714">rcge_master.h</a></li>
+<li>RCGE_INT_ERROR&#160;:&#160;<a class="el" href="group__codes.html#ga819487f9e798c5df409f93fa6e754877">rcge_codes.h</a></li>
 <li>rcge_io_cursor_mode&#160;:&#160;<a class="el" href="group__io.html#gad7a7edfeebdba03092514b4ba6323b31">rcge_io.h</a></li>
 <li>rcge_io_cursor_mode_set()&#160;:&#160;<a class="el" href="group__io.html#gade55ed1c2c3ad3fbb517a0aafa134273">rcge_io.h</a></li>
 <li>rcge_io_free_image()&#160;:&#160;<a class="el" href="group__io.html#ga99b3eb8833c74c2eee23f8900f15d5ed">rcge_io.h</a></li>
@@ -213,7 +256,8 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals.html',
 <li>rcge_io_read_file_all()&#160;:&#160;<a class="el" href="group__io.html#gac30b4b5de2be3fdcb4d53ef592e16fee">rcge_io.h</a></li>
 <li>rcge_io_read_image()&#160;:&#160;<a class="el" href="group__io.html#ga3edef4d3e4150d11f1c62e12b58f6566">rcge_io.h</a></li>
 <li>rcge_mesh&#160;:&#160;<a class="el" href="group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh.h</a></li>
-<li>rcge_mesh_create()&#160;:&#160;<a class="el" href="group__meshes.html#ga1d4aaf3f0b209d0f1286248515dad054">rcge_mesh.h</a></li>
+<li>rcge_mesh_color_set()&#160;:&#160;<a class="el" href="group__meshes.html#gae1d822eb8599962794f76d085caec54a">rcge_mesh.h</a></li>
+<li>rcge_mesh_create()&#160;:&#160;<a class="el" href="group__meshes.html#ga783adbd64dc6f51c362dc0d4b7e31e02">rcge_mesh.h</a></li>
 <li>rcge_mesh_delete()&#160;:&#160;<a class="el" href="group__meshes.html#ga7bb5554e663434891a8b4e57c73c24b6">rcge_mesh.h</a></li>
 <li>rcge_mesh_draw()&#160;:&#160;<a class="el" href="group__meshes.html#gade5d248ba4125f12dfa6b3b8ad5c0616">rcge_mesh.h</a></li>
 <li>rcge_mesh_draw_type&#160;:&#160;<a class="el" href="group__meshes.html#gac33ea186711f95db334be4e429b018ad">rcge_mesh.h</a></li>
@@ -241,11 +285,18 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals.html',
 <li>rcge_shader_uniform_mat2()&#160;:&#160;<a class="el" href="group__shaders.html#ga5a711252dca5977457ba38286ebbb38c">rcge_shader.h</a></li>
 <li>rcge_shader_uniform_mat3()&#160;:&#160;<a class="el" href="group__shaders.html#gabfe8488b2c1cfd22aa5a4da3bfcd9546">rcge_shader.h</a></li>
 <li>rcge_shader_uniform_mat4()&#160;:&#160;<a class="el" href="group__shaders.html#gaaabeff2e6a918e41cb829e70e5bd323d">rcge_shader.h</a></li>
+<li>rcge_shader_uniform_purpose&#160;:&#160;<a class="el" href="group__shaders.html#ga5df532e6196b81dbc7a524ecfb6f64f9">rcge_shader.h</a></li>
+<li>rcge_shader_uniform_purpose_get()&#160;:&#160;<a class="el" href="group__shaders.html#ga2a7c1e272f8d99f514cfc83972ef3082">rcge_shader.h</a></li>
+<li>rcge_shader_uniform_purpose_set()&#160;:&#160;<a class="el" href="group__shaders.html#gaabe8ccef1926494b98e3064c51a69ca9">rcge_shader.h</a></li>
 <li>rcge_shader_uniform_uint()&#160;:&#160;<a class="el" href="group__shaders.html#gab155517a367a2a2332853e7286506acd">rcge_shader.h</a></li>
 <li>rcge_shader_uniform_vec2()&#160;:&#160;<a class="el" href="group__shaders.html#gab40a8493a0ed4fc36e698e2229144880">rcge_shader.h</a></li>
 <li>rcge_shader_uniform_vec3()&#160;:&#160;<a class="el" href="group__shaders.html#ga65d72c00a434a1de5a8781714003e50e">rcge_shader.h</a></li>
 <li>rcge_shader_uniform_vec4()&#160;:&#160;<a class="el" href="group__shaders.html#gad351e3476890239d984c9c3383270ecb">rcge_shader.h</a></li>
 <li>rcge_shader_use()&#160;:&#160;<a class="el" href="group__shaders.html#ga0303317abc7fcb74551d4777b665d987">rcge_shader.h</a></li>
+<li>rcge_singlemesh_create()&#160;:&#160;<a class="el" href="group__singlemesh.html#ga83d9883dde01517c49c9fa3e05da44f0">rcge_singlemesh_element.h</a></li>
+<li>rcge_singlemesh_create_in_manager()&#160;:&#160;<a class="el" href="group__singlemesh.html#gab862fd1a4cbf15043e1050db475d794b">rcge_singlemesh_element.h</a></li>
+<li>rcge_singlemesh_mesh_get()&#160;:&#160;<a class="el" href="group__singlemesh.html#gade11c87e4e3623c6847d8b806121143a">rcge_singlemesh_element.h</a></li>
+<li>rcge_singlemesh_transform_get()&#160;:&#160;<a class="el" href="group__singlemesh.html#gae7a6394a6e0ee03f14a20dd9dd5c0915">rcge_singlemesh_element.h</a></li>
 <li>rcge_start_callback&#160;:&#160;<a class="el" href="group__master.html#gaacb0254806ba00e67ecd748a3a9dd3ac">rcge_master.h</a></li>
 <li>rcge_status()&#160;:&#160;<a class="el" href="group__master.html#gabf1772aec7e7deb6f7edf45322fcae3d">rcge_master.h</a></li>
 <li>rcge_stop()&#160;:&#160;<a class="el" href="group__master.html#ga50f8a21af93a6ec3653c66e5b3198424">rcge_master.h</a></li>
@@ -277,6 +328,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals.html',
 <li>rcge_transform_scl_get()&#160;:&#160;<a class="el" href="group__transforms.html#ga6dd4135a05bd60dfc352cb64535349a1">rcge_transform.h</a></li>
 <li>rcge_transform_scl_set()&#160;:&#160;<a class="el" href="group__transforms.html#ga31704a5b62977b16b165bd87dc6ca654">rcge_transform.h</a></li>
 <li>rcge_transform_up()&#160;:&#160;<a class="el" href="group__transforms.html#ga2132995d82515a4e95d76a6f5bf1b134">rcge_transform.h</a></li>
+<li>RCGE_UINT_ERROR&#160;:&#160;<a class="el" href="group__codes.html#ga89cf2a2893343ec7a2b277fc9ac01cfd">rcge_codes.h</a></li>
 <li>rcge_update_callback&#160;:&#160;<a class="el" href="group__master.html#gaf3c1081ba8c71c6f7c8ab749f0478b10">rcge_master.h</a></li>
 </ul>
 

@@ -21,10 +21,51 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', init_search);
 </script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <script type="module">
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+const theme = DarkModeToggle.darkModeEnabled ? 'dark' : 'default'
 mermaid.initialize({ startOnLoad: true, theme: theme });
+(function() {
+  const elementCode = '.mermaid';
+  const loadMermaid = function(theme) {
+    mermaid.initialize({theme})
+    mermaid.init({theme}, document.querySelectorAll(elementCode))
+  }
+  const saveOriginalData = function() {
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          element.setAttribute('data-original-code', element.innerHTML)
+          count--
+          if (count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  const resetProcessed = function(){
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          if (element.getAttribute('data-original-code') != null) {
+              element.removeAttribute('data-processed')
+              element.innerHTML = element.getAttribute('data-original-code')
+          }
+          count--
+          if(count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  saveOriginalData()
+  const original = DarkModeToggle.enableDarkMode.bind(DarkModeToggle);
+  DarkModeToggle.enableDarkMode = function(enable) {
+      original(enable);
+      resetProcessed().then(loadMermaid(enable ? 'dark' : 'default')).catch(console.error)
+  };
+})();
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -35,6 +76,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td id="projectalign">
    <div id="projectname">Ray&#39;s C Graphics Engine
    </div>
@@ -120,8 +162,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga1d4aaf3f0b209d0f1286248515dad054" id="r_ga1d4aaf3f0b209d0f1286248515dad054"><td class="memItemLeft"><a class="el" href="group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a>&#160;</td><td class="memItemRight"><a class="el" href="group__meshes.html#ga1d4aaf3f0b209d0f1286248515dad054">rcge_mesh_create</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, int model_uniform_index, <a class="el" href="group__textures.html#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a> texture, float *vertices, unsigned int vertices_size, unsigned int *indices, unsigned int indices_size, <a class="el" href="group__meshes.html#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a> draw_type)</td></tr>
+<tr class="memitem:ga783adbd64dc6f51c362dc0d4b7e31e02" id="r_ga783adbd64dc6f51c362dc0d4b7e31e02"><td class="memItemLeft"><a class="el" href="group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a>&#160;</td><td class="memItemRight"><a class="el" href="group__meshes.html#ga783adbd64dc6f51c362dc0d4b7e31e02">rcge_mesh_create</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, <a class="el" href="group__textures.html#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a> texture, float *vertices, unsigned int vertices_size, unsigned int *indices, unsigned int indices_size, vec4 color, <a class="el" href="group__meshes.html#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a> draw_type)</td></tr>
 <tr class="memitem:ga81c97961bf82159c64164592f2260e57" id="r_ga81c97961bf82159c64164592f2260e57"><td class="memItemLeft"><a class="el" href="group__transforms.html#ga52775277a5189c7eed4487581facb58c">rcge_transform</a>&#160;</td><td class="memItemRight"><a class="el" href="group__meshes.html#ga81c97961bf82159c64164592f2260e57">rcge_mesh_transform_get</a> (<a class="el" href="group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a> mesh)</td></tr>
+<tr class="memitem:gae1d822eb8599962794f76d085caec54a" id="r_gae1d822eb8599962794f76d085caec54a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__meshes.html#gae1d822eb8599962794f76d085caec54a">rcge_mesh_color_set</a> (<a class="el" href="group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a> mesh, vec4 color)</td></tr>
 <tr class="memitem:gade5d248ba4125f12dfa6b3b8ad5c0616" id="r_gade5d248ba4125f12dfa6b3b8ad5c0616"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__meshes.html#gade5d248ba4125f12dfa6b3b8ad5c0616">rcge_mesh_draw</a> (<a class="el" href="group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a> mesh)</td></tr>
 <tr class="memitem:ga7bb5554e663434891a8b4e57c73c24b6" id="r_ga7bb5554e663434891a8b4e57c73c24b6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__meshes.html#ga7bb5554e663434891a8b4e57c73c24b6">rcge_mesh_delete</a> (<a class="el" href="group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a> mesh)</td></tr>
 </table>

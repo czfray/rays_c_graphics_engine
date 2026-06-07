@@ -7,6 +7,7 @@ var rcge__shader_8h =
       [ "SHADER_GEOM", "group__shaders.html#gga9bf06e4fa7cefb1dbef0ff25fa791413a588a457c7600386629596469104dcd0c", null ],
       [ "SHADER_FRAG", "group__shaders.html#gga9bf06e4fa7cefb1dbef0ff25fa791413ab4eb7f7375c39c4ac42fa96cff44cb01", null ]
     ] ],
+    [ "rcge_shader_uniform_purpose", "group__shaders.html#ga5df532e6196b81dbc7a524ecfb6f64f9", null ],
     [ "rcge_shader_comp_create", "group__shaders.html#ga540d2cda52191bfa5523e988be079187", null ],
     [ "rcge_shader_comp_create_file", "group__shaders.html#gafa0c1d7f91ad1e05f8a5632ec40f4b58", null ],
     [ "rcge_shader_comp_delete", "group__shaders.html#gab4c934d784f13ad82bc994c31aa7091d", null ],
@@ -16,6 +17,8 @@ var rcge__shader_8h =
     [ "rcge_shader_use", "group__shaders.html#ga0303317abc7fcb74551d4777b665d987", null ],
     [ "rcge_shader_attrib_set", "group__shaders.html#ga34e533ec09a36523abf99d805f76157f", null ],
     [ "rcge_shader_uniform_loc_set", "group__shaders.html#ga3d14bd61a7e8951a26d2385a0c7f380b", null ],
+    [ "rcge_shader_uniform_purpose_set", "group__shaders.html#gaabe8ccef1926494b98e3064c51a69ca9", null ],
+    [ "rcge_shader_uniform_purpose_get", "group__shaders.html#ga2a7c1e272f8d99f514cfc83972ef3082", null ],
     [ "rcge_shader_color_out_location", "group__shaders.html#gad64854929d77b4c5fb8f76243fd91a6c", null ],
     [ "rcge_shader_delete", "group__shaders.html#ga32c335eba54265f6eac3d550532f29ec", null ],
     [ "rcge_shader_uniform_float", "group__shaders.html#ga3e7fa80f07b6a466a64822d22150dabd", null ],

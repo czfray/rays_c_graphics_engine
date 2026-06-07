@@ -14,8 +14,8 @@ double lastX;
 double lastY;
 
 rcge_shader shader;
-rcge_texture keven_texture;
-unsigned int mesh_element_index;
+rcge_texture test_texture;
+rcge_element mesh_element;
 rcge_camera camera;
 rcge_element_manager element_manager;
 
@@ -24,8 +24,7 @@ void start()
     int frame = 0;
     time = 0;
     printf("Testing app start!\n");
-
-    rcge_shader_uniform_vec4(shader, 3, GLM_VEC4_ONE); //TODO SET MESH COLOR
+    
     rcge_io_mouse_loc(&lastX, &lastY);
 
     float vertices[] =
@@ -82,9 +81,11 @@ void start()
         22, 23, 20
     };
 
-    mesh_element_index = rcge_singlemesh_create_in_manager(element_manager, shader, RCGE_DEF_UNLIT_SHADER_MODEL_UNF, keven_texture, vertices, 120, indices, 36, MESH_STATIC);
+    vec4 color = {1.0f, 1.0f, 1.0f, 1.0f};
 
-    int no = 5;
+    mesh_element = rcge_singlemesh_create_in_manager(element_manager, shader, test_texture, vertices, 120, indices, 36, color, MESH_STATIC, NULL);
+
+    int no = 8;
     for (int k = -no; k < no; k++)
     {
         for (int j = -no; j < no; j++)
@@ -92,10 +93,13 @@ void start()
             for (int i = -no; i < no; i++)
             {
                 if (i == 0 && j == 0 && k == 0) continue;
-                unsigned int index = rcge_singlemesh_create_in_manager(element_manager, shader, RCGE_DEF_UNLIT_SHADER_MODEL_UNF, keven_texture, vertices, 120, indices, 36, MESH_STATIC);
-                rcge_transform transform = rcge_mesh_transform_get(rcge_singlemesh_mesh_get(rcge_element_manager_element_get(element_manager, index)));
+                rcge_element element = rcge_singlemesh_create_in_manager(element_manager, shader, test_texture, vertices, 120, indices, 36, color, MESH_STATIC, NULL);
+                rcge_transform transform = rcge_singlemesh_transform_get(element);
                 vec3 pos = {i * 3, j * 3, k * 3};
                 rcge_transform_pos_set(transform, pos);
+                vec4 rainbow = {(i + no) / ((float) (2*no)), (j + no) / ((float) (2*no)), (k + no) / ((float) (2*no)), 1.0f};
+                rcge_mesh_color_set(rcge_singlemesh_mesh_get(element), rainbow);
+
             }
         }
     }
@@ -114,13 +118,11 @@ void update_fps(double delta_time)
     }
 }
 
-bool fstest = false;
-
 void update(double delta_time)
 {
     if (rcge_io_input_pressed(IO_KEY_ESCAPE)) rcge_stop();
     
-    rcge_transform transform = rcge_mesh_transform_get(rcge_singlemesh_mesh_get(rcge_element_manager_element_get(element_manager, mesh_element_index)));
+    rcge_transform transform = rcge_singlemesh_transform_get(mesh_element);
 
     vec3 x_axis = {1, 0, 0};
     vec3 y_axis = {0, 1, 0};
@@ -221,8 +223,7 @@ void update(double delta_time)
 
     if (rcge_io_input_just_pressed(IO_KEY_F1))
     {
-        fstest = !fstest;
-        rcge_display_mode_set(fstest? DISPLAY_EXCLUSIVE_FULLSCREEN: DISPLAY_WINDOW);
+        rcge_display_mode_set((rcge_display_mode_get() != DISPLAY_BORDERLESS_FULLSCREEN)? DISPLAY_BORDERLESS_FULLSCREEN: DISPLAY_WINDOW);
     }
 
     if (rcge_io_input_just_pressed(IO_KEY_F2))
@@ -242,7 +243,7 @@ void resize(int width, int height)
 
 int main(void)
 {
-    if (!rcge_init(1000, 800, "RCGE Test", true, start, update, resize)) return 1;
+    if (!rcge_init(800, 800 * (9.0f/16), "RCGE Test", true, start, update, resize)) return 1;
 
     rcge_icon("icon.png");
 
@@ -253,23 +254,23 @@ int main(void)
     shader = rcge_default_unlit_shader_create();
     rcge_shader_use(shader);
     
-    camera = rcge_camera_create(shader, RCGE_DEF_UNLIT_SHADER_VIEW_UNF, RCGE_DEF_UNLIT_SHADER_PROJ_UNF, true, 45.0, 0.001, 100.0);
+    camera = rcge_camera_create(shader, true, 45.0, 0.001, 100.0);
     //camera = rcge_camera_create(shader, 1, 2, false, 2.0f, 1.0f, 100.0f, rcge_display_ratio(window));
-    vec3 cam_pos = {0.0f, 0.0f, -2.0};
+    vec3 cam_pos = {0.0f, 0.0f, -2.0f};
     rcge_camera_pos_set(camera, cam_pos);
 
-    keven_texture = rcge_texture_create_file("textures/test.png", TEX_CLAMP_TO_EDGE, TEX_NEAREST);
-    rcge_texture_use(keven_texture);
-    rcge_shader_uniform_int(shader, 4, 0); //OPTIONAL, default is 0 already, only need if multiple texture layer. //TODO THIS IS UGLY AF
+    test_texture = rcge_texture_create_file("textures/test.png", TEX_CLAMP_TO_EDGE, TEX_NEAREST);
+    rcge_texture_use(test_texture);
+    rcge_shader_uniform_int(shader, RCGE_DEF_UNLIT_SHADER_TEXTURE_UNF, 0); //OPTIONAL, default is 0 already, only need if multiple texture layer. //TODO THIS IS UGLY AF
 
-    element_manager = rcge_element_manager_create(128);
+    element_manager = rcge_element_manager_create(1024);
 
     rcge_io_mouse_use_raw(true);
 
     rcge_run();
     
     rcge_element_manager_delete(element_manager);
-    rcge_texture_delete(keven_texture);
+    rcge_texture_delete(test_texture);
     rcge_camera_delete(camera);
     rcge_shader_delete(shader);
     

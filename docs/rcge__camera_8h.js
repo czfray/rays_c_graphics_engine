@@ -1,7 +1,7 @@
 var rcge__camera_8h =
 [
     [ "rcge_camera", "group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d", null ],
-    [ "rcge_camera_create", "group__cameras.html#ga2105ccfc0c371410d6ad1738689f438c", null ],
+    [ "rcge_camera_create", "group__cameras.html#gaf92c2a1ef4c145ec9ba62064a96e0a19", null ],
     [ "rcge_camera_param_set", "group__cameras.html#gaf82f1f57e98fe18ac33e4e91130387b9", null ],
     [ "rcge_camera_fov_size_get", "group__cameras.html#gac4df1f04cccb62ef900a242d82da01f5", null ],
     [ "rcge_camera_fov_size_set", "group__cameras.html#ga36942f0966974f3d6da9adeb26668b38", null ],

@@ -352,6 +352,7 @@ CMakeFiles/rcge.dir/src/rcge_camera.c.obj: C:/Users/user/Main/Projects/C/rays_c_
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec4-ext.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec4.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_camera.h \
+  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_codes.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_datatype.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_master.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_shader.h \
@@ -505,6 +506,7 @@ CMakeFiles/rcge.dir/src/rcge_default_shaders.c.obj: C:/Users/user/Main/Projects/
   C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/xmmintrin.h
 
 CMakeFiles/rcge.dir/src/rcge_element.c.obj: C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/src/rcge_element.c \
+  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_codes.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_element.h \
   C:/msys64/mingw64/include/_mingw.h \
   C:/msys64/mingw64/include/_mingw_mac.h \
@@ -517,6 +519,7 @@ CMakeFiles/rcge.dir/src/rcge_element.c.obj: C:/Users/user/Main/Projects/C/rays_c
   C:/msys64/mingw64/include/errno.h \
   C:/msys64/mingw64/include/limits.h \
   C:/msys64/mingw64/include/malloc.h \
+  C:/msys64/mingw64/include/math.h \
   C:/msys64/mingw64/include/sec_api/stdio_s.h \
   C:/msys64/mingw64/include/sec_api/stdlib_s.h \
   C:/msys64/mingw64/include/stdio.h \
@@ -622,6 +625,7 @@ CMakeFiles/rcge.dir/src/rcge_master.c.obj: C:/Users/user/Main/Projects/C/rays_c_
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec3.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec4-ext.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec4.h \
+  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_codes.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_io.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_master.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/libs/glad/include/KHR/khrplatform.h \
@@ -728,6 +732,7 @@ CMakeFiles/rcge.dir/src/rcge_mesh.c.obj: C:/Users/user/Main/Projects/C/rays_c_gr
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec3.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec4-ext.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec4.h \
+  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_codes.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_datatype.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_mesh.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_shader.h \
@@ -830,6 +835,7 @@ CMakeFiles/rcge.dir/src/rcge_shader.c.obj: C:/Users/user/Main/Projects/C/rays_c_
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec3.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec4-ext.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec4.h \
+  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_codes.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_datatype.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_io.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_master.h \
@@ -1831,6 +1837,8 @@ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/sse2/mat2.h:
 
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/sse2/mat3.h:
+
+C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_codes.h:
 
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/x86.h:
 

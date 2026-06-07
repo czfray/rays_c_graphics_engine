@@ -21,10 +21,51 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', init_search);
 </script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <script type="module">
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+const theme = DarkModeToggle.darkModeEnabled ? 'dark' : 'default'
 mermaid.initialize({ startOnLoad: true, theme: theme });
+(function() {
+  const elementCode = '.mermaid';
+  const loadMermaid = function(theme) {
+    mermaid.initialize({theme})
+    mermaid.init({theme}, document.querySelectorAll(elementCode))
+  }
+  const saveOriginalData = function() {
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          element.setAttribute('data-original-code', element.innerHTML)
+          count--
+          if (count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  const resetProcessed = function(){
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          if (element.getAttribute('data-original-code') != null) {
+              element.removeAttribute('data-processed')
+              element.innerHTML = element.getAttribute('data-original-code')
+          }
+          count--
+          if(count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  saveOriginalData()
+  const original = DarkModeToggle.enableDarkMode.bind(DarkModeToggle);
+  DarkModeToggle.enableDarkMode = function(enable) {
+      original(enable);
+      resetProcessed().then(loadMermaid(enable ? 'dark' : 'default')).catch(console.error)
+  };
+})();
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -35,6 +76,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td id="projectalign">
    <div id="projectname">Ray&#39;s C Graphics Engine
    </div>
@@ -119,11 +161,6 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#gga7a090da8a8dc6768970b4a9ea026832fa9c19d7dbd95c4890af4ea87d34f9a7d9">DATATYPE_UNSIGNED_INT</a>
 , <a class="el" href="#gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a">DATATYPE_FLOAT</a>
 , <a class="el" href="#gga7a090da8a8dc6768970b4a9ea026832fae87ceaa9dfe018d92eacb3db5acf3c48">DATATYPE_DOUBLE</a>
-, <br />
-&#160;&#160;<a class="el" href="#gga7a090da8a8dc6768970b4a9ea026832fab379e64a599cf43fa0cf3e80474915db">DATATYPE_HALF_FLOAT</a>
-, <a class="el" href="#gga7a090da8a8dc6768970b4a9ea026832fa1d94df82dc3fc3e56976eb5741c727d0">DATATYPE_INT_2_10_10_10_REV</a>
-, <a class="el" href="#gga7a090da8a8dc6768970b4a9ea026832faca362402894ab9bcd024bc6d7f45c93d">DATATYPE_UNSIGNED_INT_2_10_10_10_REV</a>
-, <a class="el" href="#gga7a090da8a8dc6768970b4a9ea026832fada3458fe5cbef7c8f04955047e0a153e">DATATYPE_BOOL</a>
 <br />
  }</td></tr>
 </table>
@@ -157,14 +194,6 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a" name="gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a"></a>DATATYPE_FLOAT&#160;</td><td class="fielddoc"><p>Float. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga7a090da8a8dc6768970b4a9ea026832fae87ceaa9dfe018d92eacb3db5acf3c48" name="gga7a090da8a8dc6768970b4a9ea026832fae87ceaa9dfe018d92eacb3db5acf3c48"></a>DATATYPE_DOUBLE&#160;</td><td class="fielddoc"><p>Double. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga7a090da8a8dc6768970b4a9ea026832fab379e64a599cf43fa0cf3e80474915db" name="gga7a090da8a8dc6768970b4a9ea026832fab379e64a599cf43fa0cf3e80474915db"></a>DATATYPE_HALF_FLOAT&#160;</td><td class="fielddoc"><p>Half Float (16-bit). </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga7a090da8a8dc6768970b4a9ea026832fa1d94df82dc3fc3e56976eb5741c727d0" name="gga7a090da8a8dc6768970b4a9ea026832fa1d94df82dc3fc3e56976eb5741c727d0"></a>DATATYPE_INT_2_10_10_10_REV&#160;</td><td class="fielddoc"><p>Integer 2 10 10 10 Rev. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga7a090da8a8dc6768970b4a9ea026832faca362402894ab9bcd024bc6d7f45c93d" name="gga7a090da8a8dc6768970b4a9ea026832faca362402894ab9bcd024bc6d7f45c93d"></a>DATATYPE_UNSIGNED_INT_2_10_10_10_REV&#160;</td><td class="fielddoc"><p>Unsigned Integer 2 10 10 Rev. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga7a090da8a8dc6768970b4a9ea026832fada3458fe5cbef7c8f04955047e0a153e" name="gga7a090da8a8dc6768970b4a9ea026832fada3458fe5cbef7c8f04955047e0a153e"></a>DATATYPE_BOOL&#160;</td><td class="fielddoc"><p>Boolean. </p>
 </td></tr>
 </table>
 

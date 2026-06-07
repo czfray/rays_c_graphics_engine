@@ -102,4 +102,5 @@ CMakeFiles/rcge.dir/src/rcge_camera.c.obj: \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_transform.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_camera.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_shader.h \
- C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_datatype.h
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_datatype.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_codes.h

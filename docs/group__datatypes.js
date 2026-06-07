@@ -8,10 +8,6 @@ var group__datatypes =
       [ "DATATYPE_INT", "group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa098e6f33d7c585447084db3559a2dbb2", null ],
       [ "DATATYPE_UNSIGNED_INT", "group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa9c19d7dbd95c4890af4ea87d34f9a7d9", null ],
       [ "DATATYPE_FLOAT", "group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a", null ],
-      [ "DATATYPE_DOUBLE", "group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fae87ceaa9dfe018d92eacb3db5acf3c48", null ],
-      [ "DATATYPE_HALF_FLOAT", "group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab379e64a599cf43fa0cf3e80474915db", null ],
-      [ "DATATYPE_INT_2_10_10_10_REV", "group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa1d94df82dc3fc3e56976eb5741c727d0", null ],
-      [ "DATATYPE_UNSIGNED_INT_2_10_10_10_REV", "group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832faca362402894ab9bcd024bc6d7f45c93d", null ],
-      [ "DATATYPE_BOOL", "group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fada3458fe5cbef7c8f04955047e0a153e", null ]
+      [ "DATATYPE_DOUBLE", "group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fae87ceaa9dfe018d92eacb3db5acf3c48", null ]
     ] ]
 ];

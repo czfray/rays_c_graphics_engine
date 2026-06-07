@@ -7,6 +7,7 @@ var searchData=
   ['rcge_5fio_5finput_5ftype_4',['rcge_io_input_type',['../group__io.html#gafca963cd0ee56aad497eee0a01c6f75e',1,'rcge_io.h']]],
   ['rcge_5fmesh_5fdraw_5ftype_5',['rcge_mesh_draw_type',['../group__meshes.html#gac33ea186711f95db334be4e429b018ad',1,'rcge_mesh.h']]],
   ['rcge_5fshader_5fcomp_5ftype_6',['rcge_shader_comp_type',['../group__shaders.html#ga9bf06e4fa7cefb1dbef0ff25fa791413',1,'rcge_shader.h']]],
-  ['rcge_5ftexture_5ffilter_5ftype_7',['rcge_texture_filter_type',['../group__textures.html#ga9674787010c192c7be9a11cdc6b6c2db',1,'rcge_texture.h']]],
-  ['rcge_5ftexture_5fwrap_5ftype_8',['rcge_texture_wrap_type',['../group__textures.html#ga4d9ab0ca8007ed3cd31389dab146f7de',1,'rcge_texture.h']]]
+  ['rcge_5fshader_5funiform_5fpurpose_7',['rcge_shader_uniform_purpose',['../group__shaders.html#ga5df532e6196b81dbc7a524ecfb6f64f9',1,'rcge_shader.h']]],
+  ['rcge_5ftexture_5ffilter_5ftype_8',['rcge_texture_filter_type',['../group__textures.html#ga9674787010c192c7be9a11cdc6b6c2db',1,'rcge_texture.h']]],
+  ['rcge_5ftexture_5fwrap_5ftype_9',['rcge_texture_wrap_type',['../group__textures.html#ga4d9ab0ca8007ed3cd31389dab146f7de',1,'rcge_texture.h']]]
 ];

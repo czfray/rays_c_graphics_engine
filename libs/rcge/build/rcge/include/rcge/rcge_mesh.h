@@ -90,12 +90,13 @@
  * But a clockwise order is recommended, since if backface culling is enabled, only clockwise ordered will be regarded as front-facing, and only front-facing shapes are rendered.
  * 
  * To see the specific implementation of mesh creation with a vertices and an index data array, go to @ref rcge_mesh_create. 
- * To draw a mesh, you need to run @ref rcge_draw_mesh every frame.
+ * To draw a mesh, you need to run @ref rcge_mesh_draw every frame.
 **/
 
 #include <rcge/rcge_shader.h>
 #include <rcge/rcge_transform.h>
 #include <rcge/rcge_texture.h>
+#include <cglm/cglm.h>
 
 /**
  * @ingroup meshes
@@ -118,17 +119,17 @@ typedef enum
  * @ingroup meshes
  * @brief Creates a mesh.
  * @param[in] shader Shader the mesh to be created uses. 
- * @param[in] model_uniform_index The index of the uniform for model matrix in `shader`.
  * @param[in] texture The texture of the mesh to be created.
  * @param[in] vertices The vertex data array for the mesh to be created.
  * @param[in] vertices_size The array size (number of floats) of `vertices`.
  * @param[in] indices The index data array for the mesh to be created.
  * @param[in] indices_size The array size (number of integers) of `indices`.
+ * @param[in] color The color you want to multiply to the mesh to be created.
  * @param[in] draw_type Draw frequency type of the mesh to be created. See @ref rcge_mesh_draw_type to see which one to choose.
  * @return The mesh created, NULL if failed.
  * @note Ensure the intended shader is currently active before creating the mesh by using @ref rcge_shader_use.
 **/
-rcge_mesh rcge_mesh_create(rcge_shader shader, int model_uniform_index, rcge_texture texture, float* vertices, unsigned int vertices_size, unsigned int* indices, unsigned int indices_size, rcge_mesh_draw_type draw_type);
+rcge_mesh rcge_mesh_create(rcge_shader shader, rcge_texture texture, float* vertices, unsigned int vertices_size, unsigned int* indices, unsigned int indices_size, vec4 color, rcge_mesh_draw_type draw_type);
 
 /**
  * @ingroup meshes
@@ -137,6 +138,14 @@ rcge_mesh rcge_mesh_create(rcge_shader shader, int model_uniform_index, rcge_tex
  * @return The transform of the specified mesh, NULL if failed.
 **/
 rcge_transform rcge_mesh_transform_get(rcge_mesh mesh);
+
+/**
+ * @ingroup meshes
+ * @brief Set a color for a specific mesh.
+ * @param[in] mesh The mesh to access.
+ * @param[in] color The color to set to.
+**/
+void rcge_mesh_color_set(rcge_mesh mesh, vec4 color);
 
 /**
  * @ingroup meshes

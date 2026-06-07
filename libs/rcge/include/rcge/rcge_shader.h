@@ -21,7 +21,7 @@
  * 6. Use shader (See @ref rcge_shader_use)
  * 
  * An example has been provided in section @ref shaders_example.
- * <hr>
+ *
  * @subsection shaders_comp Shader Components and Pipeline
  * A shader is needed to be consisted of at least 2 components: a vertex, and a fragment component.
  * If you want, you can additionally make use of a geometric component.
@@ -38,7 +38,7 @@
  * 5. Renders the colors obtained from the shader to the screen
  * 
  * i.e Mesh Vertices Data [Shader Input] --> Vertex Component -> Geometric Component (Opt.) -> Shape Assembly & Rasterisation (Auto.) -> Fragment Shader --> [Shader Output] Graphics Rendered
- * <hr>
+ *
  * @subsection shaders_comp_source Shader Component Code (GLSL)
  * In order to create your own shader component, you will need to write **GLSL (OpenGL Shader Language)** source code for it. Then, call @ref rcge_shader_comp_create to load it into the engine.
  * 
@@ -221,6 +221,18 @@ typedef struct rcge_shader_CDT* rcge_shader;
 
 /**
  * @ingroup shaders
+ * @brief Types of purpose of different shader attributes.
+**/
+typedef enum
+{
+    SHADER_UNIFORM_MODEL,
+    SHADER_UNIFORM_VIEW,
+    SHADER_UNIFORM_PROJECTION,
+    SHADER_UNIFORM_COLOR
+} rcge_shader_uniform_purpose;
+
+/**
+ * @ingroup shaders
  * @brief Creates a shader. 
  * @param[in] attrib_no Number of attributes that the new shader will have.
  * @param[in] uniform_no Number of uniforms that the new shader will have.
@@ -266,8 +278,8 @@ void rcge_shader_use(rcge_shader shader);
  * @param[in] size The number of data the attribute to be initialised has. 
  * @param[in] type The datatype of the attribute to be initialised. See @ref rcge_datatype to see what to input here for each datatype.
  * @param[in] normalised Whether you want the attribute to be normalised. 
- * @note Regarding @ref size: Attributes containing either 5 floats, ints or bools have all have size 5. The sizeof datatype does not matter here.
- * @note Regarding @ref normalised: Normalised attribute example -> Passing vec3(128, 128, 128) to a normalised attribute would become vec3(1, 1, 1)
+ * @note Regarding `size`: Attributes containing either 5 floats, ints or bools have all have size 5. The sizeof datatype does not matter here.
+ * @note Regarding `normalised`: Normalised attribute example -> Passing vec3(128, 128, 128) to a normalised attribute would become vec3(1, 1, 1)
 **/
 void rcge_shader_attrib_set(rcge_shader shader, unsigned int index, char* name, unsigned int size, rcge_datatype type, bool normalised);
 
@@ -283,6 +295,32 @@ void rcge_shader_attrib_set(rcge_shader shader, unsigned int index, char* name, 
  * @param[in] name The name of the uniform to be initialised set in the source code of the shaders' components.
 **/
 void rcge_shader_uniform_loc_set(rcge_shader shader, unsigned int index, char* name);
+
+
+/**
+ * @ingroup shaders
+ * @brief Set a purpose for a specific shader uniform with it's index. Only one index per purpose.
+ * 
+ * A purpose is set so that meshes or cameras can access the uniforms automatically.
+ * 
+ * @param[in] shader The shader that is having its uniform purpose set.
+ * @param[in] index The index of the uniform that you want to set it's purpose.
+ * @param[in] purpose The purpose you want to set to the specified uniform.
+**/
+void rcge_shader_uniform_purpose_set(rcge_shader shader, unsigned int index, rcge_shader_uniform_purpose purpose);
+
+/**
+ * @ingroup shaders
+ * @brief Get index of the shader uniform with a specific purpose.
+ * 
+ * A purpose is set so that meshes or cameras can access the uniforms automatically.
+ * 
+ * @param[in] shader The shader you want to access.
+ * @param[in] purpose The purpose of the uniform you want to get.
+ * @return The index of the shader uniform with the specific purpose, @ref RCGE_UINT_ERROR if uniform of specified purpose is not set or failed.
+**/
+unsigned int rcge_shader_uniform_purpose_get(rcge_shader shader, rcge_shader_uniform_purpose purpose);
+
 
 /**
  * @ingroup shaders

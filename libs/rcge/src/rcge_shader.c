@@ -4,6 +4,7 @@
 #include <rcge/rcge_datatype.h>
 #include <rcge/rcge_shader.h>
 #include <rcge/rcge_io.h>
+#include <rcge/rcge_codes.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,6 +12,7 @@
 #include <stdbool.h>
 
 #define BUFFERSIZE 512
+#define UNIFORM_PURPOSE_NO 4
 
 struct rcge_shader_comp_CDT
 {
@@ -29,15 +31,20 @@ typedef struct
 struct rcge_shader_CDT
 {
     rcge_shader_attrib* attribs;
+    int* uniform_locs;
+    unsigned int* uniform_purposes;
     GLuint gl_shader_program;
     unsigned int attrib_no;
-    int* uniform_locs;
+    unsigned int uniform_no;
 };
 
 GLenum gl_shader_type(rcge_shader_comp_type type) {return (type == SHADER_VERT? GL_VERTEX_SHADER: (type == SHADER_GEOM? GL_GEOMETRY_SHADER: GL_FRAGMENT_SHADER));}
 
 rcge_shader_comp rcge_shader_comp_create(const char* code, rcge_shader_comp_type type)
 {
+    rcge_shader_comp shader_comp = malloc(sizeof(*shader_comp));
+    if (shader_comp == NULL) {printf("[RCGE Shader] Shader component creation failed: malloc failed.\n"); return NULL;}
+
     GLuint gl_shader = glCreateShader(gl_shader_type(type));
     glShaderSource(gl_shader, 1, &code, NULL);
     glCompileShader(gl_shader);
@@ -49,9 +56,8 @@ rcge_shader_comp rcge_shader_comp_create(const char* code, rcge_shader_comp_type
     glGetShaderInfoLog(gl_shader, BUFFERSIZE, NULL, compile_log);
     if (strlen(compile_log) > 0) printf("[RCGE Shader] Shader component %d compilation log => %s", gl_shader, compile_log);
 
-    if (compile_status == GL_FALSE) {printf("[RCGE Shader] Shader component %d failed to be created: compilation failed.\n", gl_shader); return NULL;}
+    if (compile_status == GL_FALSE) {printf("[RCGE Shader] Shader component %d failed to be created: compilation failed.\n", gl_shader); free(shader_comp); return NULL;}
 
-    rcge_shader_comp shader_comp = malloc(sizeof(*shader_comp));
     shader_comp->gl_shader = gl_shader;
 
     printf("[RCGE Shader] Shader component %d created.\n", gl_shader);
@@ -79,17 +85,27 @@ void rcge_shader_comp_delete(rcge_shader_comp shader_comp)
 
 rcge_shader rcge_shader_create(unsigned int attrib_no, unsigned int uniform_no)
 {
-    //TODO: TEST MALLOC AND ATTRIB SIZE
-    GLuint gl_shader_program = glCreateProgram();
     rcge_shader shader = malloc(sizeof(*shader));
+    if (shader == NULL) {printf("[RCGE Shader] Shader creation failed: malloc failed.\n"); return NULL;}
+    rcge_shader_attrib* attribs = malloc(attrib_no * sizeof(rcge_shader_attrib));
+    if (attribs == NULL) {printf("[RCGE Shader] Shader creation failed: attribs array malloc failed.\n"); free(shader); return NULL;}
+    unsigned int* uniform_purposes = malloc(UNIFORM_PURPOSE_NO * sizeof(unsigned int));
+    if (uniform_purposes == NULL) {printf("[RCGE Shader] Shader creation failed: uniform purposes purpose array malloc failed.\n"); free(attribs); free(shader); return NULL;}
+    unsigned int* uniform_locs = malloc(uniform_no * sizeof(unsigned int));
+    if (uniform_locs == NULL) {printf("[RCGE Shader] Shader creation failed: uniform locations array malloc failed.\n"); free(uniform_purposes); (attribs); free(shader); return NULL;}
+
+    GLuint gl_shader_program = glCreateProgram();
     shader->gl_shader_program = gl_shader_program;
 
-    rcge_shader_attrib* attribs = malloc(attrib_no * sizeof(rcge_shader_attrib));
     shader->attribs = attribs;
     shader->attrib_no = attrib_no;
     for (int i = 0; i < attrib_no; i++) {(shader->attribs)[i].valid = false;}
 
-    shader->uniform_locs = malloc(uniform_no * sizeof(int));
+    shader->uniform_locs = uniform_locs;
+    shader->uniform_no = uniform_no;
+
+    shader->uniform_purposes = uniform_purposes;
+    for (int i = 0; i < UNIFORM_PURPOSE_NO; i++) {(shader->uniform_purposes)[i] = RCGE_UINT_ERROR;}
 
     printf("[RCGE Shader] Shader %d created with %d attributes.\n", gl_shader_program, attrib_no);
     return shader;
@@ -109,12 +125,28 @@ void rcge_shader_attach(rcge_shader shader, rcge_shader_comp shader_comp)
 void rcge_shader_attrib_set(rcge_shader shader, unsigned int index, char* name, unsigned int size, rcge_datatype type, bool normalised)
 {
     if (shader == NULL) {printf("[RCGE Shader] Shader attrib set failed: shader does not exist.\n"); return;}
+    unsigned int attrib_no = shader->attrib_no;
+    if (index >= attrib_no) {printf("[RCGE Shader] Shader attrib set failed: attrib index %d is out of bounds. (attrib_no = %d)\n", index, attrib_no); return;}
 
     GLuint gl_shader_program = shader->gl_shader_program;
     GLint gl_attrib_pos = glGetAttribLocation(gl_shader_program, name);
     rcge_shader_attrib attrib = {true, normalised, type, size, gl_attrib_pos};
-    (shader->attribs)[index] = attrib; //TODO: CHECK IF INDEX OUT OF RANGE
+    (shader->attribs)[index] = attrib;
     printf("[RCGE Shader] Shader %d added attrib \"%s\".\n", gl_shader_program, name);
+}
+
+void rcge_shader_uniform_purpose_set(rcge_shader shader, unsigned int index, rcge_shader_uniform_purpose purpose)
+{
+    if (shader == NULL) {printf("[RCGE Shader] Shader uniform index purpose set failed: shader does not exist.\n"); return;}
+    unsigned int uniform_no = shader->uniform_no;
+    if (index >= uniform_no) {printf("[RCGE Shader] Shader uniform index purpose set failed: uniform index %d is out of bounds. (uniform_no = %d)\n", index, uniform_no); return;}
+    shader->uniform_purposes[(unsigned int) purpose] = index;
+}
+
+unsigned int rcge_shader_uniform_purpose_get(rcge_shader shader, rcge_shader_uniform_purpose purpose)
+{
+    if (shader == NULL) {printf("[RCGE Shader] Shader uniform index get with purpose failed: shader does not exist.\n"); return RCGE_UINT_ERROR;}
+    return shader->uniform_purposes[(unsigned int) purpose];
 }
 
 void rcge_shader_attrib_activate_mesh(rcge_shader shader)
@@ -149,8 +181,10 @@ void rcge_shader_attrib_activate_mesh(rcge_shader shader)
 
 void rcge_shader_uniform_loc_set(rcge_shader shader, unsigned int index, char* name)
 {
-    //TODO: TEST IF INDEX OUT OF BOUNDS
     if (shader == NULL) {printf("[RCGE Shader] Shader uniform loc set failed: shader does not exist.\n");}
+    unsigned int uniform_no = shader->uniform_no;
+    if (index >= uniform_no) {printf("[RCGE Shader] Shader uniform loc set failed: uniform index %d is out of bounds. (uniform_no = %d)\n", index, uniform_no); return;}
+
     (shader->uniform_locs)[index] = glGetUniformLocation(shader->gl_shader_program, name);
     printf("[RCGE Shader] Shader uniform loc with name \"%s\" set at index %d\n", name, index);
 }
@@ -203,23 +237,82 @@ void rcge_shader_color_out_location(rcge_shader shader, unsigned int color_no, c
 
 int rcge_shader_uniform_index_to_loc(rcge_shader shader, unsigned int index)
 {
-    //TODO: do bounds check
-    if (shader == NULL) {printf("[RCGE Shader] Shader uniform index to loc failed: shader does not exist.\n");}
+    if (shader == NULL) {printf("[RCGE Shader] Shader uniform index to loc failed: shader does not exist.\n"); return RCGE_INT_ERROR;}
+    unsigned int uniform_no = shader->uniform_no;
+    if (index >= uniform_no) {printf("[RCGE Shader] Shader uniform index to loc failed: uniform index %d is out of bounds. (uniform_no = %d)\n", index, uniform_no); return RCGE_INT_ERROR;}
+
     return (shader->uniform_locs)[index];
 }
 
-
-void rcge_shader_uniform_float(rcge_shader shader, unsigned int uniform_loc_index, float value){glUniform1f(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value);}
-void rcge_shader_uniform_vec2(rcge_shader shader, unsigned int uniform_loc_index, vec2 value) {glUniform2f(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value[0], value[1]);}
-void rcge_shader_uniform_vec3(rcge_shader shader, unsigned int uniform_loc_index, vec3 value) {glUniform3f(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value[0], value[1], value[2]);}
-void rcge_shader_uniform_vec4(rcge_shader shader, unsigned int uniform_loc_index, vec4 value) {glUniform4f(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value[0], value[1], value[2], value[3]);}
-void rcge_shader_uniform_int(rcge_shader shader, unsigned int uniform_loc_index, int value) {glUniform1i(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value);}
-void rcge_shader_uniform_ivec2(rcge_shader shader, unsigned int uniform_loc_index, ivec2 value) {glUniform2i(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value[0], value[1]);}
-void rcge_shader_uniform_ivec3(rcge_shader shader, unsigned int uniform_loc_index, ivec3 value) {glUniform3i(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value[0], value[1], value[2]);}
-void rcge_shader_uniform_ivec4(rcge_shader shader, unsigned int uniform_loc_index, ivec4 value) {glUniform4i(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value[0], value[1], value[2], value[3]);}
-void rcge_shader_uniform_uint(rcge_shader shader, unsigned int uniform_loc_index, unsigned int value) {glUniform1ui(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), value);}
-void rcge_shader_uniform_mat2(rcge_shader shader, unsigned int uniform_loc_index, mat2 value) {glUniformMatrix2fv(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), 1, GL_FALSE, (float*) value);}
-void rcge_shader_uniform_mat3(rcge_shader shader, unsigned int uniform_loc_index, mat3 value) {glUniformMatrix3fv(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), 1, GL_FALSE, (float*) value);}
-void rcge_shader_uniform_mat4(rcge_shader shader, unsigned int uniform_loc_index, mat4 value) {glUniformMatrix4fv(rcge_shader_uniform_index_to_loc(shader, uniform_loc_index), 1, GL_FALSE, (float*) value);}
-
-//TODO: NOT ALL UNIFORM ADDED: no uvecs and arrays
+void rcge_shader_uniform_float(rcge_shader shader, unsigned int uniform_loc_index, float value)
+{
+    int index = rcge_shader_uniform_index_to_loc(shader, uniform_loc_index);
+    if (index == RCGE_INT_ERROR) {printf("[RCGE Shader] Shader uniform set failed: uniform location index invalid.\n"); return;}
+    glUniform1f(index, value);
+}
+void rcge_shader_uniform_vec2(rcge_shader shader, unsigned int uniform_loc_index, vec2 value)
+{
+    int index = rcge_shader_uniform_index_to_loc(shader, uniform_loc_index);
+    if (index == RCGE_INT_ERROR) {printf("[RCGE Shader] Shader uniform set failed: uniform location index invalid.\n"); return;}
+    glUniform2f(index, value[0], value[1]);
+}
+void rcge_shader_uniform_vec3(rcge_shader shader, unsigned int uniform_loc_index, vec3 value)
+{
+    int index = rcge_shader_uniform_index_to_loc(shader, uniform_loc_index);
+    if (index == RCGE_INT_ERROR) {printf("[RCGE Shader] Shader uniform set failed: uniform location index invalid.\n"); return;}
+    glUniform3f(index, value[0], value[1], value[2]);
+}
+void rcge_shader_uniform_vec4(rcge_shader shader, unsigned int uniform_loc_index, vec4 value)
+{
+    int index = rcge_shader_uniform_index_to_loc(shader, uniform_loc_index);
+    if (index == RCGE_INT_ERROR) {printf("[RCGE Shader] Shader uniform set failed: uniform location index invalid.\n"); return;}
+    glUniform4f(index, value[0], value[1], value[2], value[3]);
+}
+void rcge_shader_uniform_int(rcge_shader shader, unsigned int uniform_loc_index, int value)
+{
+    int index = rcge_shader_uniform_index_to_loc(shader, uniform_loc_index);
+    if (index == RCGE_INT_ERROR) {printf("[RCGE Shader] Shader uniform set failed: uniform location index invalid.\n"); return;}
+    glUniform1i(index, value);
+}
+void rcge_shader_uniform_ivec2(rcge_shader shader, unsigned int uniform_loc_index, ivec2 value)
+{
+    int index = rcge_shader_uniform_index_to_loc(shader, uniform_loc_index);
+    if (index == RCGE_INT_ERROR) {printf("[RCGE Shader] Shader uniform set failed: uniform location index invalid.\n"); return;}
+    glUniform2i(index, value[0], value[1]);
+}
+void rcge_shader_uniform_ivec3(rcge_shader shader, unsigned int uniform_loc_index, ivec3 value)
+{
+    int index = rcge_shader_uniform_index_to_loc(shader, uniform_loc_index);
+    if (index == RCGE_INT_ERROR) {printf("[RCGE Shader] Shader uniform set failed: uniform location index invalid.\n"); return;}
+    glUniform3i(index, value[0], value[1], value[2]);
+}
+void rcge_shader_uniform_ivec4(rcge_shader shader, unsigned int uniform_loc_index, ivec4 value)
+{
+    int index = rcge_shader_uniform_index_to_loc(shader, uniform_loc_index);
+    if (index == RCGE_INT_ERROR) {printf("[RCGE Shader] Shader uniform set failed: uniform location index invalid.\n"); return;}
+    glUniform4i(index, value[0], value[1], value[2], value[3]);
+}
+void rcge_shader_uniform_uint(rcge_shader shader, unsigned int uniform_loc_index, unsigned int value)
+{
+    int index = rcge_shader_uniform_index_to_loc(shader, uniform_loc_index);
+    if (index == RCGE_INT_ERROR) {printf("[RCGE Shader] Shader uniform set failed: uniform location index invalid.\n"); return;}
+    glUniform1ui(index, value);
+}
+void rcge_shader_uniform_mat2(rcge_shader shader, unsigned int uniform_loc_index, mat2 value)
+{
+    int index = rcge_shader_uniform_index_to_loc(shader, uniform_loc_index);
+    if (index == RCGE_INT_ERROR) {printf("[RCGE Shader] Shader uniform set failed: uniform location index invalid.\n"); return;}
+    glUniformMatrix2fv(index, 1, GL_FALSE, (float *)value);
+}
+void rcge_shader_uniform_mat3(rcge_shader shader, unsigned int uniform_loc_index, mat3 value)
+{
+    int index = rcge_shader_uniform_index_to_loc(shader, uniform_loc_index);
+    if (index == RCGE_INT_ERROR) {printf("[RCGE Shader] Shader uniform set failed: uniform location index invalid.\n"); return;}
+    glUniformMatrix3fv(index, 1, GL_FALSE, (float *)value);
+}
+void rcge_shader_uniform_mat4(rcge_shader shader, unsigned int uniform_loc_index, mat4 value)
+{
+    int index = rcge_shader_uniform_index_to_loc(shader, uniform_loc_index);
+    if (index == RCGE_INT_ERROR) {printf("[RCGE Shader] Shader uniform set failed: uniform location index invalid.\n"); return;}
+    glUniformMatrix4fv(index, 1, GL_FALSE, (float *)value);
+}

@@ -21,10 +21,51 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', init_search);
 </script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <script type="module">
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+const theme = DarkModeToggle.darkModeEnabled ? 'dark' : 'default'
 mermaid.initialize({ startOnLoad: true, theme: theme });
+(function() {
+  const elementCode = '.mermaid';
+  const loadMermaid = function(theme) {
+    mermaid.initialize({theme})
+    mermaid.init({theme}, document.querySelectorAll(elementCode))
+  }
+  const saveOriginalData = function() {
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          element.setAttribute('data-original-code', element.innerHTML)
+          count--
+          if (count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  const resetProcessed = function(){
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          if (element.getAttribute('data-original-code') != null) {
+              element.removeAttribute('data-processed')
+              element.innerHTML = element.getAttribute('data-original-code')
+          }
+          count--
+          if(count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  saveOriginalData()
+  const original = DarkModeToggle.enableDarkMode.bind(DarkModeToggle);
+  DarkModeToggle.enableDarkMode = function(enable) {
+      original(enable);
+      resetProcessed().then(loadMermaid(enable ? 'dark' : 'default')).catch(console.error)
+  };
+})();
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -35,6 +76,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td id="projectalign">
    <div id="projectname">Ray&#39;s C Graphics Engine
    </div>
@@ -117,7 +159,7 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga2105ccfc0c371410d6ad1738689f438c" id="r_ga2105ccfc0c371410d6ad1738689f438c"><td class="memItemLeft"><a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga2105ccfc0c371410d6ad1738689f438c">rcge_camera_create</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, unsigned int view_uniform_index, unsigned int proj_uniform_index, bool is_perspective, double size_or_fov, double near, double far)</td></tr>
+<tr class="memitem:gaf92c2a1ef4c145ec9ba62064a96e0a19" id="r_gaf92c2a1ef4c145ec9ba62064a96e0a19"><td class="memItemLeft"><a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a>&#160;</td><td class="memItemRight"><a class="el" href="#gaf92c2a1ef4c145ec9ba62064a96e0a19">rcge_camera_create</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, bool is_perspective, double size_or_fov, double near, double far)</td></tr>
 <tr class="memitem:gaf82f1f57e98fe18ac33e4e91130387b9" id="r_gaf82f1f57e98fe18ac33e4e91130387b9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gaf82f1f57e98fe18ac33e4e91130387b9">rcge_camera_param_set</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, bool is_perspective, double size_or_fov, double near, double far)</td></tr>
 <tr class="memitem:gac4df1f04cccb62ef900a242d82da01f5" id="r_gac4df1f04cccb62ef900a242d82da01f5"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#gac4df1f04cccb62ef900a242d82da01f5">rcge_camera_fov_size_get</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera)</td></tr>
 <tr class="memitem:ga36942f0966974f3d6da9adeb26668b38" id="r_ga36942f0966974f3d6da9adeb26668b38"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga36942f0966974f3d6da9adeb26668b38">rcge_camera_fov_size_set</a> (<a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, double size_or_fov)</td></tr>
@@ -153,8 +195,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ga2105ccfc0c371410d6ad1738689f438c" name="ga2105ccfc0c371410d6ad1738689f438c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2105ccfc0c371410d6ad1738689f438c">&#9670;&#160;</a></span>rcge_camera_create()</h2>
+<a id="gaf92c2a1ef4c145ec9ba62064a96e0a19" name="gaf92c2a1ef4c145ec9ba62064a96e0a19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf92c2a1ef4c145ec9ba62064a96e0a19">&#9670;&#160;</a></span>rcge_camera_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -163,16 +205,6 @@ Functions</h2></td></tr>
           <td class="memname"><a class="el" href="#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> rcge_camera_create </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a></td>          <td class="paramname"><span class="paramname"><em>shader</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>view_uniform_index</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>proj_uniform_index</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -201,8 +233,6 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">shader</td><td>The shader to use for the camera. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">view_uniform_index</td><td>The index of the view matrix uniform in the shader used. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">proj_uniform_index</td><td>The index of the projection matrix uniform in the shader used. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">is_perspective</td><td>Whether the camera is perspective (3D) or orthogonal (Flat 2D). </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">size_or_fov</td><td>The fov (in radians, if perspective) or the size (if orthogonal) you want the camera to have. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">near</td><td>The near plane of the camera. Things with less distance of <span class="tt">near</span> units from the camera would not be rendered. </td></tr>
@@ -286,7 +316,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The fov (if perspective) or size (if orthogonal) of a specified camera, NAN if failed. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The fov (if perspective) or size (if orthogonal) of a specified camera, <a class="el" href="group__codes.html#gad6126f91a1464d125499e2316ae21b2f" title="RCGE_DOUBLE_ERROR">RCGE_DOUBLE_ERROR</a> if failed. </dd></dl>
 
 </div>
 </div>
@@ -344,6 +374,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">camera</td><td>The camera to change. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ratio</td><td>The aspect ratio of the screen. </td></tr>
   </table>
   </dd>
 </dl>

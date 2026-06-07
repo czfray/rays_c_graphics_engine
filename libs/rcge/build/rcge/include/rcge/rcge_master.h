@@ -14,8 +14,6 @@
 
 #include <stdbool.h>
 
-#define RCGE_UINT_ERROR (unsigned int) -1   
-
 /**
  * @ingroup master
  * Function pointer representing callbacks executed when rcge starts running. (When @ref rcge_run is called)
@@ -89,13 +87,18 @@ void rcge_terminate(void);
 **/
 bool rcge_status(void);
 
+/**
+ * @ingroup master
+ * @brief Set the icon of the window to an image file.
+ * @param[in] path The relative path of the image file you want to set as icon.
+**/
 void rcge_icon(char* path);
 
 /**
  * @ingroup master
  * @brief Get the current dimensions of the RCGE display.
- * @param[out] width The width of the RCGE display.
- * @param[out] height The height of the RCGE display.
+ * @param[out] width The width of the RCGE display. NULL if not needed.
+ * @param[out] height The height of the RCGE display. NULL if not needed.
 **/
 void rcge_display_dimensions_get(unsigned int* width, unsigned int* height);
 
@@ -111,9 +114,16 @@ void rcge_display_dimensions_set(unsigned int width, unsigned int height);
 /**
  * @ingroup master
  * @brief Get the aspect ratio (width/height) of the RCGE display.
- * @return The aspect ratio of the RCGE display.
+ * @return The aspect ratio of the RCGE display, @ref RCGE_DOUBLE_ERROR if RCGE not initialised.
 **/
 double rcge_display_ratio(void);
+
+/**
+ * @ingroup master
+ * @brief Get the current display mode of RCGE. (Windowed, Exclusive Fullscreen, Borderless Fullscreen)
+ * @return The current display mode of RCGE. 
+**/
+rcge_display_mode rcge_display_mode_get(void);
 
 /**
  * @ingroup master

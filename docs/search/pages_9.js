@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['output_20and_20color_20buffer_0',['Shaders Output and Color Buffer',['../group__shaders.html#shaders_colorout',1,'']]]
+  ['pipeline_0',['Shader Components and Pipeline',['../group__shaders.html#shaders_comp',1,'']]]
 ];

@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['getting_20started_0',['01 Getting Started',['../guide01.html',1,'']]],
-  ['glsl_1',['Shader Component Code (GLSL)',['../group__shaders.html#shaders_comp_source',1,'']]],
-  ['graphics_20engine_20rcge_2',['Ray&apos;s C Graphics Engine (RCGE)',['../index.html',1,'']]],
-  ['guide_3',['RCGE Usage Guide',['../index.html#guidetoc',1,'']]]
+  ['index_20data_20array_0',['Index Data Array',['../group__meshes.html#meshes_indices',1,'']]],
+  ['info_1',['Creation Info',['../index.html#info',1,'']]]
 ];

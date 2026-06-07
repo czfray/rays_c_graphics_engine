@@ -26,7 +26,6 @@ var NAVTREE =
 [
   [ "Ray's C Graphics Engine", "index.html", [
     [ "Ray's C Graphics Engine (RCGE)", "index.html", "index" ],
-    [ "01 Getting Started", "guide01.html", null ],
     [ "Topics", "topics.html", "topics" ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],

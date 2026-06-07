@@ -5,6 +5,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stbi/stb_image.h>
 #include <rcge/rcge_io.h>
+#include <rcge/rcge_codes.h>
 #include <cglm/cglm.h>
 
 typedef struct
@@ -24,7 +25,7 @@ typedef struct
     bool status;
 } rcge_state;
 
-rcge_state current_state = {NULL, 0, NULL, NULL, NULL, 0, 0, false};
+rcge_state current_state = {NULL, 0, NULL, NULL, NULL, DISPLAY_WINDOW, 0, 0, 0, 0, 0, 0, false};
 
 void gl_resize(GLFWwindow *gl_window, int width, int height)
 {
@@ -86,9 +87,12 @@ bool rcge_init(int width, int height, const char *title, bool resizable, rcge_st
 
     glEnable(GL_DEPTH_TEST);
 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW); // Front faces should be drawn clockwise even if I set it to CCW here because in RCGE, +X is TO THE LEFT (FLIPPED).
-
+    
     // STBI Initialisation
     stbi_set_flip_vertically_on_load(1);
 
@@ -169,8 +173,15 @@ bool rcge_status(void)
 
 void rcge_icon(char* path)
 {
+    if (!current_state.status)
+    {
+        printf("[RCGE Master] RCGE icon set failed: RCGE is not initialised.\n");
+        return;
+    }
     GLFWimage image; int c;
+    stbi_set_flip_vertically_on_load(0);
     image.pixels = rcge_io_read_image(path, &image.width, &image.height, NULL, 4);
+    stbi_set_flip_vertically_on_load(1);
     if (image.pixels == NULL) {printf("[RCGE Master] Set icon failed: cannot read image file."); return;}
     glfwSetWindowIcon(current_state.gl_window, 1, &image);
 }
@@ -182,8 +193,8 @@ void rcge_display_dimensions(unsigned int *width, unsigned int *height)
         printf("[RCGE Master] RCGE get window dimensions get failed: RCGE is not initialised.\n");
         return;
     }
-    *width = current_state.width;
-    *height = current_state.height;
+    if (width != NULL) *width = current_state.width;
+    if (height != NULL) *height = current_state.height;
 }
 
 double rcge_display_ratio(void)
@@ -191,7 +202,7 @@ double rcge_display_ratio(void)
     if (!current_state.status)
     {
         printf("[RCGE Master] RCGE get window aspect ratio get failed: RCGE is not initialised.\n");
-        return NAN;
+        return RCGE_DOUBLE_ERROR;
     }
     return ((double)current_state.width) / current_state.height;
 }
@@ -216,8 +227,22 @@ GLFWmonitor *get_gl_monitor_window_in(int center_x, int center_y, int *out_x, in
     return glfwGetPrimaryMonitor();
 }
 
+rcge_display_mode rcge_display_mode_get(void)
+{
+    if (!current_state.status)
+    {
+        printf("[RCGE Master] RCGE display mode get failed: RCGE is not initialised.\n");
+    }
+    return current_state.display_mode;
+}
+
 void rcge_display_mode_set(rcge_display_mode display_mode)
 {
+    if (!current_state.status)
+    {
+        printf("[RCGE Master] RCGE display mode set failed: RCGE is not initialised.\n");
+        return;
+    }
     int pos_x, pos_y, size_x, size_y;
     glfwGetWindowPos(current_state.gl_window, &pos_x, &pos_y);
     glfwGetWindowSize(current_state.gl_window, &size_x, &size_y);
@@ -253,6 +278,11 @@ void rcge_display_mode_set(rcge_display_mode display_mode)
 
 void rcge_display_dimensions_set(unsigned int width, unsigned int height)
 {
+    if (!current_state.status)
+    {
+        printf("[RCGE Master] RCGE display dimension set failed: RCGE is not initialised.\n");
+        return;
+    }
     if (current_state.display_mode != DISPLAY_WINDOW)
         rcge_display_mode_set(DISPLAY_WINDOW);
     glfwSetWindowSize(current_state.gl_window, width, height);
@@ -260,11 +290,21 @@ void rcge_display_dimensions_set(unsigned int width, unsigned int height)
 
 void rcge_display_vsync(bool vsync)
 {
+    if (!current_state.status)
+    {
+        printf("[RCGE Master] RCGE vsync set failed: RCGE is not initialised.\n");
+        return;
+    }
     glfwSwapInterval(vsync);
 }
 
 void rcge_backface_cull(bool status)
 {
+    if (!current_state.status)
+    {
+        printf("[RCGE Master] RCGE backface cull set failed: RCGE is not initialised.\n");
+        return;
+    }
     status ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
 }
 

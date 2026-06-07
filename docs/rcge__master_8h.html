@@ -21,10 +21,51 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', init_search);
 </script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <script type="module">
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+const theme = DarkModeToggle.darkModeEnabled ? 'dark' : 'default'
 mermaid.initialize({ startOnLoad: true, theme: theme });
+(function() {
+  const elementCode = '.mermaid';
+  const loadMermaid = function(theme) {
+    mermaid.initialize({theme})
+    mermaid.init({theme}, document.querySelectorAll(elementCode))
+  }
+  const saveOriginalData = function() {
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          element.setAttribute('data-original-code', element.innerHTML)
+          count--
+          if (count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  const resetProcessed = function(){
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          if (element.getAttribute('data-original-code') != null) {
+              element.removeAttribute('data-processed')
+              element.innerHTML = element.getAttribute('data-original-code')
+          }
+          count--
+          if(count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  saveOriginalData()
+  const original = DarkModeToggle.enableDarkMode.bind(DarkModeToggle);
+  DarkModeToggle.enableDarkMode = function(enable) {
+      original(enable);
+      resetProcessed().then(loadMermaid(enable ? 'dark' : 'default')).catch(console.error)
+  };
+})();
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -35,6 +76,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td id="projectalign">
    <div id="projectname">Ray&#39;s C Graphics Engine
    </div>
@@ -107,11 +149,6 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('rcge__master_8
 
 <p><a href="rcge__master_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a89cf2a2893343ec7a2b277fc9ac01cfd" id="r_a89cf2a2893343ec7a2b277fc9ac01cfd"><td class="memItemLeft"><a id="a89cf2a2893343ec7a2b277fc9ac01cfd" name="a89cf2a2893343ec7a2b277fc9ac01cfd"></a>
-#define&#160;</td><td class="memItemRight"><b>RCGE_UINT_ERROR</b>&#160;&#160;&#160;(unsigned int) -1</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:gaacb0254806ba00e67ecd748a3a9dd3ac" id="r_gaacb0254806ba00e67ecd748a3a9dd3ac"><td class="memItemLeft">typedef void(*&#160;</td><td class="memItemRight"><a class="el" href="group__master.html#gaacb0254806ba00e67ecd748a3a9dd3ac">rcge_start_callback</a>) (void)</td></tr>
@@ -132,11 +169,11 @@ Functions</h2></td></tr>
 <tr class="memitem:ga50f8a21af93a6ec3653c66e5b3198424" id="r_ga50f8a21af93a6ec3653c66e5b3198424"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__master.html#ga50f8a21af93a6ec3653c66e5b3198424">rcge_stop</a> (void)</td></tr>
 <tr class="memitem:gaf8d79f717dfb819e6da151c374056e01" id="r_gaf8d79f717dfb819e6da151c374056e01"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__master.html#gaf8d79f717dfb819e6da151c374056e01">rcge_terminate</a> (void)</td></tr>
 <tr class="memitem:gabf1772aec7e7deb6f7edf45322fcae3d" id="r_gabf1772aec7e7deb6f7edf45322fcae3d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="group__master.html#gabf1772aec7e7deb6f7edf45322fcae3d">rcge_status</a> (void)</td></tr>
-<tr class="memitem:a0f8126ed31aaf93d857991e8453fc42e" id="r_a0f8126ed31aaf93d857991e8453fc42e"><td class="memItemLeft"><a id="a0f8126ed31aaf93d857991e8453fc42e" name="a0f8126ed31aaf93d857991e8453fc42e"></a>
-void&#160;</td><td class="memItemRight"><b>rcge_icon</b> (char *path)</td></tr>
+<tr class="memitem:ga0f8126ed31aaf93d857991e8453fc42e" id="r_ga0f8126ed31aaf93d857991e8453fc42e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__master.html#ga0f8126ed31aaf93d857991e8453fc42e">rcge_icon</a> (char *path)</td></tr>
 <tr class="memitem:ga2c8e5ca42e814400122cc2926bca690a" id="r_ga2c8e5ca42e814400122cc2926bca690a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__master.html#ga2c8e5ca42e814400122cc2926bca690a">rcge_display_dimensions_get</a> (unsigned int *width, unsigned int *height)</td></tr>
 <tr class="memitem:ga593fab4ee34ae24760bcb7e2f2e2382e" id="r_ga593fab4ee34ae24760bcb7e2f2e2382e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__master.html#ga593fab4ee34ae24760bcb7e2f2e2382e">rcge_display_dimensions_set</a> (unsigned int width, unsigned int height)</td></tr>
 <tr class="memitem:ga28c7d5babe1c2a5b0cc211d3e3fbee1c" id="r_ga28c7d5babe1c2a5b0cc211d3e3fbee1c"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="group__master.html#ga28c7d5babe1c2a5b0cc211d3e3fbee1c">rcge_display_ratio</a> (void)</td></tr>
+<tr class="memitem:ga999a35a2446ec13210110cbab97485af" id="r_ga999a35a2446ec13210110cbab97485af"><td class="memItemLeft"><a class="el" href="group__master.html#ga8f44cb352cb05dd792f474f4c8584b13">rcge_display_mode</a>&#160;</td><td class="memItemRight"><a class="el" href="group__master.html#ga999a35a2446ec13210110cbab97485af">rcge_display_mode_get</a> (void)</td></tr>
 <tr class="memitem:ga557615aaff965a32deaa67aa07634094" id="r_ga557615aaff965a32deaa67aa07634094"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__master.html#ga557615aaff965a32deaa67aa07634094">rcge_display_mode_set</a> (<a class="el" href="group__master.html#ga8f44cb352cb05dd792f474f4c8584b13">rcge_display_mode</a> display_mode)</td></tr>
 <tr class="memitem:gaea8d0f44305849873cc682885cac8932" id="r_gaea8d0f44305849873cc682885cac8932"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__master.html#gaea8d0f44305849873cc682885cac8932">rcge_display_vsync</a> (bool vsync)</td></tr>
 <tr class="memitem:ga769da77577af230fc40be3f6ac03e787" id="r_ga769da77577af230fc40be3f6ac03e787"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__master.html#ga769da77577af230fc40be3f6ac03e787">rcge_backface_cull</a> (bool status)</td></tr>

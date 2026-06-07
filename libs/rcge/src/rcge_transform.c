@@ -70,7 +70,9 @@ void update_dir(rcge_transform transform)
 
 rcge_transform rcge_transform_create(vec3 pos, versor rot, vec3 scl, bool view_updater)
 {
-    rcge_transform transform = malloc(sizeof(*transform)); //TODO: Malloc Check
+    rcge_transform transform = malloc(sizeof(*transform));
+    if (transform == NULL) {printf("[RCGE Transform] Transform creation failed: malloc failed.\n"); return NULL;}
+    
     glm_vec3_copy(pos, transform->position);
     glm_quat_copy(rot, transform->rotation);
     glm_vec3_copy(scl, transform->scale);

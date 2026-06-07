@@ -106,6 +106,7 @@ CMakeFiles/rcge.dir/src/rcge_shader.c.obj: \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/affine2d.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_io.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_master.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_codes.h \
  C:/msys64/mingw64/include/string.h \
  C:/msys64/mingw64/include/corecrt_memory.h \
  C:/msys64/mingw64/include/sec_api/string_s.h

@@ -23,10 +23,6 @@ typedef enum {
     DATATYPE_UNSIGNED_INT, ///< Unsigned Integer 
     DATATYPE_FLOAT, ///< Float
     DATATYPE_DOUBLE, ///< Double
-    DATATYPE_HALF_FLOAT, ///< Half Float (16-bit)
-    DATATYPE_INT_2_10_10_10_REV, ///< Integer 2 10 10 10 Rev
-    DATATYPE_UNSIGNED_INT_2_10_10_10_REV, ///< Unsigned Integer 2 10 10 Rev
-    DATATYPE_BOOL ///< Boolean
 } rcge_datatype;
 
 /**

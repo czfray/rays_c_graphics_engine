@@ -21,10 +21,51 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', init_search);
 </script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <script type="module">
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+const theme = DarkModeToggle.darkModeEnabled ? 'dark' : 'default'
 mermaid.initialize({ startOnLoad: true, theme: theme });
+(function() {
+  const elementCode = '.mermaid';
+  const loadMermaid = function(theme) {
+    mermaid.initialize({theme})
+    mermaid.init({theme}, document.querySelectorAll(elementCode))
+  }
+  const saveOriginalData = function() {
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          element.setAttribute('data-original-code', element.innerHTML)
+          count--
+          if (count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  const resetProcessed = function(){
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          if (element.getAttribute('data-original-code') != null) {
+              element.removeAttribute('data-processed')
+              element.innerHTML = element.getAttribute('data-original-code')
+          }
+          count--
+          if(count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  saveOriginalData()
+  const original = DarkModeToggle.enableDarkMode.bind(DarkModeToggle);
+  DarkModeToggle.enableDarkMode = function(enable) {
+      original(enable);
+      resetProcessed().then(loadMermaid(enable ? 'dark' : 'default')).catch(console.error)
+  };
+})();
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -35,6 +76,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td id="projectalign">
    <div id="projectname">Ray&#39;s C Graphics Engine
    </div>
@@ -118,6 +160,11 @@ Enumerations</h2></td></tr>
 , <a class="el" href="group__shaders.html#gga9bf06e4fa7cefb1dbef0ff25fa791413a588a457c7600386629596469104dcd0c">SHADER_GEOM</a>
 , <a class="el" href="group__shaders.html#gga9bf06e4fa7cefb1dbef0ff25fa791413ab4eb7f7375c39c4ac42fa96cff44cb01">SHADER_FRAG</a>
  }</td></tr>
+<tr class="memitem:ga5df532e6196b81dbc7a524ecfb6f64f9" id="r_ga5df532e6196b81dbc7a524ecfb6f64f9"><td class="memItemLeft"><a id="ga5df532e6196b81dbc7a524ecfb6f64f9" name="ga5df532e6196b81dbc7a524ecfb6f64f9"></a>enum &#160;</td><td class="memItemRight"><a class="el" href="group__shaders.html#ga5df532e6196b81dbc7a524ecfb6f64f9">rcge_shader_uniform_purpose</a> { <b>SHADER_UNIFORM_MODEL</b>
+, <b>SHADER_UNIFORM_VIEW</b>
+, <b>SHADER_UNIFORM_PROJECTION</b>
+, <b>SHADER_UNIFORM_COLOR</b>
+ }</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -130,6 +177,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ga0303317abc7fcb74551d4777b665d987" id="r_ga0303317abc7fcb74551d4777b665d987"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__shaders.html#ga0303317abc7fcb74551d4777b665d987">rcge_shader_use</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader)</td></tr>
 <tr class="memitem:ga34e533ec09a36523abf99d805f76157f" id="r_ga34e533ec09a36523abf99d805f76157f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__shaders.html#ga34e533ec09a36523abf99d805f76157f">rcge_shader_attrib_set</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, unsigned int index, char *name, unsigned int size, <a class="el" href="group__datatypes.html#ga7a090da8a8dc6768970b4a9ea026832f">rcge_datatype</a> type, bool normalised)</td></tr>
 <tr class="memitem:ga3d14bd61a7e8951a26d2385a0c7f380b" id="r_ga3d14bd61a7e8951a26d2385a0c7f380b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__shaders.html#ga3d14bd61a7e8951a26d2385a0c7f380b">rcge_shader_uniform_loc_set</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, unsigned int index, char *name)</td></tr>
+<tr class="memitem:gaabe8ccef1926494b98e3064c51a69ca9" id="r_gaabe8ccef1926494b98e3064c51a69ca9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__shaders.html#gaabe8ccef1926494b98e3064c51a69ca9">rcge_shader_uniform_purpose_set</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, unsigned int index, <a class="el" href="group__shaders.html#ga5df532e6196b81dbc7a524ecfb6f64f9">rcge_shader_uniform_purpose</a> purpose)</td></tr>
+<tr class="memitem:ga2a7c1e272f8d99f514cfc83972ef3082" id="r_ga2a7c1e272f8d99f514cfc83972ef3082"><td class="memItemLeft">unsigned int&#160;</td><td class="memItemRight"><a class="el" href="group__shaders.html#ga2a7c1e272f8d99f514cfc83972ef3082">rcge_shader_uniform_purpose_get</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, <a class="el" href="group__shaders.html#ga5df532e6196b81dbc7a524ecfb6f64f9">rcge_shader_uniform_purpose</a> purpose)</td></tr>
 <tr class="memitem:gad64854929d77b4c5fb8f76243fd91a6c" id="r_gad64854929d77b4c5fb8f76243fd91a6c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__shaders.html#gad64854929d77b4c5fb8f76243fd91a6c">rcge_shader_color_out_location</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, unsigned int color_no, char *name)</td></tr>
 <tr class="memitem:ga32c335eba54265f6eac3d550532f29ec" id="r_ga32c335eba54265f6eac3d550532f29ec"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__shaders.html#ga32c335eba54265f6eac3d550532f29ec">rcge_shader_delete</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader)</td></tr>
 <tr class="memitem:ga3e7fa80f07b6a466a64822d22150dabd" id="r_ga3e7fa80f07b6a466a64822d22150dabd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="group__shaders.html#ga3e7fa80f07b6a466a64822d22150dabd">rcge_shader_uniform_float</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, unsigned int uniform_loc_index, float value)</td></tr>

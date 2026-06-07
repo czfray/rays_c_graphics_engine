@@ -46,4 +46,11 @@ add_custom_target(copy_build_files ALL
 
 add_dependencies(copy_build_files rcge)
 
+target_compile_options(rcge PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic 
+    -O2
+)
+
 #cmake -G "MinGW Makefiles" ..

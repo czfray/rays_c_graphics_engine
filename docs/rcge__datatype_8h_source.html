@@ -21,10 +21,51 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', init_search);
 </script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <script type="module">
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+const theme = DarkModeToggle.darkModeEnabled ? 'dark' : 'default'
 mermaid.initialize({ startOnLoad: true, theme: theme });
+(function() {
+  const elementCode = '.mermaid';
+  const loadMermaid = function(theme) {
+    mermaid.initialize({theme})
+    mermaid.init({theme}, document.querySelectorAll(elementCode))
+  }
+  const saveOriginalData = function() {
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          element.setAttribute('data-original-code', element.innerHTML)
+          count--
+          if (count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  const resetProcessed = function(){
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          if (element.getAttribute('data-original-code') != null) {
+              element.removeAttribute('data-processed')
+              element.innerHTML = element.getAttribute('data-original-code')
+          }
+          count--
+          if(count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  saveOriginalData()
+  const original = DarkModeToggle.enableDarkMode.bind(DarkModeToggle);
+  DarkModeToggle.enableDarkMode = function(enable) {
+      original(enable);
+      resetProcessed().then(loadMermaid(enable ? 'dark' : 'default')).catch(console.error)
+  };
+})();
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -35,6 +76,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td id="projectalign">
    <div id="projectname">Ray&#39;s C Graphics Engine
    </div>
@@ -118,29 +160,21 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('rcge__datatype
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa9c19d7dbd95c4890af4ea87d34f9a7d9">   23</a></span>    <a class="code hl_enumvalue" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa9c19d7dbd95c4890af4ea87d34f9a7d9">DATATYPE_UNSIGNED_INT</a>, </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a">   24</a></span>    <a class="code hl_enumvalue" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a">DATATYPE_FLOAT</a>, </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fae87ceaa9dfe018d92eacb3db5acf3c48">   25</a></span>    <a class="code hl_enumvalue" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fae87ceaa9dfe018d92eacb3db5acf3c48">DATATYPE_DOUBLE</a>, </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab379e64a599cf43fa0cf3e80474915db">   26</a></span>    <a class="code hl_enumvalue" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab379e64a599cf43fa0cf3e80474915db">DATATYPE_HALF_FLOAT</a>, </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa1d94df82dc3fc3e56976eb5741c727d0">   27</a></span>    <a class="code hl_enumvalue" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa1d94df82dc3fc3e56976eb5741c727d0">DATATYPE_INT_2_10_10_10_REV</a>, </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832faca362402894ab9bcd024bc6d7f45c93d">   28</a></span>    <a class="code hl_enumvalue" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832faca362402894ab9bcd024bc6d7f45c93d">DATATYPE_UNSIGNED_INT_2_10_10_10_REV</a>, </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fada3458fe5cbef7c8f04955047e0a153e">   29</a></span>    <a class="code hl_enumvalue" href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fada3458fe5cbef7c8f04955047e0a153e">DATATYPE_BOOL</a> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <a class="code hl_enumeration" href="group__datatypes.html#ga7a090da8a8dc6768970b4a9ea026832f">rcge_datatype</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>} <a class="code hl_enumeration" href="group__datatypes.html#ga7a090da8a8dc6768970b4a9ea026832f">rcge_datatype</a>;</div>
 </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rcge_datatype_to_gl(<a class="code hl_enumeration" href="group__datatypes.html#ga7a090da8a8dc6768970b4a9ea026832f">rcge_datatype</a> datatype);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rcge_datatype_size(<a class="code hl_enumeration" href="group__datatypes.html#ga7a090da8a8dc6768970b4a9ea026832f">rcge_datatype</a> datatype);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rcge_datatype_to_gl(<a class="code hl_enumeration" href="group__datatypes.html#ga7a090da8a8dc6768970b4a9ea026832f">rcge_datatype</a> datatype);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rcge_datatype_size(<a class="code hl_enumeration" href="group__datatypes.html#ga7a090da8a8dc6768970b4a9ea026832f">rcge_datatype</a> datatype);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="agroup__datatypes_html_ga7a090da8a8dc6768970b4a9ea026832f"><div class="ttname"><a href="group__datatypes.html#ga7a090da8a8dc6768970b4a9ea026832f">rcge_datatype</a></div><div class="ttdeci">rcge_datatype</div><div class="ttdoc">Datatypes for RCGE.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:17</div></div>
 <div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832fa098e6f33d7c585447084db3559a2dbb2"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa098e6f33d7c585447084db3559a2dbb2">DATATYPE_INT</a></div><div class="ttdeci">@ DATATYPE_INT</div><div class="ttdoc">Integer.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:22</div></div>
-<div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832fa1d94df82dc3fc3e56976eb5741c727d0"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa1d94df82dc3fc3e56976eb5741c727d0">DATATYPE_INT_2_10_10_10_REV</a></div><div class="ttdeci">@ DATATYPE_INT_2_10_10_10_REV</div><div class="ttdoc">Integer 2 10 10 10 Rev.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:27</div></div>
 <div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832fa617612665213d6cd21b8503b303b24b2"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa617612665213d6cd21b8503b303b24b2">DATATYPE_UNSIGNED_SHORT</a></div><div class="ttdeci">@ DATATYPE_UNSIGNED_SHORT</div><div class="ttdoc">Unsigned Short.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:21</div></div>
 <div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832fa9c19d7dbd95c4890af4ea87d34f9a7d9"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fa9c19d7dbd95c4890af4ea87d34f9a7d9">DATATYPE_UNSIGNED_INT</a></div><div class="ttdeci">@ DATATYPE_UNSIGNED_INT</div><div class="ttdoc">Unsigned Integer.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:23</div></div>
-<div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832fab379e64a599cf43fa0cf3e80474915db"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab379e64a599cf43fa0cf3e80474915db">DATATYPE_HALF_FLOAT</a></div><div class="ttdeci">@ DATATYPE_HALF_FLOAT</div><div class="ttdoc">Half Float (16-bit).</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:26</div></div>
 <div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fab9c5af503faa604639a3b36c40f67f8a">DATATYPE_FLOAT</a></div><div class="ttdeci">@ DATATYPE_FLOAT</div><div class="ttdoc">Float.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:24</div></div>
-<div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832faca362402894ab9bcd024bc6d7f45c93d"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832faca362402894ab9bcd024bc6d7f45c93d">DATATYPE_UNSIGNED_INT_2_10_10_10_REV</a></div><div class="ttdeci">@ DATATYPE_UNSIGNED_INT_2_10_10_10_REV</div><div class="ttdoc">Unsigned Integer 2 10 10 Rev.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:28</div></div>
 <div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832fad56c45c10cb55de333267a5f6090b56b"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fad56c45c10cb55de333267a5f6090b56b">DATATYPE_BYTE</a></div><div class="ttdeci">@ DATATYPE_BYTE</div><div class="ttdoc">Byte.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:18</div></div>
 <div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832fad82d4dfd5b46b8e9953c575e59d1177e"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fad82d4dfd5b46b8e9953c575e59d1177e">DATATYPE_UNSIGNED_BYTE</a></div><div class="ttdeci">@ DATATYPE_UNSIGNED_BYTE</div><div class="ttdoc">Unsigned Byte.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:19</div></div>
-<div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832fada3458fe5cbef7c8f04955047e0a153e"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fada3458fe5cbef7c8f04955047e0a153e">DATATYPE_BOOL</a></div><div class="ttdeci">@ DATATYPE_BOOL</div><div class="ttdoc">Boolean.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:29</div></div>
 <div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832fae87ceaa9dfe018d92eacb3db5acf3c48"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832fae87ceaa9dfe018d92eacb3db5acf3c48">DATATYPE_DOUBLE</a></div><div class="ttdeci">@ DATATYPE_DOUBLE</div><div class="ttdoc">Double.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:25</div></div>
 <div class="ttc" id="agroup__datatypes_html_gga7a090da8a8dc6768970b4a9ea026832faead1d621716e7e6fdb649955abb34713"><div class="ttname"><a href="group__datatypes.html#gga7a090da8a8dc6768970b4a9ea026832faead1d621716e7e6fdb649955abb34713">DATATYPE_SHORT</a></div><div class="ttdeci">@ DATATYPE_SHORT</div><div class="ttdoc">Short.</div><div class="ttdef"><b>Definition</b> rcge_datatype.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->

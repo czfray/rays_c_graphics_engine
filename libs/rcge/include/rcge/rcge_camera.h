@@ -31,8 +31,6 @@ typedef struct rcge_camera_CDT* rcge_camera;
  * @ingroup cameras
  * @brief Creates a camera.
  * @param[in] shader The shader to use for the camera.
- * @param[in] view_uniform_index The index of the view matrix uniform in the shader used.
- * @param[in] proj_uniform_index The index of the projection matrix uniform in the shader used.
  * @param[in] is_perspective Whether the camera is perspective (3D) or orthogonal (Flat 2D).
  * @param[in] size_or_fov The fov (in radians, if perspective) or the size (if orthogonal) you want the camera to have.
  * @param[in] near The near plane of the camera. Things with less distance of `near` units from the camera would not be rendered.
@@ -40,7 +38,7 @@ typedef struct rcge_camera_CDT* rcge_camera;
  * @return The camera created, NULL if failed.
  * @note Make sure `shader` is currently active before calling this by using @ref rcge_shader_use.
 **/
-rcge_camera rcge_camera_create(rcge_shader shader, unsigned int view_uniform_index, unsigned int proj_uniform_index, bool is_perspective, double size_or_fov, double near, double far);
+rcge_camera rcge_camera_create(rcge_shader shader, bool is_perspective, double size_or_fov, double near, double far);
 
 /**
  * @ingroup cameras
@@ -58,7 +56,7 @@ void rcge_camera_param_set(rcge_camera camera, bool is_perspective, double size_
  * @ingroup cameras
  * @brief Get the fov (if perspective) or size (if orthogonal) of a specified camera.
  * @param[in] camera The camera to access.
- * @return The fov (if perspective) or size (if orthogonal) of a specified camera, NAN if failed.
+ * @return The fov (if perspective) or size (if orthogonal) of a specified camera, @ref RCGE_DOUBLE_ERROR if failed.
 **/
 double rcge_camera_fov_size_get(rcge_camera camera);
 
@@ -75,6 +73,7 @@ void rcge_camera_fov_size_set(rcge_camera camera, double size_or_fov);
  * @ingroup cameras
  * @brief Set the window aspect ratio of the screen to the camera. Called everytime the window is resized.
  * @param[in] camera The camera to change.
+ * @param[in] ratio The aspect ratio of the screen.
  * @note Make sure the shader the camera uses is currently active before calling this by using @ref rcge_shader_use.
 **/
 void rcge_camera_ratio_set(rcge_camera camera, double ratio);

@@ -21,10 +21,51 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', init_search);
 </script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <script type="module">
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+const theme = DarkModeToggle.darkModeEnabled ? 'dark' : 'default'
 mermaid.initialize({ startOnLoad: true, theme: theme });
+(function() {
+  const elementCode = '.mermaid';
+  const loadMermaid = function(theme) {
+    mermaid.initialize({theme})
+    mermaid.init({theme}, document.querySelectorAll(elementCode))
+  }
+  const saveOriginalData = function() {
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          element.setAttribute('data-original-code', element.innerHTML)
+          count--
+          if (count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  const resetProcessed = function(){
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          if (element.getAttribute('data-original-code') != null) {
+              element.removeAttribute('data-processed')
+              element.innerHTML = element.getAttribute('data-original-code')
+          }
+          count--
+          if(count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  saveOriginalData()
+  const original = DarkModeToggle.enableDarkMode.bind(DarkModeToggle);
+  DarkModeToggle.enableDarkMode = function(enable) {
+      original(enable);
+      resetProcessed().then(loadMermaid(enable ? 'dark' : 'default')).catch(console.error)
+  };
+})();
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -35,6 +76,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td id="projectalign">
    <div id="projectname">Ray&#39;s C Graphics Engine
    </div>
@@ -113,50 +155,49 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('rcge__camera_8
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">   28</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>rcge_camera_CDT* <a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a>;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="group__cameras.html#ga2105ccfc0c371410d6ad1738689f438c">   43</a></span><a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> <a class="code hl_function" href="group__cameras.html#ga2105ccfc0c371410d6ad1738689f438c">rcge_camera_create</a>(<a class="code hl_typedef" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> view_uniform_index, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> proj_uniform_index, <span class="keywordtype">bool</span> is_perspective, <span class="keywordtype">double</span> size_or_fov, <span class="keywordtype">double</span> near, <span class="keywordtype">double</span> far);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="group__cameras.html#gaf82f1f57e98fe18ac33e4e91130387b9">   55</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gaf82f1f57e98fe18ac33e4e91130387b9">rcge_camera_param_set</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, <span class="keywordtype">bool</span> is_perspective, <span class="keywordtype">double</span> size_or_fov, <span class="keywordtype">double</span> near, <span class="keywordtype">double</span> far);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="group__cameras.html#gac4df1f04cccb62ef900a242d82da01f5">   63</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="group__cameras.html#gac4df1f04cccb62ef900a242d82da01f5">rcge_camera_fov_size_get</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="group__cameras.html#ga36942f0966974f3d6da9adeb26668b38">   72</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga36942f0966974f3d6da9adeb26668b38">rcge_camera_fov_size_set</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, <span class="keywordtype">double</span> size_or_fov);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="group__cameras.html#gabd2dd72e1f629725d30ef205283f1038">   80</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gabd2dd72e1f629725d30ef205283f1038">rcge_camera_ratio_set</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, <span class="keywordtype">double</span> ratio);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="group__cameras.html#gafb913be74f1d4999e8f0f331f0a42fe0">   88</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gafb913be74f1d4999e8f0f331f0a42fe0">rcge_camera_pos_get</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="group__cameras.html#gaca9327086b99348523cb299dc37b6177">   97</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gaca9327086b99348523cb299dc37b6177">rcge_camera_rot_get</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, versor out);</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="group__cameras.html#ga0aec0fc0b146d9a10163f674e13cbfc7">  106</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga0aec0fc0b146d9a10163f674e13cbfc7">rcge_camera_pos_set</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 new_pos);</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="group__cameras.html#gaacd34bfab40ff13ed76232a48d5b1d1c">  115</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gaacd34bfab40ff13ed76232a48d5b1d1c">rcge_camera_rot_set</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, versor new_rot);</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="group__cameras.html#ga002ba9acfd9d0175735361fe7d8db1ae">  124</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga002ba9acfd9d0175735361fe7d8db1ae">rcge_camera_add_pos</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 apply_pos);</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="group__cameras.html#ga2c8ecf86c1f37cde4e05e8cb5b9b5d27">  133</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga2c8ecf86c1f37cde4e05e8cb5b9b5d27">rcge_camera_add_rot_euler</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 apply_rot);</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span></div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="group__cameras.html#gad2a174e6b988128716b7c059c61456d3">  141</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gad2a174e6b988128716b7c059c61456d3">rcge_camera_up</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="group__cameras.html#gae9cbc8bebbf88a3757ccbcf41810e18c">  149</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gae9cbc8bebbf88a3757ccbcf41810e18c">rcge_camera_right</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span></div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="group__cameras.html#ga574f79def0fe48e6ce05d5028098e71e">  157</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga574f79def0fe48e6ce05d5028098e71e">rcge_camera_forward</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="group__cameras.html#ga9250626dddf286603dbe7a7a6087e8ce">  165</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga9250626dddf286603dbe7a7a6087e8ce">rcge_camera_down</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="group__cameras.html#ga0128286a4b35b49df7ea50aea7955c0b">  174</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga0128286a4b35b49df7ea50aea7955c0b">rcge_camera_left</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span></div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="group__cameras.html#gab09070a4ea2b767d4c82b3dbbbd4d87c">  182</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gab09070a4ea2b767d4c82b3dbbbd4d87c">rcge_camera_backward</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span></div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="group__cameras.html#ga0ee733bb57266d2b6dfd4fc5de872681">  192</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga0ee733bb57266d2b6dfd4fc5de872681">rcge_camera_delete</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera);</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="group__cameras.html#gaf92c2a1ef4c145ec9ba62064a96e0a19">   41</a></span><a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> <a class="code hl_function" href="group__cameras.html#gaf92c2a1ef4c145ec9ba62064a96e0a19">rcge_camera_create</a>(<a class="code hl_typedef" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, <span class="keywordtype">bool</span> is_perspective, <span class="keywordtype">double</span> size_or_fov, <span class="keywordtype">double</span> near, <span class="keywordtype">double</span> far);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="group__cameras.html#gaf82f1f57e98fe18ac33e4e91130387b9">   53</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gaf82f1f57e98fe18ac33e4e91130387b9">rcge_camera_param_set</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, <span class="keywordtype">bool</span> is_perspective, <span class="keywordtype">double</span> size_or_fov, <span class="keywordtype">double</span> near, <span class="keywordtype">double</span> far);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="group__cameras.html#gac4df1f04cccb62ef900a242d82da01f5">   61</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="group__cameras.html#gac4df1f04cccb62ef900a242d82da01f5">rcge_camera_fov_size_get</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="group__cameras.html#ga36942f0966974f3d6da9adeb26668b38">   70</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga36942f0966974f3d6da9adeb26668b38">rcge_camera_fov_size_set</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, <span class="keywordtype">double</span> size_or_fov);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="group__cameras.html#gabd2dd72e1f629725d30ef205283f1038">   79</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gabd2dd72e1f629725d30ef205283f1038">rcge_camera_ratio_set</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, <span class="keywordtype">double</span> ratio);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="group__cameras.html#gafb913be74f1d4999e8f0f331f0a42fe0">   87</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gafb913be74f1d4999e8f0f331f0a42fe0">rcge_camera_pos_get</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="group__cameras.html#gaca9327086b99348523cb299dc37b6177">   96</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gaca9327086b99348523cb299dc37b6177">rcge_camera_rot_get</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, versor out);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="group__cameras.html#ga0aec0fc0b146d9a10163f674e13cbfc7">  105</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga0aec0fc0b146d9a10163f674e13cbfc7">rcge_camera_pos_set</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 new_pos);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="group__cameras.html#gaacd34bfab40ff13ed76232a48d5b1d1c">  114</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gaacd34bfab40ff13ed76232a48d5b1d1c">rcge_camera_rot_set</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, versor new_rot);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="group__cameras.html#ga002ba9acfd9d0175735361fe7d8db1ae">  123</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga002ba9acfd9d0175735361fe7d8db1ae">rcge_camera_add_pos</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 apply_pos);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="group__cameras.html#ga2c8ecf86c1f37cde4e05e8cb5b9b5d27">  132</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga2c8ecf86c1f37cde4e05e8cb5b9b5d27">rcge_camera_add_rot_euler</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 apply_rot);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="group__cameras.html#gad2a174e6b988128716b7c059c61456d3">  140</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gad2a174e6b988128716b7c059c61456d3">rcge_camera_up</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="group__cameras.html#gae9cbc8bebbf88a3757ccbcf41810e18c">  148</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gae9cbc8bebbf88a3757ccbcf41810e18c">rcge_camera_right</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="group__cameras.html#ga574f79def0fe48e6ce05d5028098e71e">  156</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga574f79def0fe48e6ce05d5028098e71e">rcge_camera_forward</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="group__cameras.html#ga9250626dddf286603dbe7a7a6087e8ce">  164</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga9250626dddf286603dbe7a7a6087e8ce">rcge_camera_down</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="group__cameras.html#ga0128286a4b35b49df7ea50aea7955c0b">  173</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga0128286a4b35b49df7ea50aea7955c0b">rcge_camera_left</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="group__cameras.html#gab09070a4ea2b767d4c82b3dbbbd4d87c">  181</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#gab09070a4ea2b767d4c82b3dbbbd4d87c">rcge_camera_backward</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera, vec3 out);</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="group__cameras.html#ga0ee733bb57266d2b6dfd4fc5de872681">  191</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="group__cameras.html#ga0ee733bb57266d2b6dfd4fc5de872681">rcge_camera_delete</a>(<a class="code hl_typedef" href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a> camera);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="agroup__cameras_html_ga002ba9acfd9d0175735361fe7d8db1ae"><div class="ttname"><a href="group__cameras.html#ga002ba9acfd9d0175735361fe7d8db1ae">rcge_camera_add_pos</a></div><div class="ttdeci">void rcge_camera_add_pos(rcge_camera camera, vec3 apply_pos)</div><div class="ttdoc">Add a vector to current position of a specified camera.</div></div>
 <div class="ttc" id="agroup__cameras_html_ga0128286a4b35b49df7ea50aea7955c0b"><div class="ttname"><a href="group__cameras.html#ga0128286a4b35b49df7ea50aea7955c0b">rcge_camera_left</a></div><div class="ttdeci">void rcge_camera_left(rcge_camera camera, vec3 out)</div><div class="ttdoc">Get the leftward direction normalised vector of a specified camera.</div></div>
 <div class="ttc" id="agroup__cameras_html_ga0aec0fc0b146d9a10163f674e13cbfc7"><div class="ttname"><a href="group__cameras.html#ga0aec0fc0b146d9a10163f674e13cbfc7">rcge_camera_pos_set</a></div><div class="ttdeci">void rcge_camera_pos_set(rcge_camera camera, vec3 new_pos)</div><div class="ttdoc">Set the position of a specified camera.</div></div>
 <div class="ttc" id="agroup__cameras_html_ga0ee733bb57266d2b6dfd4fc5de872681"><div class="ttname"><a href="group__cameras.html#ga0ee733bb57266d2b6dfd4fc5de872681">rcge_camera_delete</a></div><div class="ttdeci">void rcge_camera_delete(rcge_camera camera)</div><div class="ttdoc">Deletes a camera.</div></div>
-<div class="ttc" id="agroup__cameras_html_ga2105ccfc0c371410d6ad1738689f438c"><div class="ttname"><a href="group__cameras.html#ga2105ccfc0c371410d6ad1738689f438c">rcge_camera_create</a></div><div class="ttdeci">rcge_camera rcge_camera_create(rcge_shader shader, unsigned int view_uniform_index, unsigned int proj_uniform_index, bool is_perspective, double size_or_fov, double near, double far)</div><div class="ttdoc">Creates a camera.</div></div>
 <div class="ttc" id="agroup__cameras_html_ga2c8ecf86c1f37cde4e05e8cb5b9b5d27"><div class="ttname"><a href="group__cameras.html#ga2c8ecf86c1f37cde4e05e8cb5b9b5d27">rcge_camera_add_rot_euler</a></div><div class="ttdeci">void rcge_camera_add_rot_euler(rcge_camera camera, vec3 apply_rot)</div><div class="ttdoc">Add an euler rotation to current rotation of a specified camera.</div></div>
 <div class="ttc" id="agroup__cameras_html_ga36942f0966974f3d6da9adeb26668b38"><div class="ttname"><a href="group__cameras.html#ga36942f0966974f3d6da9adeb26668b38">rcge_camera_fov_size_set</a></div><div class="ttdeci">void rcge_camera_fov_size_set(rcge_camera camera, double size_or_fov)</div><div class="ttdoc">Change the fov (if perspective) or size (if orthogonal) of a specified camera.</div></div>
 <div class="ttc" id="agroup__cameras_html_ga574f79def0fe48e6ce05d5028098e71e"><div class="ttname"><a href="group__cameras.html#ga574f79def0fe48e6ce05d5028098e71e">rcge_camera_forward</a></div><div class="ttdeci">void rcge_camera_forward(rcge_camera camera, vec3 out)</div><div class="ttdoc">Get the forward direction normalised vector of a specified camera.</div></div>
@@ -170,6 +211,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('rcge__camera_8
 <div class="ttc" id="agroup__cameras_html_gad89dbac3dee08aeb83dcd28809a8388d"><div class="ttname"><a href="group__cameras.html#gad89dbac3dee08aeb83dcd28809a8388d">rcge_camera</a></div><div class="ttdeci">struct rcge_camera_CDT * rcge_camera</div><div class="ttdef"><b>Definition</b> rcge_camera.h:28</div></div>
 <div class="ttc" id="agroup__cameras_html_gae9cbc8bebbf88a3757ccbcf41810e18c"><div class="ttname"><a href="group__cameras.html#gae9cbc8bebbf88a3757ccbcf41810e18c">rcge_camera_right</a></div><div class="ttdeci">void rcge_camera_right(rcge_camera camera, vec3 out)</div><div class="ttdoc">Get the rightward direction normalised vector of a specified camera.</div></div>
 <div class="ttc" id="agroup__cameras_html_gaf82f1f57e98fe18ac33e4e91130387b9"><div class="ttname"><a href="group__cameras.html#gaf82f1f57e98fe18ac33e4e91130387b9">rcge_camera_param_set</a></div><div class="ttdeci">void rcge_camera_param_set(rcge_camera camera, bool is_perspective, double size_or_fov, double near, double far)</div><div class="ttdoc">Change parameters like perspective/orthogonal, fov, far, and near plane for a specified camera.</div></div>
+<div class="ttc" id="agroup__cameras_html_gaf92c2a1ef4c145ec9ba62064a96e0a19"><div class="ttname"><a href="group__cameras.html#gaf92c2a1ef4c145ec9ba62064a96e0a19">rcge_camera_create</a></div><div class="ttdeci">rcge_camera rcge_camera_create(rcge_shader shader, bool is_perspective, double size_or_fov, double near, double far)</div><div class="ttdoc">Creates a camera.</div></div>
 <div class="ttc" id="agroup__cameras_html_gafb913be74f1d4999e8f0f331f0a42fe0"><div class="ttname"><a href="group__cameras.html#gafb913be74f1d4999e8f0f331f0a42fe0">rcge_camera_pos_get</a></div><div class="ttdeci">void rcge_camera_pos_get(rcge_camera camera, vec3 out)</div><div class="ttdoc">Get the position of a specified camera.</div></div>
 <div class="ttc" id="agroup__shaders_html_ga88bb5c583966f78ac01c4cd092ff8c73"><div class="ttname"><a href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a></div><div class="ttdeci">struct rcge_shader_CDT * rcge_shader</div><div class="ttdef"><b>Definition</b> rcge_shader.h:220</div></div>
 <div class="ttc" id="arcge__shader_8h_html"><div class="ttname"><a href="rcge__shader_8h.html">rcge_shader.h</a></div><div class="ttdoc">Shader management.</div></div>

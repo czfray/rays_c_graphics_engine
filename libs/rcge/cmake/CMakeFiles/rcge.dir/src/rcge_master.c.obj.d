@@ -39,6 +39,7 @@ CMakeFiles/rcge.dir/src/rcge_master.c.obj: \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/xmmintrin.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/mmintrin.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_io.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_codes.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/cglm.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/common.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/float.h \

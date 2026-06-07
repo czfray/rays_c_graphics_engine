@@ -21,10 +21,51 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', init_search);
 </script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <script type="module">
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+const theme = DarkModeToggle.darkModeEnabled ? 'dark' : 'default'
 mermaid.initialize({ startOnLoad: true, theme: theme });
+(function() {
+  const elementCode = '.mermaid';
+  const loadMermaid = function(theme) {
+    mermaid.initialize({theme})
+    mermaid.init({theme}, document.querySelectorAll(elementCode))
+  }
+  const saveOriginalData = function() {
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          element.setAttribute('data-original-code', element.innerHTML)
+          count--
+          if (count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  const resetProcessed = function(){
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          if (element.getAttribute('data-original-code') != null) {
+              element.removeAttribute('data-processed')
+              element.innerHTML = element.getAttribute('data-original-code')
+          }
+          count--
+          if(count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  saveOriginalData()
+  const original = DarkModeToggle.enableDarkMode.bind(DarkModeToggle);
+  DarkModeToggle.enableDarkMode = function(enable) {
+      original(enable);
+      resetProcessed().then(loadMermaid(enable ? 'dark' : 'default')).catch(console.error)
+  };
+})();
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -35,6 +76,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td id="projectalign">
    <div id="projectname">Ray&#39;s C Graphics Engine
    </div>
@@ -163,7 +205,7 @@ Index Data Array</h2>
 <div class="line">    0, 3, 2</div>
 <div class="line">}</div>
 </div><!-- fragment --><p> But a clockwise order is recommended, since if backface culling is enabled, only clockwise ordered will be regarded as front-facing, and only front-facing shapes are rendered.</p>
-<p>To see the specific implementation of mesh creation with a vertices and an index data array, go to <a class="el" href="#ga1d4aaf3f0b209d0f1286248515dad054" title="rcge_mesh_create">rcge_mesh_create</a>. To draw a mesh, you need to run rcge_draw_mesh every frame. </p>
+<p>To see the specific implementation of mesh creation with a vertices and an index data array, go to <a class="el" href="#ga783adbd64dc6f51c362dc0d4b7e31e02" title="rcge_mesh_create">rcge_mesh_create</a>. To draw a mesh, you need to run <a class="el" href="#gade5d248ba4125f12dfa6b3b8ad5c0616" title="rcge_mesh_draw">rcge_mesh_draw</a> every frame. </p>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -178,8 +220,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga1d4aaf3f0b209d0f1286248515dad054" id="r_ga1d4aaf3f0b209d0f1286248515dad054"><td class="memItemLeft"><a class="el" href="#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga1d4aaf3f0b209d0f1286248515dad054">rcge_mesh_create</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, int model_uniform_index, <a class="el" href="group__textures.html#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a> texture, float *vertices, unsigned int vertices_size, unsigned int *indices, unsigned int indices_size, <a class="el" href="#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a> draw_type)</td></tr>
+<tr class="memitem:ga783adbd64dc6f51c362dc0d4b7e31e02" id="r_ga783adbd64dc6f51c362dc0d4b7e31e02"><td class="memItemLeft"><a class="el" href="#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga783adbd64dc6f51c362dc0d4b7e31e02">rcge_mesh_create</a> (<a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, <a class="el" href="group__textures.html#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a> texture, float *vertices, unsigned int vertices_size, unsigned int *indices, unsigned int indices_size, vec4 color, <a class="el" href="#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a> draw_type)</td></tr>
 <tr class="memitem:ga81c97961bf82159c64164592f2260e57" id="r_ga81c97961bf82159c64164592f2260e57"><td class="memItemLeft"><a class="el" href="group__transforms.html#ga52775277a5189c7eed4487581facb58c">rcge_transform</a>&#160;</td><td class="memItemRight"><a class="el" href="#ga81c97961bf82159c64164592f2260e57">rcge_mesh_transform_get</a> (<a class="el" href="#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a> mesh)</td></tr>
+<tr class="memitem:gae1d822eb8599962794f76d085caec54a" id="r_gae1d822eb8599962794f76d085caec54a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gae1d822eb8599962794f76d085caec54a">rcge_mesh_color_set</a> (<a class="el" href="#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a> mesh, vec4 color)</td></tr>
 <tr class="memitem:gade5d248ba4125f12dfa6b3b8ad5c0616" id="r_gade5d248ba4125f12dfa6b3b8ad5c0616"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#gade5d248ba4125f12dfa6b3b8ad5c0616">rcge_mesh_draw</a> (<a class="el" href="#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a> mesh)</td></tr>
 <tr class="memitem:ga7bb5554e663434891a8b4e57c73c24b6" id="r_ga7bb5554e663434891a8b4e57c73c24b6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ga7bb5554e663434891a8b4e57c73c24b6">rcge_mesh_delete</a> (<a class="el" href="#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a> mesh)</td></tr>
 </table>
@@ -225,8 +268,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ga1d4aaf3f0b209d0f1286248515dad054" name="ga1d4aaf3f0b209d0f1286248515dad054"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1d4aaf3f0b209d0f1286248515dad054">&#9670;&#160;</a></span>rcge_mesh_create()</h2>
+<a id="ga783adbd64dc6f51c362dc0d4b7e31e02" name="ga783adbd64dc6f51c362dc0d4b7e31e02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga783adbd64dc6f51c362dc0d4b7e31e02">&#9670;&#160;</a></span>rcge_mesh_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -235,11 +278,6 @@ Functions</h2></td></tr>
           <td class="memname"><a class="el" href="#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a> rcge_mesh_create </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a></td>          <td class="paramname"><span class="paramname"><em>shader</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>model_uniform_index</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -269,6 +307,11 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">vec4</td>          <td class="paramname"><span class="paramname"><em>color</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype"><a class="el" href="#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a></td>          <td class="paramname"><span class="paramname"><em>draw_type</em></span>&#160;)</td>
         </tr>
       </table>
@@ -278,12 +321,12 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">shader</td><td>Shader the mesh to be created uses. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">model_uniform_index</td><td>The index of the uniform for model matrix in <span class="tt">shader</span>. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">texture</td><td>The texture of the mesh to be created. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">vertices</td><td>The vertex data array for the mesh to be created. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">vertices_size</td><td>The array size (number of floats) of <span class="tt">vertices</span>. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">indices</td><td>The index data array for the mesh to be created. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">indices_size</td><td>The array size (number of integers) of <span class="tt">indices</span>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">color</td><td>The color you want to multiply to the mesh to be created. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">draw_type</td><td>Draw frequency type of the mesh to be created. See <a class="el" href="#gac33ea186711f95db334be4e429b018ad" title="rcge_mesh_draw_type">rcge_mesh_draw_type</a> to see which one to choose. </td></tr>
   </table>
   </dd>
@@ -316,6 +359,36 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The transform of the specified mesh, NULL if failed. </dd></dl>
+
+</div>
+</div>
+<a id="gae1d822eb8599962794f76d085caec54a" name="gae1d822eb8599962794f76d085caec54a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae1d822eb8599962794f76d085caec54a">&#9670;&#160;</a></span>rcge_mesh_color_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rcge_mesh_color_set </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a></td>          <td class="paramname"><span class="paramname"><em>mesh</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vec4</td>          <td class="paramname"><span class="paramname"><em>color</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set a color for a specific mesh. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">mesh</td><td>The mesh to access. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">color</td><td>The color to set to. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

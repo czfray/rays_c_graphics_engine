@@ -76,7 +76,7 @@ typedef struct
     double scroll_x, scroll_y;
 } rcge_input_state;
 
-rcge_input_state current_io_state = {{false}, {false}, {false}, 0.0f, 0.0f};
+rcge_input_state current_io_state = {{false}, {false}, {false}, 0.0, 0.0};
 
 int gl_input_id(rcge_io_input input)
 {

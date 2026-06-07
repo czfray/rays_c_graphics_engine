@@ -45,6 +45,7 @@ typedef void (*rcge_element_start_callback)(rcge_element);
  * @ingroup elements
  * @brief Function pointer representing callbacks executed when an element is enabled or disabled.
  * @param element The element that just got enabled/disabled.
+ * @param status The status of the element (enabled or disabled).
 **/
 typedef void (*rcge_element_status_callback)(rcge_element, bool);
 
@@ -52,6 +53,7 @@ typedef void (*rcge_element_status_callback)(rcge_element, bool);
  * @ingroup elements
  * @brief Function pointer representing callbacks executed when an element is updated per frame.
  * @param element The element that is updating.
+ * @param delta_time The time passed from the last frame update.
 **/
 typedef void (*rcge_element_update_callback)(rcge_element, double);
 
@@ -121,6 +123,7 @@ bool rcge_element_status(rcge_element element);
  * @brief Get a component from the element with the component's index.
  * @param[in] element The element to access.
  * @param[in] index The component index.
+ * @return The component of index specified in the element, NULL if failed.
 **/
 void* rcge_element_comp_get(rcge_element element, unsigned int index);
 
@@ -133,7 +136,6 @@ void* rcge_element_comp_get(rcge_element element, unsigned int index);
  * @note - This function calls the element's delete callbacks. Please delete the components in the callback, so if the element is deleted, it's components are automatically deleted as well.
  * @note - If you created an object with a element manager, you do not have to call this. The element manager deletes the element for you when the program terminates.
  * @param[in] element The element to access.
- * @param[in] index The component index.
 **/
 void rcge_element_delete(rcge_element element);
 
@@ -159,7 +161,7 @@ rcge_element_manager rcge_element_manager_create(unsigned int buffer_size);
  * @brief Attach an element to a specified element manager,
  * @param[in] manager The element manager to be attached.
  * @param[in] element The element to attach.
- * @return The index of the element in the manager, UINT_MAX if failed.
+ * @return The index of the element in the manager, @ref RCGE_UINT_ERROR if failed.
 **/
 unsigned int rcge_element_manager_attach(rcge_element_manager manager, rcge_element element);
 

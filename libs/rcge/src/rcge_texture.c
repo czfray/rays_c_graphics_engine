@@ -41,6 +41,9 @@ rcge_texture rcge_texture_create_file(char* path, rcge_texture_wrap_type wrap, r
 
 rcge_texture rcge_texture_create(unsigned char* image, int width, int height, rcge_texture_wrap_type wrap, rcge_texture_filter_type filter)
 {
+    rcge_texture texture = malloc(sizeof(*texture));
+    if (texture == NULL) {printf("[RCGE Texture] Texture creation failed: malloc failed.\n"); return NULL;}
+
     GLuint gl_texture;
     glGenTextures(1, &gl_texture);
     glActiveTexture(GL_TEXTURE0);
@@ -55,10 +58,12 @@ rcge_texture rcge_texture_create(unsigned char* image, int width, int height, rc
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, gl_filter);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    //TODO: More checks could be done here?
 
-    rcge_texture texture = malloc(sizeof(*texture)); //TODO: MALLOC CHECK?
+    GLenum err = glGetError();
+    if (err != GL_NO_ERROR) {printf("[RCGE Texture] Texture creation failed: OpenGL failed with code %d.\n", err); free(texture); return NULL;}
+
+    glGenerateMipmap(GL_TEXTURE_2D);
+
     texture->gl_texture = gl_texture;
     printf("[RCGE Texture] Texture %d loaded. \n", gl_texture);
     return texture;
@@ -68,7 +73,7 @@ void rcge_texture_use(rcge_texture texture)
 {
     if (texture == NULL) {printf("[RCGE Texture] Texture use failed: texture does not exist.\n"); return;}
     GLint gl_texture = texture->gl_texture;
-    glActiveTexture(GL_TEXTURE0);
+    glActiveTexture(GL_TEXTURE0); //TODO It can be not in texture 0! change this along with rcge_shader_uniform_int(shader, RCGE_DEF_UNLIT_SHADER_TEXTURE_UNF, 0)
     glBindTexture(GL_TEXTURE_2D, gl_texture);
     //printf("[RCGE Texture] Texture %d now using.\n", gl_texture);
 }

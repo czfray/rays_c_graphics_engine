@@ -21,10 +21,51 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', init_search);
 </script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <script type="module">
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+const theme = DarkModeToggle.darkModeEnabled ? 'dark' : 'default'
 mermaid.initialize({ startOnLoad: true, theme: theme });
+(function() {
+  const elementCode = '.mermaid';
+  const loadMermaid = function(theme) {
+    mermaid.initialize({theme})
+    mermaid.init({theme}, document.querySelectorAll(elementCode))
+  }
+  const saveOriginalData = function() {
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          element.setAttribute('data-original-code', element.innerHTML)
+          count--
+          if (count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  const resetProcessed = function(){
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          if (element.getAttribute('data-original-code') != null) {
+              element.removeAttribute('data-processed')
+              element.innerHTML = element.getAttribute('data-original-code')
+          }
+          count--
+          if(count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  saveOriginalData()
+  const original = DarkModeToggle.enableDarkMode.bind(DarkModeToggle);
+  DarkModeToggle.enableDarkMode = function(enable) {
+      original(enable);
+      resetProcessed().then(loadMermaid(enable ? 'dark' : 'default')).catch(console.error)
+  };
+})();
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -35,6 +76,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td id="projectalign">
    <div id="projectname">Ray&#39;s C Graphics Engine
    </div>
@@ -111,6 +153,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('globals_enum.h
 <li>rcge_io_input_type&#160;:&#160;<a class="el" href="group__io.html#gafca963cd0ee56aad497eee0a01c6f75e">rcge_io.h</a></li>
 <li>rcge_mesh_draw_type&#160;:&#160;<a class="el" href="group__meshes.html#gac33ea186711f95db334be4e429b018ad">rcge_mesh.h</a></li>
 <li>rcge_shader_comp_type&#160;:&#160;<a class="el" href="group__shaders.html#ga9bf06e4fa7cefb1dbef0ff25fa791413">rcge_shader.h</a></li>
+<li>rcge_shader_uniform_purpose&#160;:&#160;<a class="el" href="group__shaders.html#ga5df532e6196b81dbc7a524ecfb6f64f9">rcge_shader.h</a></li>
 <li>rcge_texture_filter_type&#160;:&#160;<a class="el" href="group__textures.html#ga9674787010c192c7be9a11cdc6b6c2db">rcge_texture.h</a></li>
 <li>rcge_texture_wrap_type&#160;:&#160;<a class="el" href="group__textures.html#ga4d9ab0ca8007ed3cd31389dab146f7de">rcge_texture.h</a></li>
 </ul>

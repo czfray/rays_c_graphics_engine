@@ -3,17 +3,19 @@ CMakeFiles/app.dir/main.c.obj: \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_master.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/stdbool.h \
+ C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_codes.h \
+ C:/msys64/mingw64/include/math.h C:/msys64/mingw64/include/crtdefs.h \
+ C:/msys64/mingw64/include/corecrt.h C:/msys64/mingw64/include/_mingw.h \
+ C:/msys64/mingw64/include/_mingw_mac.h \
+ C:/msys64/mingw64/include/_mingw_secapi.h \
+ C:/msys64/mingw64/include/vadefs.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_io.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_datatype.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_shader.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/cglm.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/common.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/stdint.h \
- C:/msys64/mingw64/include/stdint.h C:/msys64/mingw64/include/crtdefs.h \
- C:/msys64/mingw64/include/corecrt.h C:/msys64/mingw64/include/_mingw.h \
- C:/msys64/mingw64/include/_mingw_mac.h \
- C:/msys64/mingw64/include/_mingw_secapi.h \
- C:/msys64/mingw64/include/vadefs.h \
+ C:/msys64/mingw64/include/stdint.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/stddef.h \
  C:/msys64/mingw64/include/stddef.h C:/msys64/mingw64/include/stdlib.h \
  C:/msys64/mingw64/include/corecrt_wstdlib.h \
@@ -23,7 +25,7 @@ CMakeFiles/app.dir/main.c.obj: \
  C:/msys64/mingw64/include/sec_api/stdlib_s.h \
  C:/msys64/mingw64/include/malloc.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/mm_malloc.h \
- C:/msys64/mingw64/include/errno.h C:/msys64/mingw64/include/math.h \
+ C:/msys64/mingw64/include/errno.h \
  C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/float.h \
  C:/msys64/mingw64/include/float.h \
  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/types.h \

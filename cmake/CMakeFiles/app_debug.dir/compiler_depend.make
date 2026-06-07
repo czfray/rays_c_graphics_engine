@@ -61,6 +61,7 @@ CMakeFiles/app_debug.dir/main.c.obj: C:/Users/user/Main/Projects/C/rays_c_graphi
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/vec4.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_camera.h \
+  C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_codes.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_datatype.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_default_shaders.h \
   C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_element.h \
@@ -112,6 +113,8 @@ CMakeFiles/app_debug.dir/main.c.obj: C:/Users/user/Main/Projects/C/rays_c_graphi
 
 
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/simd/x86.h:
+
+C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/rcge/rcge_codes.h:
 
 C:/Users/user/Main/Projects/C/rays_c_graphics_engine/libs/rcge/include/cglm/affine-mat.h:
 

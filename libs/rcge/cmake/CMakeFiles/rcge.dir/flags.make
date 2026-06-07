@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = @CMakeFiles/rcge.dir/includes_C.rsp
 
-C_FLAGS = 
+C_FLAGS = -Wall -Wextra -Wpedantic -O2
 

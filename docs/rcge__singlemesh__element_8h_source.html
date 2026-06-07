@@ -21,10 +21,51 @@
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', init_search);
 </script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
 <script type="module">
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+const theme = DarkModeToggle.darkModeEnabled ? 'dark' : 'default'
 mermaid.initialize({ startOnLoad: true, theme: theme });
+(function() {
+  const elementCode = '.mermaid';
+  const loadMermaid = function(theme) {
+    mermaid.initialize({theme})
+    mermaid.init({theme}, document.querySelectorAll(elementCode))
+  }
+  const saveOriginalData = function() {
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          element.setAttribute('data-original-code', element.innerHTML)
+          count--
+          if (count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  const resetProcessed = function(){
+    return new Promise((resolve, reject) => {
+      try {
+        var els = document.querySelectorAll(elementCode), count = els.length;
+        els.forEach(element => {
+          if (element.getAttribute('data-original-code') != null) {
+              element.removeAttribute('data-processed')
+              element.innerHTML = element.getAttribute('data-original-code')
+          }
+          count--
+          if(count == 0) { resolve() }
+        });
+      } catch (error) { reject(error) }
+    })
+  }
+  saveOriginalData()
+  const original = DarkModeToggle.enableDarkMode.bind(DarkModeToggle);
+  DarkModeToggle.enableDarkMode = function(enable) {
+      original(enable);
+      resetProcessed().then(loadMermaid(enable ? 'dark' : 'default')).catch(console.error)
+  };
+})();
 </script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
@@ -35,6 +76,7 @@ mermaid.initialize({ startOnLoad: true, theme: theme });
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td id="projectalign">
    <div id="projectname">Ray&#39;s C Graphics Engine
    </div>
@@ -104,22 +146,32 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('rcge__singleme
   <div class="headertitle"><div class="title">rcge_singlemesh_element.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef RCGE_SINGLEMESH_H</span></div>
+<a href="rcge__singlemesh__element_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef RCGE_SINGLEMESH_H</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define RCGE_SINGLEMESH_H</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="rcge__mesh_8h.html">rcge/rcge_mesh.h</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="rcge__element_8h.html">rcge/rcge_element.h</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rcge_singlemesh_create_in_manager(<a class="code hl_typedef" href="group__elements.html#ga628cb3986875939189522ec0748db5d2">rcge_element_manager</a> manager, <a class="code hl_typedef" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, <span class="keywordtype">int</span> model_uniform_index, <a class="code hl_typedef" href="group__textures.html#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a> texture, <span class="keywordtype">float</span>* vertices, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vertices_size, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>* indices, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> indices_size, <a class="code hl_enumeration" href="group__meshes.html#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a> draw_type);</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><a class="code hl_typedef" href="group__elements.html#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element</a> rcge_singlemesh_create(<a class="code hl_typedef" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, <span class="keywordtype">int</span> model_uniform_index, <a class="code hl_typedef" href="group__textures.html#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a> texture, <span class="keywordtype">float</span>* vertices, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vertices_size, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>* indices, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> indices_size, <a class="code hl_enumeration" href="group__meshes.html#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a> draw_type);</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><a class="code hl_typedef" href="group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a> rcge_singlemesh_mesh_get(<a class="code hl_typedef" href="group__elements.html#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element</a> element);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="agroup__elements_html_ga628cb3986875939189522ec0748db5d2"><div class="ttname"><a href="group__elements.html#ga628cb3986875939189522ec0748db5d2">rcge_element_manager</a></div><div class="ttdeci">struct rcge_element_manager_CDT * rcge_element_manager</div><div class="ttdef"><b>Definition</b> rcge_element.h:144</div></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="rcge__mesh_8h.html">rcge/rcge_mesh.h</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="rcge__element_8h.html">rcge/rcge_element.h</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="group__singlemesh.html#gab862fd1a4cbf15043e1050db475d794b">   31</a></span><a class="code hl_typedef" href="group__elements.html#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element</a> <a class="code hl_function" href="group__singlemesh.html#gab862fd1a4cbf15043e1050db475d794b">rcge_singlemesh_create_in_manager</a>(<a class="code hl_typedef" href="group__elements.html#ga628cb3986875939189522ec0748db5d2">rcge_element_manager</a> manager, <a class="code hl_typedef" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, <a class="code hl_typedef" href="group__textures.html#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a> texture, <span class="keywordtype">float</span>* vertices, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vertices_size, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>* indices, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> indices_size, vec4 color, <a class="code hl_enumeration" href="group__meshes.html#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a> draw_type, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>* index);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="group__singlemesh.html#ga83d9883dde01517c49c9fa3e05da44f0">   47</a></span><a class="code hl_typedef" href="group__elements.html#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element</a> <a class="code hl_function" href="group__singlemesh.html#ga83d9883dde01517c49c9fa3e05da44f0">rcge_singlemesh_create</a>(<a class="code hl_typedef" href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a> shader, <a class="code hl_typedef" href="group__textures.html#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a> texture, <span class="keywordtype">float</span>* vertices, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> vertices_size, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>* indices, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> indices_size, vec4 color, <a class="code hl_enumeration" href="group__meshes.html#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a> draw_type);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="group__singlemesh.html#gade11c87e4e3623c6847d8b806121143a">   54</a></span><a class="code hl_typedef" href="group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a> <a class="code hl_function" href="group__singlemesh.html#gade11c87e4e3623c6847d8b806121143a">rcge_singlemesh_mesh_get</a>(<a class="code hl_typedef" href="group__elements.html#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element</a> element);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="group__singlemesh.html#gae7a6394a6e0ee03f14a20dd9dd5c0915">   61</a></span><a class="code hl_typedef" href="group__transforms.html#ga52775277a5189c7eed4487581facb58c">rcge_transform</a> <a class="code hl_function" href="group__singlemesh.html#gae7a6394a6e0ee03f14a20dd9dd5c0915">rcge_singlemesh_transform_get</a>(<a class="code hl_typedef" href="group__elements.html#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element</a> element);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="agroup__elements_html_ga628cb3986875939189522ec0748db5d2"><div class="ttname"><a href="group__elements.html#ga628cb3986875939189522ec0748db5d2">rcge_element_manager</a></div><div class="ttdeci">struct rcge_element_manager_CDT * rcge_element_manager</div><div class="ttdef"><b>Definition</b> rcge_element.h:146</div></div>
 <div class="ttc" id="agroup__elements_html_ga714d98cafb18ba007d50622bbe9d84cd"><div class="ttname"><a href="group__elements.html#ga714d98cafb18ba007d50622bbe9d84cd">rcge_element</a></div><div class="ttdeci">struct rcge_element_CDT * rcge_element</div><div class="ttdef"><b>Definition</b> rcge_element.h:35</div></div>
-<div class="ttc" id="agroup__meshes_html_ga0200e8eaf9308f982dbf2987ecfbccec"><div class="ttname"><a href="group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a></div><div class="ttdeci">struct rcge_mesh_CDT * rcge_mesh</div><div class="ttdef"><b>Definition</b> rcge_mesh.h:104</div></div>
-<div class="ttc" id="agroup__meshes_html_gac33ea186711f95db334be4e429b018ad"><div class="ttname"><a href="group__meshes.html#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a></div><div class="ttdeci">rcge_mesh_draw_type</div><div class="ttdoc">Draw frequency type of a mesh.</div><div class="ttdef"><b>Definition</b> rcge_mesh.h:111</div></div>
+<div class="ttc" id="agroup__meshes_html_ga0200e8eaf9308f982dbf2987ecfbccec"><div class="ttname"><a href="group__meshes.html#ga0200e8eaf9308f982dbf2987ecfbccec">rcge_mesh</a></div><div class="ttdeci">struct rcge_mesh_CDT * rcge_mesh</div><div class="ttdef"><b>Definition</b> rcge_mesh.h:105</div></div>
+<div class="ttc" id="agroup__meshes_html_gac33ea186711f95db334be4e429b018ad"><div class="ttname"><a href="group__meshes.html#gac33ea186711f95db334be4e429b018ad">rcge_mesh_draw_type</a></div><div class="ttdeci">rcge_mesh_draw_type</div><div class="ttdoc">Draw frequency type of a mesh.</div><div class="ttdef"><b>Definition</b> rcge_mesh.h:112</div></div>
 <div class="ttc" id="agroup__shaders_html_ga88bb5c583966f78ac01c4cd092ff8c73"><div class="ttname"><a href="group__shaders.html#ga88bb5c583966f78ac01c4cd092ff8c73">rcge_shader</a></div><div class="ttdeci">struct rcge_shader_CDT * rcge_shader</div><div class="ttdef"><b>Definition</b> rcge_shader.h:220</div></div>
+<div class="ttc" id="agroup__singlemesh_html_ga83d9883dde01517c49c9fa3e05da44f0"><div class="ttname"><a href="group__singlemesh.html#ga83d9883dde01517c49c9fa3e05da44f0">rcge_singlemesh_create</a></div><div class="ttdeci">rcge_element rcge_singlemesh_create(rcge_shader shader, rcge_texture texture, float *vertices, unsigned int vertices_size, unsigned int *indices, unsigned int indices_size, vec4 color, rcge_mesh_draw_type draw_type)</div><div class="ttdoc">Creates a single mesh element (an element with a single mesh component inside it).</div></div>
+<div class="ttc" id="agroup__singlemesh_html_gab862fd1a4cbf15043e1050db475d794b"><div class="ttname"><a href="group__singlemesh.html#gab862fd1a4cbf15043e1050db475d794b">rcge_singlemesh_create_in_manager</a></div><div class="ttdeci">rcge_element rcge_singlemesh_create_in_manager(rcge_element_manager manager, rcge_shader shader, rcge_texture texture, float *vertices, unsigned int vertices_size, unsigned int *indices, unsigned int indices_size, vec4 color, rcge_mesh_draw_type draw_type, unsigned int *index)</div><div class="ttdoc">Creates a single mesh element (an element with a single mesh component inside it),...</div></div>
+<div class="ttc" id="agroup__singlemesh_html_gade11c87e4e3623c6847d8b806121143a"><div class="ttname"><a href="group__singlemesh.html#gade11c87e4e3623c6847d8b806121143a">rcge_singlemesh_mesh_get</a></div><div class="ttdeci">rcge_mesh rcge_singlemesh_mesh_get(rcge_element element)</div><div class="ttdoc">Get the mesh component within a single mesh element.</div></div>
+<div class="ttc" id="agroup__singlemesh_html_gae7a6394a6e0ee03f14a20dd9dd5c0915"><div class="ttname"><a href="group__singlemesh.html#gae7a6394a6e0ee03f14a20dd9dd5c0915">rcge_singlemesh_transform_get</a></div><div class="ttdeci">rcge_transform rcge_singlemesh_transform_get(rcge_element element)</div><div class="ttdoc">Get the transform of the mesh component within a single mesh element.</div></div>
 <div class="ttc" id="agroup__textures_html_gadcf8995ec68bcf48fbd0ebf8ce407126"><div class="ttname"><a href="group__textures.html#gadcf8995ec68bcf48fbd0ebf8ce407126">rcge_texture</a></div><div class="ttdeci">struct rcge_texture_CDT * rcge_texture</div><div class="ttdef"><b>Definition</b> rcge_texture.h:18</div></div>
+<div class="ttc" id="agroup__transforms_html_ga52775277a5189c7eed4487581facb58c"><div class="ttname"><a href="group__transforms.html#ga52775277a5189c7eed4487581facb58c">rcge_transform</a></div><div class="ttdeci">struct rcge_transform_CDT * rcge_transform</div><div class="ttdef"><b>Definition</b> rcge_transform.h:21</div></div>
 <div class="ttc" id="arcge__element_8h_html"><div class="ttname"><a href="rcge__element_8h.html">rcge_element.h</a></div><div class="ttdoc">Elements (RCGE object) management.</div></div>
 <div class="ttc" id="arcge__mesh_8h_html"><div class="ttname"><a href="rcge__mesh_8h.html">rcge_mesh.h</a></div><div class="ttdoc">Mesh management.</div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -128,7 +180,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('rcge__singleme
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>rcge_singlemesh_element.h</b></li>
+    <li class="navelem"><a href="rcge__singlemesh__element_8h.html">rcge_singlemesh_element.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.17.0 </li>
   </ul>
 </div>
